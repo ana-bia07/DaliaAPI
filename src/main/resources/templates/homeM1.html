@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Principal</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/homeM(parte1)/homeM1.css}">
+</head>
+
+<body>
+
+<header class="site-header-nav">
+    <nav class="main-nav">
+        <a href="/Mhome"><img th:src="@{/homeM(parte1)/img/home.svg}" alt="Home"></a>
+        <a href="/calendar"><img th:src="@{/homeM(parte1)/img/calendario.svg}" alt="Calendário"></a>
+        <a href="/Emocoes/emocoes.html"><img th:src="@{/homeM(parte1)/img/registro.svg}" alt="Registro Diário"></a>
+        <a href="/posts"><img th:src="@{/homeM(parte1)/img/chat.svg}" alt="Forum"></a>
+        <a href="/perfilM"><img th:src="@{/homeM(parte1)/img/perfil.svg}" alt="Perfil"></a>
+    </nav>
+</header>
+
+<section id="hero" class="hero-section">
+
+    <div class="hero-content">
+        <img th:src="@{/homeM(parte1)/img/ovalCont.svg}" alt="Container de Oval (ilustrativo)" class="oval-shape oval-left">
+
+        <div class="daily-checkin">
+            <img th:src="@{/homeM(parte1)/img/oval.svg}" alt="Oval Principal" class="checkin-bg-oval">
+            <div class="checkin-text">
+                <h3>HOJE</h3>
+                <p>Como você está?</p>
+            </div>
+        </div>
+
+        <img th:src="@{/homeM(parte1)/img/ovalCont.svg}" alt="Container de Oval (ilustrativo)" class="oval-shape oval-right">
+    </div>
+
+</section>
+
+<section id="health" class="health-section">
+
+    <h2 class="section-title">Sobre a sua saúde:</h2>
+    <div class="card-grid">
+
+        <article class="health-card">
+            <img th:src="@{/homeM(parte1)/img/florD.svg}" alt="Flor Dália" class="card-icon">
+            <p>Conheça mais sobre o sistema, sua usabilidade e recursos.</p>
+        </article>
+
+        <article class="health-card">
+            <img th:src="@{/homeM(parte1)/img/cerebro.svg}" alt="Cérebro & Saúde Mental" class="card-icon">
+            <p>Dicas para controle emocional e saúde mental.</p>
+        </article>
+
+        <article class="health-card">
+            <img th:src="@{/homeM(parte1)/img/alimentacao.svg}" alt="Alimentação" class="card-icon">
+            <p>Alimentação: quais alimentos auxiliam durante os períodos difíceis?</p>
+        </article>
+
+        <article class="health-card">
+            <img th:src="@{/homeM(parte1)/img/planta.svg}" alt="Planta & Hábitos" class="card-icon">
+            <p>Bem-estar: quais atividades podem auxiliar em períodos difíceis.</p>
+        </article>
+
+    </div>
+</section>
+
+<section id="announcements" class="announcements-section">
+    <div class="announcements-banner">
+        <h2>Anúncios</h2>
+    </div>
+</section>
+
+<section id="laws" class="laws-section">
+    <div class="laws-header">
+        <div class="laws-title">
+            <h2>Você sabe sobre as leis?</h2>
+            <p>Saiba como se defender.</p>
+        </div>
+        <a class="learn-more-link" th:href="@{/saibaMais}" target="_blank">Saiba mais</a>
+    </div>
+    <div class="card-grid">
+        <article class="law-card">
+            <p>Lei Maria da <br>Penha</p>
+        </article>
+        <article class="law-card">
+            <p>Lei do <br>Feminicídio</p>
+        </article>
+        <article class="law-card">
+            <p>Lei do Minuto Seguinte</p>
+        </article>
+        <article class="law-card">
+            <p>Lei de Violência Política contra a Mulher</p>
+        </article>
+    </div>
+</section>
+
+<footer id="footer" class="site-footer-main">
+    <div class="footer-container">
+
+        <div class="footer-info">
+
+            <img th:src="@{/homeM(parte1)/img/dalialogo.png}" alt="Dália logo" class="footer-logo">
+            <div class="language-selector">
+                <img th:src="@{/homeM(parte1)/img/brasil.svg}" alt="Brasil">
+                <span>Português do Brasil</span>
+                <img th:src="@{/homeM(parte1)/img/dropdown.svg}" alt="Dropdown">
+            </div>
+
+            <div class="social-links">
+                <a href="#" aria-label="Instagram"><img th:src="@{/homeM(parte1)/img/instagram.svg}" alt="Instagram"></a>
+                <a href="#" aria-label="Facebook"><img th:src="@{/homeM(parte1)/img/facebook.svg}" alt="Facebook"></a>
+                <a href="#" aria-label="Youtube"><img th:src="@{/homeM(parte1)/img/youtube.svg}" alt="Youtube"></a>
+            </div>
+
+        </div>
+
+        <nav class="footer-links-wrapper">
+
+            <div class="link-column">
+                <h3>Empresa</h3>
+                <ul>
+                    <li><a href="#">Sobre</a></li>
+                    <li><a href="#">Marca</a></li>
+                </ul>
+            </div>
+
+            <div class="link-column">
+                <h3>Recursos</h3>
+                <ul>
+                    <li><a href="#">Suporte</a></li>
+                    <li><a href="#">Segurança</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Comunidade</a></li>
+                </ul>
+            </div>
+
+            <div class="link-column">
+                <h3>Política</h3>
+                <ul>
+                    <li><a href="#">Termos</a></li>
+                    <li><a href="#">Privacidade</a></li>
+                    <li><a href="#">Cookies</a></li>
+                    <li><a href="#">Moderação</a></li>
+                </ul>
+            </div>
+
+        </nav>
+    </div>
+</footer>
+</body>
+</html>

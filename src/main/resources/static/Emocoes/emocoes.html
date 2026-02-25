@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css}" rel="stylesheet"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="emocoes.css">
+    <title>Calendário Menstrual</title>
+    <link rel="shortcut icon" type="image/png" th:href="@{/img/navbar/dália_secundario.png}">
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <img src="../Home/img/navbar/Logo_dalia.png" alt="Logo">
+    </div>
+    <nav>
+        <ul>
+            <li class="Home">
+                <a href="/Mhome"><img src="../Home/img/navbar/Home__nav.svg" alt="Início"></a>
+                <span class="legenda">HomePage</span>
+            </li>
+            <li class="Calendario">
+                <a href="/calendar"><img src="../Home/img/navbar/Calendar__nav.svg" alt="Calendário"></a>
+                <span class="legenda">Calendário</span>
+            </li>
+            <li class="forum">
+                <a href="/posts"><img src="../Home/img/navbar/Fórum__nav.svg" alt="Comunidade"></a>
+                <span class="legenda">Fórum</span>
+            </li>
+            <li class="principal">
+                <a href="../Emocoes/emocoes.html"><img src="../Home/img/navbar/Flower-full__nav.svg" alt="Emoções"></a>
+                <span class="legenda">Emoções</span>
+            </li>
+            <li class="perfil">
+                <a href="/perfilM"><img src="../Home/img/navbar/Perfil__nav.svg" alt="Perfil"></a>
+                <span class="legenda">Perfil</span>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+
+<main>
+    <section class="middle-panel">
+        <h2>Hoje</h2>
+
+        <div class="habits">
+            <h3>Recomendações</h3>
+            <div id="recommended-habits"></div>
+        </div>
+
+        <div class="mood">
+            <h3>Humor</h3>
+            <div class="mood-options">
+                <label for="happy"><input type="radio" id="happy" name="mood" value="happy">😊</label>
+                <label for="neutro"><input type="radio" id="neutro" name="mood" value="neutro">😐</label>
+                <label for="triste"><input type="radio" id="triste" name="mood" value="triste">😢</label>
+                <label for="bravo"><input type="radio" id="bravo" name="mood" value="bravo">😠</label>
+            </div>
+        </div>
+
+        <div class="sintomas">
+            <h3>Sintomas</h3>
+            <div id="lista-sintomas" class="sintomas__btn">
+                <button class="sintoma" style="background-color: #FFDDC1;" value="colicas">Cólicas</button>
+                <button class="sintoma" style="background-color: #FFABAB;" value="dorCabeca">Dor de cabeça</button>
+                <button class="sintoma" style="background-color: #FFC3A0;" value="cansaco">Cansaço</button>
+                <button class="sintoma" style="background-color: #FFCCB6;" value="inchaço">Inchaço</button>
+            </div>
+        </div>
+
+        <div class="flow">
+            <h3>Fluxo</h3>
+            <select id="flow-level">
+                <option value="low">Baixo</option>
+                <option value="medium">Médio</option>
+                <option value="high">Alto</option>
+            </select>
+        </div>
+    </section>
+</main>
+
+<div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+    </div>
+</div>
+
+<script th:src="@{https://vlibras.gov.br/app/vlibras-plugin.js}"></script>
+<script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
+
+<script th:src="@{https://code.jquery.com/jquery-3.3.1.slim.min.js}"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js}"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js}"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+<script src="emocoes.js"></script>
+
+</body>
+</html>

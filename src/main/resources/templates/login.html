@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <link rel="stylesheet" th:href="@{/login/login.css}">
+</head>
+
+<body>
+
+<div class="login-visual-panel">
+    <div class="logo-artwork">
+        <img th:src="@{/login/img/pink circle icon.svg}" alt="dalia logo circulo" class="logo-ellipse">
+        <img th:src="@{/login/img/dalia logo flower icon.svg}" alt="dalia logo" class="logo-flower">
+        <div class="logo-star logo-star-1"></div>
+        <div class="logo-star logo-star-2"></div>
+    </div>
+</div>
+
+<main class="login-container">
+
+    <div class="login-form-panel">
+        <div class="form-wrapper">
+            <h1 class="form-title">Entrar</h1>
+
+            <form th:action="@{/RealizaLogin}" method="post" class="login-form">
+
+                <div class="input-group">
+                    <input type="text" name="email" id="email" class="form-input"
+                           placeholder="Nome/Email" aria-label="Nome ou Email" required>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" name="password" id="password" class="form-input"
+                           placeholder="Digite sua senha" aria-label="Senha" required>
+                    <button type="button" class="password-toggle-btn" aria-label="Mostrar senha">
+                        <img th:src="@{/login/img/eye icon.svg}" alt="mostrar senha" class="password-toggle-icon" onclick="togglePassword()">
+                    </button>
+                </div>
+
+                <label class="container">Lembrar Senha
+                    <input type="checkbox" name="rememberMe">
+                    <span class="checkmark"></span>
+                </label>
+
+                <div class="social-login-group">
+                    <a href="#" class="social-icon-link" aria-label="Login com Google">
+                        <div class="social-icon">
+                            <img th:src="@{/login/img/circle icon 1.svg}" alt="circulo" class="social-icon-bg">
+                            <img th:src="@{/login/img/google icon.svg}" alt="google logo" class="social-icon-fg">
+                        </div>
+                    </a>
+
+                    <a href="#" class="social-icon-link" aria-label="Login com Facebook">
+                        <div class="social-icon">
+                            <img th:src="@{/login/img/circle icon 1.svg}" alt="circulo" class="social-icon-bg">
+                            <img th:src="@{/login/img/facebook icon.svg}" alt="facebook logo" class="social-icon-fg">
+                        </div>
+                    </a>
+
+                    <a href="#" class="social-icon-link" aria-label="Login com Instagram">
+                        <img th:src="@{/login/img/instagram icon.svg}" alt="Instagram logo" class="social-icon-standalone">
+                    </a>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Entrar</button>
+
+                <p th:if="${error}" th:text="${error}" class="error-message"></p>
+
+            </form>
+
+            <div class="signup-prompt">
+                <p class="signup-text">Não possui conta?</p>
+                <a th:href="@{/cadastro}" class="btn btn-secondary">Criar conta</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ✅ Script de mostrar/ocultar senha -->
+    <script th:inline="javascript">
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const icon = document.getElementsByClassName('password-toggle-icon')[0];
+
+            // Thymeleaf substitui corretamente os caminhos dentro de [[@{...}]]
+            const eyeClosed = [[@{/cadastro/img/eye icon.svg}]];
+            const eyeOpen = [[@{/cadastro/img/eye open icon.svg}]];
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.src = eyeOpen;
+                icon.alt = 'ocultar senha';
+            } else {
+                passwordInput.type = 'password';
+                icon.src = eyeClosed;
+                icon.alt = 'mostrar senha';
+            }
+        }
+    </script>
+
+</main>
+</body>
+</html>

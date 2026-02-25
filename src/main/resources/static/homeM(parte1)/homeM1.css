@@ -1,0 +1,447 @@
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #fff5e6;
+  color: #000000;
+}
+
+.main-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  position: relative;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+h1, h2, h3, h4, h5, h6, p, ul {
+  margin: 0;
+  padding: 0;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+.site-header-nav {
+  position: relative;
+  z-index: 1000;
+  background-color: inherit;
+  padding: 15px 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 24px;
+}
+
+.site-header-nav img,
+.site-header-nav a {
+  position: relative;
+  z-index: 1001;
+}
+
+.main-nav {
+  display: flex;
+  gap: 37px;
+  align-items: center;
+}
+.main-nav img {
+  width: 40px;
+  height: 40px;
+  display: block;
+  transition: transform 0.2s;
+}
+.main-nav img:hover {
+  transform: scale(1.1);
+}
+@media (max-width: 768px) {
+  .site-header-nav {
+    position: static;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+.hero-section {
+  background-image: url('img/fundo.png');
+  background-size: cover;
+  background-position: center;
+  min-height: 683px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  border-bottom: 1px solid #dba1a2;
+}
+.hero-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 65px;
+  width: 100%;
+}
+.oval-shape {
+  width: 480.13px;
+  height: 274px;
+}
+.oval-left {
+  transform: rotate(180deg);
+}
+.daily-checkin {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.checkin-bg-oval {
+  width: 332px;
+  height: 445px;
+}
+.checkin-text {
+  position: absolute;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 46px;
+}
+.checkin-text h3 {
+  font-weight: 600;
+  font-size: 45px;
+  line-height: 54.46px;
+  color: #000000;
+}
+.checkin-text p {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  color: #000000;
+  max-width: 249px;
+}
+@media (max-width: 1300px) {
+  .hero-content {
+    gap: 2vw;
+  }
+  .oval-shape {
+    width: 30vw;
+    height: auto;
+  }
+}
+@media (max-width: 992px) {
+  .hero-section {
+    min-height: 500px;
+  }
+  .oval-left, .oval-right {
+    display: none;
+  }
+}
+
+.health-section {
+  padding: 73px 40px;
+}
+.section-title {
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 58px;
+  margin-left: 190px;
+  margin-bottom: 55px;
+  padding-left: 15px;
+}
+.card-grid {
+  display: flex;
+  justify-content: center;
+  gap: 85px;
+  flex-wrap: wrap;
+}
+.health-card {
+  background-color: #d6bff3;
+  border-radius: 30px;
+  width: 290px;
+  height: 470px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+}
+.health-card p {
+  font-weight: 500;
+  font-size: 25px;
+  line-height: 30.26px;
+  color: #000000;
+}
+.health-card .card-icon {
+  width: 97px;
+  height: 97px;
+  margin-bottom: 39px;
+}
+@media (max-width: 1400px) {
+  .health-section {
+    padding: 60px 20px;
+  }
+  .card-grid {
+    gap: 40px;
+  }
+}
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 36px;
+    line-height: 44px;
+    text-align: center;
+    margin-bottom: 40px;
+    padding-left: 0;
+  }
+  .health-card {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    min-height: 300px;
+  }
+}
+
+.announcements-section {
+  padding: 74px 40px;
+}
+.announcements-banner {
+  background-color: #f6add5;
+  border-radius: 20px;
+  padding: 149px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.announcements-banner h2 {
+  font-weight: 600;
+  font-size: 64px;
+  line-height: 77.45px;
+  color: #000000;
+  text-align: center;
+}
+@media (max-width: 768px) {
+  .announcements-section {
+    padding: 40px 20px;
+  }
+  .announcements-banner {
+    padding: 80px 20px;
+  }
+  .announcements-banner h2 {
+    font-size: 48px;
+    line-height: 58px;
+  }
+}
+
+.laws-section {
+  padding: 105px 40px 109px;
+}
+.laws-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 30px;
+  padding: 0 15px;
+}
+.laws-title h2 {
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 58px;
+  color: #000000;
+  margin-left: 190px;
+  margin-bottom: 8px;
+}
+.laws-title p {
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 48.4px;
+  margin-left: 190px;
+  color: #000000;
+}
+.learn-more-link {
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 36.3px;
+  color: #2380cc;
+  margin-right: 190px;
+  margin-bottom: 24px;
+  flex-shrink: 0;
+}
+.law-card {
+  background-color: #b5dbd3;
+  border-radius: 30px;
+  width: 290px;
+  height: 470px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+}
+.law-card p {
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 36.3px;
+  color: #000000;
+}
+@media (max-width: 1200px) {
+  .laws-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+}
+@media (max-width: 768px) {
+  .laws-section {
+    padding: 60px 20px;
+  }
+  .laws-header {
+    padding: 0;
+  }
+  .laws-title h2 {
+    font-size: 36px;
+    line-height: 44px;
+  }
+  .laws-title p {
+    font-size: 24px;
+    line-height: 30px;
+  }
+  .law-card {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    min-height: 250px;
+  }
+}
+
+.site-footer-main {
+  background-color: #cacaca;
+  padding: 28px 130px;
+}
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 157px;
+  flex-wrap: wrap;
+}
+.footer-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 47px;
+  flex-shrink: 0;
+}
+.footer-logo {
+  width: 140px;
+  height: 140px;
+}
+.language-selector {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+}
+.language-selector span {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 31.2px;
+  letter-spacing: -0.6px;
+}
+.social-links {
+  display: flex;
+  gap: 28px;
+}
+.social-links img {
+  width: 24px;
+  height: 24px;
+}
+.footer-links-wrapper {
+  display: flex;
+  gap: 87px;
+  flex-wrap: wrap;
+  flex-grow: 1;
+  justify-content: flex-start;
+}
+.link-column {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+.link-column h3 {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 37.44px;
+  letter-spacing: -0.72px;
+}
+.link-column ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+}
+.link-column li a {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 28.08px;
+  letter-spacing: -0.54px;
+}
+@media (max-width: 1200px) {
+  .site-footer-main {
+    padding: 40px;
+  }
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 60px;
+    text-align: center;
+  }
+  .footer-links-wrapper {
+    justify-content: center;
+    gap: 60px;
+  }
+  .link-column {
+    align-items: center;
+  }
+}
+@media (max-width: 768px) {
+  .footer-links-wrapper {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+}
+
+.main-nav a img {
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.main-nav a:first-child img {
+  filter: brightness(0) saturate(100%) invert(84%) sepia(22%) saturate(1030%) hue-rotate(290deg) brightness(97%) contrast(96%);
+  transform: scale(1.05);
+}
+
+.main-nav a:hover img {
+  transform: scale(1.1);
+  filter: brightness(0) saturate(100%) invert(84%) sepia(22%) saturate(1030%) hue-rotate(290deg) brightness(97%) contrast(96%);
+}
+
+.site-header,
+.page-wrapper,
+.main-nav {
+  overflow: visible !important;
+}
+
+.health-card,
+.law-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.health-card:hover,
+.law-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}

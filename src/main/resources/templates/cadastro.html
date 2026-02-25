@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" th:href="@{/https://fonts.googleapis.com}">
+    <link rel="preconnect" crossorigin th:href="@{/https://fonts.gstatic.com}">
+    <link rel="stylesheet" th:href="@{/cadastro/cadastro.css}">
+</head>
+
+<body>
+<main id="signup-section">
+
+    <div class="signup-container">
+        <h1 class="title">Crie sua conta</h1>
+
+        <form th:action="@{/criarUsuario}" method="post" th:object="${users}">
+            <div class="form-area">
+                <div class="inputs-container">
+                    <div class="form-row">
+                        <input type="text" th:field="*{name}" id="name" class="form-input" placeholder="Digite seu nome" required>
+                        <input type="text" th:field="*{surname}" id="surname" class="form-input" placeholder="Digite seu sobrenome" required>
+                    </div>
+
+                    <input type="email" th:field="*{email}" id="email" class="form-input" placeholder="Digite seu Email">
+
+                    <div class="input-group">
+                        <input type="password" th:field="*{password}" id="password" class="form-input" placeholder="Digite sua senha">
+
+                        <img th:src="@{/cadastro/img/eye icon.svg}" alt="mostrar senha" class="password-toggle-icon" onclick="togglePassword()">
+                    </div>
+                    <input type="password" id="passconfirmation" name="passconfirmation" class="form-input" placeholder="Confirme sua senha">
+                </div>
+
+                <label class="container">
+                    Aceito os termos e condições
+                    <input type="checkbox" id="termos" required>
+                    <span class="checkmark"></span>
+                </label>
+
+                <button type="submit" class="submit-btn">Criar conta</button>
+            </div>
+        </form>
+    </div>
+
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+
+    <!-- ✅ Script de mostrar/ocultar senha -->
+    <script th:inline="javascript">
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const icon = document.getElementsByClassName('password-toggle-icon')[0];
+
+            // Thymeleaf substitui corretamente os caminhos dentro de [[@{...}]]
+            const eyeClosed = [[@{/cadastro/img/eye icon.svg}]];
+            const eyeOpen = [[@{/cadastro/img/eye open icon.svg}]];
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.src = eyeOpen;
+                icon.alt = 'ocultar senha';
+            } else {
+                passwordInput.type = 'password';
+                icon.src = eyeClosed;
+                icon.alt = 'mostrar senha';
+            }
+        }
+    </script>
+
+
+    <!-- VLibras script -->
+    <script th:src="@{https://vlibras.gov.br/app/vlibras-plugin.js}"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/Perfil/perfil.css}">
+    <link rel="shortcut icon" type="imagex/png" th:href="@{/Perfil/img/navbar/dália_secundario.png}">
+</head>
+<body>
+<header>
+    <div class="logo">
+        <img src="/Perfil/img/navbar/Logo_dalia.png" alt="Logo">
+    </div>
+    <nav>
+        <ul>
+            <li class="Home">
+                <a href="/home"><img src="/Perfil/img/navbar/Home__nav.svg" alt="Início"></a>
+                <span class="legenda">HomePage</span>
+            </li>
+            <li class="Calendario">
+                <a href="/calendar"><img src="/Perfil/img/navbar/Calendar__nav.svg" alt="Calendário"></a>
+                <span class="legenda">Calendário</span>
+            </li>
+            <li class="forum">
+                <a href="/posts"><img src="/Perfil/img/navbar/Fórum__nav.svg" alt="Comunidade"></a>
+                <span class="legenda">Fórum</span>
+            </li>
+            <li class="principal">
+                <a href="../Emocoes/emocoes.html"><img src="/Perfil/img/navbar/Flower__nav.svg" alt="Emoções"></a>
+                <span class="legenda">Emoções</span>
+            </li>
+            <li class="perfilh">
+                <a href="/perfil"><img src="/Perfil/img/navbar/profile-full__nav.svg" alt="Perfil"></a>
+                <span class="legenda">Perfil</span>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <div class="Area">
+    <div class="modo-toggle">
+        <a th:href="@{/templates/index.html}"
+           th:classappend="${modoAtual} == 'menstruacao' ? ' ativo' : ''">Menstruação</a>
+
+        <a th:href="@{/Gravidez/pesquisa}"
+           th:classappend="${modoAtual} == 'gravidez' ? ' ativo' : ''">Gravidez</a>
+    </div>
+        <h1 class="titulo">Área do usuário</h1>
+        <div class="perfil">
+            <div class="user-img">
+                <img th:src="@{/Perfil/img/perfil_img/perfil.png}" id="foto" class="perfil__foto">
+                <label for="input-file" id="uploadft">
+                    <img th:src="@{/Perfil/img/perfil_img/editsvg.svg}" class="edit-icon">
+                </label>
+                <input type="file" accept="image/jpeg, image/png, image/jpg" id="input-file" style="display:none;">
+            </div>
+            <form th:object="${userDTO}" class="perfil" method="post" th:action="@{/Home/perfil}">
+                <label class="label" for="name">Nome:</label>
+                <input class="type" id="name" name="name" placeholder="Seu nome aqui" th:field="*{name}">
+
+                <label class="label" for="surname">Sobrenome:</label>
+                <input class="type" id="surname" name="surname" placeholder="Seu sobrenome" th:field="*{surname}">
+
+                <label class="label" for="email">Email:</label>
+                <input class="type" id="email" name="email" type="email" placeholder="Seu email" th:field="*{email}">
+
+                <label class="label" for="password">Senha:</label>
+                <input class="type" id="password" name="password" type="password" th:field="*{password}">
+
+                <label class="label" for="age">Idade:</label>
+                <input class="type" id="age" name="age" type="number" th:field="*{search.age}">
+
+                <label class="label" for="useContraceptive">Usa anticoncepcional?</label>
+                <select class="opcao" id="useContraceptive" name="useContraceptive" th:field="*{search.useContraceptive}">
+                    <option th:value="true">Sim</option>
+                    <option th:value="false">Não</option>
+                </select>
+
+                <label class="label" for="contraceptiveType" id="labelContraceptiveType" style="display:none;">Qual tipo?</label>
+                <select class="opcao" id="contraceptiveType" name="contraceptiveType" th:field="*{search.contraceptiveType}" style="display:none;">
+                    <option value="">Selecione</option>
+                    <option value="Pilulas">Pílulas</option>
+                    <option value="Diu">DIU</option>
+                    <option value="Implante">Implante</option>
+                    <option value="Injeção">Injeção</option>
+                </select>
+                <div class="buttons">
+                    <button class="editar" id="salvar">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="footer-content">
+        <img th:src="@{/Perfil/img/navbar/Logo_dalia.png}" alt="logo dália" class="footer-logo">
+        <div class="language-selector">
+            <img th:src="@{/Perfil/img/perfil_img/bandeira.png}" alt="bandeira brasil">
+            <span>Português do Brasil</span>
+        </div>
+        <div class="social-media">
+            <a href="#" aria-label="Instagram">
+                <i class="fa fa-instagram"></i>
+            </a>
+            <a href="#" aria-label="Facebook">
+                <i class="fa fa-facebook"></i>
+            </a>
+            <a href="#" aria-label="Youtube">
+                <i class="fa fa-youtube"></i>
+            </a>
+        </div>
+        <p>O seguinte botão serve para aquelas usuárias que precisam contatar urgentemente e de forma discreta a delegacia da mulher. Clique aqui apenas se for estritamente necessária</p>
+        <div class="configurações">
+            <button onclick="mostrarDenuncia()" class="denuncia">Fazer Denúncia</button>
+        </div>
+        <div id="caixaDenuncia" style="display: none; margin-top: 1rem;" class="footer-content">
+            <form th:action="@{/enviar-denuncia}" method="post" class="mensagem">
+                <textarea name="mensagem" rows="4" placeholder="Descreva o motivo do contato e lembre-se de adicionar seu endereço e um telefone seguro para contato."></textarea>
+                <br>
+                <button type="submit" class="denuncia">Enviar Email</button>
+            </form>
+        </div>
+    </div>
+</footer>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script th:src="@{/Perfil/perfil.js}"></script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+</html>

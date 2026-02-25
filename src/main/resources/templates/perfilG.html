@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/perfil(modoG)/perfilG.css}">
+</head>
+
+<body>
+<header class="site-header">
+    <div class="header-container">
+        <nav class="main-nav">
+            <a href="/Ghome"><img th:src="@{/perfil(modoG)/img/home.svg}" alt="Home"></a>
+            <a href="#"><img th:src="@{/perfil(modoG)/img/calendario.svg}" alt="Calendário"></a>
+            <a href="#"><img th:src="@{/perfil(modoG)/img/registro.svg}" alt="Registro Diário"></a>
+            <a href="/posts"><img th:src="@{/perfil(modoG)/img/chat.svg}" alt="Chat"></a>
+            <a href="/perfilG"><img th:src="@{/perfil(modoG)/img/perfil.svg}" alt="Perfil"></a>
+        </nav>
+    </div>
+</header>
+
+<section id="profile-area" class="profile-area-section">
+    <div class="profile-container">
+        <div class="user-settings-column">
+            <h1 class="settings-title">Área do usuário</h1>
+            <div class="settings-list">
+                <div class="setting-item">
+                    <span class="setting-text">Modo Noturno</span>
+                    <div class="toggle-switch">
+                        <div class="toggle-track"></div>
+                        <div class="toggle-handle"></div>
+                    </div>
+                </div>
+
+                <a href="#" class="setting-item">
+                    <span class="setting-text">Informações Pessoais</span>
+                    <img th:src="@{/perfil(modoG)/img/infoP.svg}" alt="" class="setting-icon">
+                </a>
+
+                <a href="#" class="setting-item">
+                    <span class="setting-text">Configurações</span>
+                    <img th:src="@{/perfil(modoG)/img/config.svg}" alt="" class="setting-icon">
+                </a>
+
+                <a href="/Mhome" class="setting-item setting-item-highlight setting-item-centered">
+                    <span class="setting-text">Mudar para modo menstruação</span>
+                </a>
+
+                <a id="linkAjuda" class="setting-item setting-item-highlight" onclick="mostrarAjuda()">
+                    <span class="setting-text">Ajuda</span>
+                    <img th:src="@{/perfil(modoG)/img/denuncia.svg}" alt="" class="setting-icon">
+                </a>
+            </div>
+            <p class="help-text">Clique acima para pedir ajuda.</p>
+        </div>
+
+        <div class="caixaAjuda" id="caixaAjuda" style="display: none">
+            <form th:action="@{/enviar-denuncia}" method="post" class="mensagem">
+                <label for="mensagem">Sua Mensagem:</label>
+                <textarea class="text" name="mensagem" id="mensagem" rows="5"
+                          placeholder="Descreva o motivo do contato e lembre-se de adicionar seu endereço e um telefone seguro para contato."></textarea>
+            </form>
+            <div class="caixaAjuda-botoes">
+                <button type="submit" class="denuncia">Enviar</button>
+                <button type="button" onclick="mostrarAjuda()">Fechar</button>
+            </div>
+        </div>
+    </div>
+        <div class="profile-details-column">
+            <h2 class="profile-title">Perfil</h2>
+            <img th:src="@{/perfil(modoG)/img/pfp.svg}" alt="Foto de Perfil" class="profile-avatar">
+
+            <form th:object="${userDTO}" class="perfil" method="post" th:action="@{/Home/perfilG}">
+                <label class="label" for="name">Nome:</label>
+                <input class="type" id="name" name="name" placeholder="Seu nome aqui" th:field="*{name}">
+
+                <label class="label" for="surname">Sobrenome:</label>
+                <input class="type" id="surname" name="surname" placeholder="Seu sobrenome" th:field="*{surname}">
+
+                <label class="label" for="email">Email:</label>
+                <input class="type" id="email" name="email" type="email" placeholder="Seu email" th:field="*{email}">
+
+                <label class="label" for="password">Senha:</label>
+                <input class="type" id="password" name="password" type="password" placeholder="******" th:field="*{password}">
+
+                <label class="label" for="age">Idade:</label>
+                <input class="type" id="age" name="age" type="number" th:field="*{search.age}">
+
+                <label class="label" for="dayPregnancy">Dia da Gestação:</label>
+                <input class="type" id="dayPregnancy" name="dayPregnancy" type="text" th:field="*{pregnancyMonitoring.dayPregnancy}">
+
+
+                <label class="label" for="gestationWeeks">Quantidade de semanas:</label>
+                <input class="type" id="gestationWeeks" name="gestationWeeks" type="number" th:field="*{pregnancyMonitoring.gestationWeeks}">
+
+                <label class="label" for="expectedBirthDate">Expectativa de Nascimento:</label>
+                <input class="type" id="expectedBirthDate" name="expectedBirthDate" type="text" th:field="*{pregnancyMonitoring.expectedBirthDate}">
+
+
+                <div class="buttons">
+                    <button class="editar" id="salvar">Salvar</button>
+                </div>
+            </form>
+</section>
+
+
+    <section id="menstruacao-modal">
+        <div class="menstruacao-modal-wrapper">
+            <div class="modal-container">
+                <button class="close-button" aria-label="Fechar">
+                    <img th:src="@{/perfil(modoG)/img/fechar.svg}" alt="Fechar">
+                </button>
+                <div class="image-column">
+                    <img th:src="@{/perfil(modoG)/img/fundo.png}" alt="Mudar para modo menstruação.">
+                </div>
+                <div class="content-column">
+                    <img class="logo" th:src="@{/perfil(modoG)/img/dalialogo.png}" alt="Logo Dália">
+                    <p class="description">
+                        A menstruação é uma fase natural e importante no ciclo de toda mulher. O Dália quer estar ao seu lado, oferecendo apoio e informações para que você se sinta acolhida e em equilíbrio nesse período.
+                        <br><br>
+                        Clique abaixo e ative o Modo Menstruação para ter uma experiência personalizada e dedicada a você.
+                    </p>
+                    <a th:href="@{/Mhome}" class="confirm-button">Confirmar</a>
+                </div>
+            </div>
+        </div>
+</section>
+
+<script th:src="@{/perfil/perfil.js}"></script>
+</body>
+</html>

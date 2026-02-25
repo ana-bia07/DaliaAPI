@@ -1,0 +1,273 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #ffffff;
+    background-image: url(img/fundo.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+.signup-container {
+    max-width: 900px;
+    width: 100%;
+    background-color: #fff5e6;
+    border-radius: 20px;
+    box-shadow: -8px 8px 21.2px 0px rgba(0, 0, 0, 0.25), 8px 4px 24px 0px rgba(0, 0, 0, 0.25);
+    padding: 10px 78px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    height: 80vh;
+    justify-content: center;
+}
+
+.title {
+    color: #000000;
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 67px;
+    letter-spacing: 3.6px;
+    text-align: center;
+    margin: 0;
+}
+
+.form-area {
+    display: flex;
+    flex-direction: column;
+    gap: 34px;
+    width: 100%;
+}
+
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 34px;
+}
+
+.inputs-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: row;
+    gap: 33px;
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.form-input {
+    border: 1.5px solid #000000;
+    border-radius: 10px;
+    padding: 15px 20px;
+    font-size: 20px;
+    line-height: 24px;
+    color: rgba(0, 0, 0, 0.6);
+    background-color: transparent;
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+}
+
+.form-input::placeholder {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.password-toggle-icon {
+    position: absolute;
+    right: 20px;
+    width: 28.75px;
+    height: 28.75px;
+    cursor: pointer;
+}
+
+.terms-group {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+}
+.termos__condicoes{
+    color: #FB88AB;
+    padding-left: 1ch;
+}
+
+
+
+.container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 35px;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 20px;
+    user-select: none;
+}
+
+/* Esconde o checkbox padrão */
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Estilo do checkbox customizado */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #ccc;
+    border-radius: 10%;
+}
+
+/* Hover no container altera o background da checkmark */
+.container:hover input ~ .checkmark {
+    background-color: #ef5b99;
+}
+
+/* Quando marcado, muda a cor da checkmark */
+.container input:checked ~ .checkmark {
+    background-color: #ef5b99;
+}
+
+/* Cria o símbolo de check */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Mostra o símbolo de check quando marcado */
+.container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Estilo do símbolo de check */
+.container .checkmark:after {
+    left: 8px;
+    top: 4px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+
+.terms-text {
+    margin: 0;
+    color: #000000;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+.terms-text a {
+    font-style: italic;
+    text-decoration: underline;
+    color: #f6add5;
+}
+
+.submit-btn {
+    background-color: #f6add5;
+    color: #ffffff;
+    border-radius: 16px;
+    height: 70px;
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 22px;
+    line-height: 67px;
+    letter-spacing: 1.98px;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 52px;
+    width: 100%;
+}
+
+.line {
+    flex-grow: 1;
+    border: none;
+    border-top: 1px solid #000000;
+}
+
+.divider-text {
+    color: #000000;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 67px;
+    letter-spacing: 2.52px;
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .signup-container {
+        padding: 20px;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .title {
+        font-size: 32px;
+        line-height: 1.2;
+    }
+
+    .divider {
+        gap: 20px;
+    }
+
+    .divider-text {
+        font-size: 20px;
+    }
+
+    .social-login {
+        gap: 40px;
+        justify-content: center;
+    }
+
+    .vw-plugin-wrapper {
+        position: fixed !important;
+        bottom: 20px !important;
+        right: 20px !important;
+        z-index: 9999 !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+}

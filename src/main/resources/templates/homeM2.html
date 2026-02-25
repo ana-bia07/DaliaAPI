@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página principal</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/homeM(parte2)/homeM2.css}">
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="page-wrapper">
+    <nav class="main-nav">
+      <a href="/home"><img th:src="@{/homeM(parte2)/img/home.svg}" alt="Home"></a>
+      <a href="#"><img th:src="@{/homeM(parte2)/img/calendario.svg}" alt="Calendar"></a>
+      <a href="#"><img th:src="@{/homeM(parte2)/img/registro.svg}" alt="Flower"></a>
+      <a href="#"><img th:src="@{/homeM(parte2)/img/chat.svg}" alt="Chat"></a>
+      <a href="#"><img th:src="@{/homeM(parte2)/img/perfil.svg}" alt="Profile"></a>
+    </nav>
+  </div>
+</header>
+
+<section id="hero" class="hero-section">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-background"></div>
+      <p class="hero-text">No Dália, nos importamos com a sua segurança, por isso gostariamos que ficasse por dentro da leis que te defendem.</p>
+    </div>
+  </div>
+</section>
+<section id="laws" class="laws-section">
+  <div class="container">
+    <div class="law-category">
+      <h2>Direitos trabalhistas das mulheres:</h2>
+      <div class="law-grid">
+        <div class="law-card card-style-1">
+          <p>Igualdade Salarial</p>
+        </div>
+        <div class="law-card card-style-1">
+          <p>Não à discriminação e ao assédio</p>
+        </div>
+        <div class="law-card card-style-1">
+          <p>Licença Maternidade</p>
+        </div>
+        <div class="law-card card-style-1">
+          <p>Estabilidade a gestantes e adotantes</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="law-category">
+      <h2>Leis sobre abuso sexual:</h2>
+      <div class="law-grid">
+        <div class="law-card card-style-2">
+          <p>Lei<br>12.737/2012<br>(Lei Carolina Dieckmann)</p>
+        </div>
+        <div class="law-card card-style-2">
+          <p>Lei<br>13.718/2018</p>
+        </div>
+        <div class="law-card card-style-2">
+          <p>Lei<br>12.650/2012</p>
+        </div>
+        <div class="law-card card-style-2">
+          <p>Lei<br>15.160/2025</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="law-category">
+      <h2>Leis de acesso a saúde:</h2>
+      <div class="law-grid">
+        <div class="law-card card-style-3">
+          <p>Constituição Federal de 1988</p>
+        </div>
+        <div class="law-card card-style-3">
+          <p>Lei nº 8.080/1990</p>
+        </div>
+        <div class="law-card card-style-3">
+          <p>Lei nº 8.142/1990</p>
+        </div>
+        <div class="law-card card-style-3">
+          <p>Lei nº 11.108/2005</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<footer id="footer" class="site-footer">
+  <div class="container footer-container">
+    <div class="footer-info">
+      <img th:src="@{/homeM(parte2)/img/dalialogo.png}" alt="Dália logo" class="footer-logo">
+      <div class="language-selector">
+        <img th:src="@{/homeM(parte2)/img/brasil.svg}" alt="Brazil flag">
+        <span>Português do Brasil</span>
+        <img th:src="@{/homeM(parte2)/img/dropdown.svg}" alt="Dropdown arrow">
+      </div>
+      <div class="social-links">
+        <a href="#"><img th:src="@{/homeM(parte2)/img/instagram.svg}" alt="Instagram"></a>
+        <a href="#"><img th:src="@{/homeM(parte2)/img/facebook.svg}" alt="Facebook"></a>
+        <a href="#"><img th:src="@{/homeM(parte2)/img/youtube.svg}" alt="Youtube"></a>
+      </div>
+    </div>
+    <div class="footer-links">
+      <div class="link-column">
+        <h3>Empresa</h3>
+        <ul>
+          <li><a href="#">Sobre</a></li>
+          <li><a href="#">Marca</a></li>
+        </ul>
+      </div>
+      <div class="link-column">
+        <h3>Recursos</h3>
+        <ul>
+          <li><a href="#">Suporte</a></li>
+          <li><a href="#">Segurança</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Comunidade</a></li>
+        </ul>
+      </div>
+      <div class="link-column">
+        <h3>Política</h3>
+        <ul>
+          <li><a href="#">Termos</a></li>
+          <li><a href="#">Privacidade</a></li>
+          <li><a href="#">Cookies</a></li>
+          <li><a href="#">Moderação</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisa</title>
+    <link rel="stylesheet" th:href="@{/DaliaPerguntas/perguntas.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="shortcut icon" th:href="@{/static/img/navbar/dália_secundario.png}">
+    <style>
+        .section {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            position: absolute;
+            width: 100%;
+        }
+
+        .section.active {
+            opacity: 1;
+            pointer-events: auto;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<form th:action="@{/salvar-respostas}" method="post" th:object="${search}">
+    <input type="hidden" name="idUser" th:value="${idUser}" />
+    <div class="centraliza">
+        <div id="section1" class="formulario section active">
+            <div class="pergunta">
+                <p>Qual sua idade?</p>
+            </div>
+            <section class="idades">
+                <div class="linha">
+                    <article class="painel__idade">
+                        <label class="btn__card">
+                            <img th:src="@{/DaliaPerguntas/img/menor-18-removebg-preview.png}" alt="Menor de 18">
+                            <input type="radio" th:field="*{age}" value="17">
+                            <p class="txt__idade">Menos de 18</p>
+                        </label>
+                    </article>
+                    <article class="painel__idade">
+                        <label class="btn__card">
+                            <img th:src="@{/DaliaPerguntas/img/18-29-removebg-preview.png}" alt="18 a 29 anos">
+                            <input type="radio" th:field="*{age}" value="25">
+                            <p class="txt__idade">18 à 29 anos</p>
+                        </label>
+                    </article>
+                </div>
+                <div class="linha">
+                    <article class="painel__idade">
+                        <label class="btn__card">
+                            <img th:src="@{/DaliaPerguntas/img/30_-_39-removebg-preview.png}" alt="30 a 39 anos">
+                            <input type="radio" th:field="*{age}" value="35">
+                            <p class="txt__idade">30 à 39 anos</p>
+                        </label>
+                    </article>
+                    <article class="painel__idade">
+                        <label class="btn__card">
+                            <img th:src="@{/DaliaPerguntas/img/mais40-removebg-preview.png}" alt="Mais de 40">
+                            <input type="radio" th:field="*{age}" value="45">
+                            <p class="txt__idade">Mais de 40 anos</p>
+                        </label>
+                    </article>
+                </div>
+                <button type="button" class="proximo">Avançar</button>
+            </section>
+        </div>
+
+        <!-- SECTION 2 -->
+        <div id="section2" class="formulario section">
+            <div class="pergunta">
+                <button class="volta" type="button"><img th:src="@{/DaliaPerguntas/img/back-vector.svg}"></button>
+                <p>Sua menstruação é regular?</p>
+            </div>
+            <div class="resposta">
+                <ul class="perguntas">
+                    <li class="perguntas__btn">
+                        <label class="pergunta__label">
+                            <p class="pergunta__txt">Sim</p>
+                            <input class="B2" type="radio" th:field="*{regularMenstruation}" value="true"></label>
+                    </li>
+                    <li class="perguntas__btn">
+                        <label class="pergunta__label">
+                            <p class="pergunta__txt">Não</p>
+                            <input class="B2"  type="radio" th:field="*{regularMenstruation}" value="false"></label>
+                    </li>
+                    <button type="button" class="proximo">Avançar</button>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 3 -->
+        <div id="section3" class="formulario section">
+            <div class="pergunta">
+                <button class="volta" type="button"><img th:src="@{/DaliaPerguntas/img/back-vector.svg}"></button>
+                <p>Você usa algum anticoncepcional?</p>
+            </div>
+            <div class="resposta">
+                <ul class="resposta perguntas">
+                    <li class="perguntas__btn">
+                        <label class="pergunta__label">
+                            <p class="pergunta__txt">Sim</p>
+                            <input type="radio" th:field="*{useContraceptive}" value="true"></label>
+                    </li>
+                    <li class="perguntas__btn">
+                        <label class="pergunta__label">
+                            <p class="pergunta__txt">Não</p>
+                            <input type="radio" th:field="*{useContraceptive}" value="false"></label>
+                        <input type="hidden" th:field="*{contraceptiveType}" value=" ">
+                    </li>
+                </ul>
+                <button type="button" class="proximo">Avançar</button>
+            </div>
+        </div>
+
+        <!-- SECTION 4 -->
+        <div id="section4" class="formulario section">
+            <div class="pergunta">
+                <button class="volta" type="button"><img th:src="@{/DaliaPerguntas/img/back-vector.svg}"></button>
+                <p>Qual tipo?</p>
+            </div>
+            <div class="resposta r4">
+                <ul class="perguntas">
+                    <li class="perguntas__btn">
+                        <label class="pergunta__label">
+                            <p class="pergunta__txt">Pílulas</p>
+                            <input type="radio" th:field="*{contraceptiveType}" value="Pílulas" class="B4">
+                        </label>
+                    </li>
+                    <li class="perguntas__btn">
+                        <label class="pergunta__label">
+                            <p class="pergunta__txt">Injeção</p>
+                            <input type="radio" th:field="*{contraceptiveType}" value="Injeção" class="B4">
+                        </label>
+                    </li>
+                    <li class="perguntas__btn">
+                        <label class="pergunta__label">
+                            <p class="pergunta__txt">Implante</p>
+                            <input type="radio" th:field="*{contraceptiveType}" value="Implante" class="B4">
+                        </label>
+                    </li>
+                    <li class="perguntas__btn">
+                        <label class="pergunta__label">
+                            <p class="pergunta__txt">DIU</p>
+                            <input type="radio" th:field="*{contraceptiveType}" value="DIU">
+                        </label>
+                    </li>
+                </ul>
+                <button type="button" class="proximo">Avançar</button>
+            </div>
+        </div>
+
+        <!-- SECTION 5 -->
+        <div id="section5" class="formulario section">
+            <div class="pergunta">
+                <button class="volta" type="button"><img th:src="@{/DaliaPerguntas/img/back-vector.svg}"></button>
+                <p>Qual foi o primeiro dia da sua última menstruação?</p>
+            </div>
+            <div class="resposta">
+                <input type="date" th:field="*{lastMenstruationDay}" id="menstruationDate">
+                <button type="button" class="proximo">Avançar</button>
+            </div>
+        </div>
+
+        <!-- SECTION 6 -->
+        <div id="section6" class="formulario section">
+            <div class="pergunta">
+                <button class="volta" type="button"><img th:src="@{/DaliaPerguntas/img/back-vector.svg}"></button>
+                <p>Quantos dias dura o seu ciclo menstrual?</p>
+                <h5 class="text-menor">Escolha um numero de 21 a 35. Caso não saiba, coloque 28.</h5>
+            </div>
+            <div class="resposta">
+                <input type="number" th:field="*{cycleDuration}" id="cycleDurationInput" min="21" max="35" placeholder="Ex: 28">
+
+                <span class="text-menor" id="cycleDurationError" style="color: red; display: none; margin-top: 5px;">
+                Por favor, insira um número entre 21 e 35.
+                </span>
+                <button type="button" class="proximo">Avançar</button>
+            </div>
+        </div>
+        <!-- SECTION 7 -->
+        <div id="section7" class="formulario section">
+            <div class="ultima__pag">
+                <p>Obrigada por nos ajudar a<br>te entender melhor!</p>
+            </div>
+            <div class="btn__final">
+                <button type="submit" class="proximo">Enviar</button>
+            </div>
+        </div>
+
+    </div>
+</form>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        console.log("JS EM ADAEMNETJOJTGAT")
+        flatpickr("#menstruationDate", {
+            dateFormat: "Y-m-d"
+        });
+
+        const sections = document.querySelectorAll(".section");
+        let current = [...sections].findIndex(sec => sec.classList.contains("active"));
+
+        // Se current for -1 (nenhuma seção ativa), define a primeira como 0
+        if (current === -1 && sections.length > 0) {
+            current = 0;
+            sections[current].classList.add("active");
+        }
+
+        function showSection(index) {
+            sections.forEach((sec, i) => {
+                sec.classList.remove("active");
+            });
+            sections[index].classList.add("active");
+            current = index; // Atualiza a seção atual corretamente
+        }
+
+        document.querySelectorAll(".proximo").forEach(btn => {
+            btn.addEventListener("click", (event) => {
+
+                // Variáveis de controle de fluxo
+                let shouldProceed = true;
+                const currentSectionElement = sections[current];
+                let next = current + 1;
+
+                // 1. **VALIDAÇÃO DA SECTION 6**
+                if (currentSectionElement.id === "section6") {
+                    // Busca o input e o span usando o ID
+                    const inputField = document.getElementById('cycleDurationInput');
+                    const errorSpan = document.getElementById('cycleDurationError');
+
+                    // Verifica se o campo existe antes de tentar validar
+                    if (inputField) {
+                        const value = parseInt(inputField.value);
+                        const min = 21;
+                        const max = 35;
+
+                        if (isNaN(value) || value < min || value > max) {
+                            // VALIDAÇÃO FALHOU:
+                            shouldProceed = false; // Bloqueia o avanço
+
+                            // EXIBE O ERRO
+                            if (errorSpan) errorSpan.style.display = 'block';
+                            inputField.focus();
+                            inputField.classList.add('error');
+                            console.error("Validação do Ciclo (section6) falhou.");
+
+                        } else {
+                            // VALIDAÇÃO SUCESSO:
+                            if (errorSpan) errorSpan.style.display = 'none';
+                            inputField.classList.remove('error');
+                        }
+                    }
+                }
+
+                // 2. **LÓGICA DE PULO DA SECTION 3** (Só executa se a seção atual não falhou na validação)
+                if (shouldProceed && currentSectionElement.id === "section3"){
+                    const selected = currentSectionElement.querySelector('input[name="useContraceptive"]:checked');
+                    if(selected && selected.value === "false"){
+                        // Nota: 'contraceptiveType.value = false;' foi removido pois 'contraceptiveType' não está definido.
+                        next++;
+                    }
+                }
+
+                // 3. **AVANÇO CONDICIONAL**
+                // Só avança se o flag 'shouldProceed' for true E não for a última seção
+                if (shouldProceed && current < sections.length - 1) {
+                    showSection(next);
+                }
+            });
+        });
+
+        document.querySelectorAll(".volta").forEach(btn => {
+            btn.addEventListener("click", () => {
+                // Lógica de volta (se precisar reverter o 'next++' da section 3, ajuste aqui)
+                if (current > 0) {
+                    showSection(current - 1);
+                }
+            });
+        });
+
+        // Opcional: Ocultar o erro ao digitar (melhor UX)
+        const cycleDurationInput = document.getElementById('cycleDurationInput');
+        const cycleDurationError = document.getElementById('cycleDurationError');
+        if (cycleDurationInput && cycleDurationError) {
+            cycleDurationInput.addEventListener('input', () => {
+                cycleDurationError.style.display = 'none';
+                cycleDurationInput.classList.remove('error');
+            });
+        }
+    });
+
+</script>
+</body>
+</html>

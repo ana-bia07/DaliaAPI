@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisa</title>
+
+    <link rel="stylesheet" th:href="@{/pesquisa/pesquisa.css}">
+</head>
+
+<body>
+
+<form th:action="@{/salvar-respostas}" method="post">
+
+    <!-- ===== TELA 1: BOAS-VINDAS ===== -->
+    <section id="welcome" class="active">
+        <div class="welcome-container">
+            <div class="logo-column">
+                <div class="logo-graphic">
+                    <img th:src="@{/pesquisa/img/dalialogo.svg}" alt="Dália Logo" class="logo-bg">
+                </div>
+            </div>
+
+            <div class="content-column">
+                <h1 class="welcome-title">Bem-vinda<br>ao Dália!</h1>
+                <a href="#" id="startSurvey" class="start-button">Começar pesquisa</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TELA 2: INTRO ===== -->
+    <section id="survey-intro">
+        <main class="content-wrapper">
+            <div class="title-group">
+                <h1 class="title">Pesquisa</h1>
+                <div class="underline"></div>
+            </div>
+            <p class="subtitle">Para nos ajudar a entender melhor, por favor, responda algumas coisinhas:</p>
+            <a href="#" class="cta-button" id="toQuestion1">Vamos lá!</a>
+        </main>
+    </section>
+
+    <!-- ===== TELA 3: PERGUNTA 1 ===== -->
+    <section id="question1">
+        <div class="content-wrapper">
+            <h2 class="title">1. Como você se sente hoje?</h2>
+            <textarea name="resposta1" rows="4" placeholder="Digite aqui..."></textarea>
+
+            <div class="button-group">
+                <a href="#" class="back-button">Voltar</a>
+                <a href="#" class="next-button" id="toQuestion2">Próximo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TELA 4: PERGUNTA 2 ===== -->
+    <section id="question2">
+        <div class="content-wrapper">
+            <h2 class="title">2. Você gostaria de deixar algum comentário?</h2>
+            <textarea name="resposta2" rows="4" placeholder="Digite aqui..."></textarea>
+
+            <div class="button-group">
+                <a href="#" class="back-button">Voltar</a>
+                <button type="submit" class="cta-button">Enviar</button>
+            </div>
+        </div>
+    </section>
+
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const sections = document.querySelectorAll('section');
+        let currentIndex = 0;
+
+        function showSection(index) {
+            sections.forEach((sec, i) => {
+                sec.style.opacity = i === index ? '1' : '0';
+                sec.style.pointerEvents = i === index ? 'auto' : 'none';
+                sec.style.transition = 'opacity 0.6s ease';
+            });
+        }
+
+        showSection(currentIndex);
+
+        // Botões de navegação
+        document.querySelector('#startSurvey').addEventListener('click', (e) => {
+            e.preventDefault();
+            currentIndex = 1;
+            showSection(currentIndex);
+        });
+
+        document.querySelector('#toQuestion1').addEventListener('click', (e) => {
+            e.preventDefault();
+            currentIndex = 2;
+            showSection(currentIndex);
+        });
+
+        document.querySelector('#toQuestion2').addEventListener('click', (e) => {
+            e.preventDefault();
+            currentIndex = 3;
+            showSection(currentIndex);
+        });
+
+        document.querySelectorAll('.back-button').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (currentIndex > 0) {
+                    currentIndex -= 1;
+                    showSection(currentIndex);
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

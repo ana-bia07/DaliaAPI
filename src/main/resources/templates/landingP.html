@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dália</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Birthstone+Bounce:wght@400&family=Nobile:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/landingPage/landingP.css}">
+</head>
+
+<body>
+<header class="site-header">
+    <div class="page-container">
+        <nav class="header-nav">
+            <a href="#"><img th:src="@{/landingPage/img/help.svg}" alt="Help"></a>
+            <div class="nav-separator"></div>
+            <a href="#"><img th:src="@{/landingPage/img/perfil.svg}" alt="Perfil"></a>
+        </nav>
+    </div>
+</header>
+<section id="hero" class="hero-section">
+    <div class="page-container">
+
+        <div class="hero-background">
+            <img th:src="@{/landingPage/img/fundo.png}" alt="Fundo">
+        </div>
+
+        <div class="hero-content-wrapper">
+            <div class="hero-text-content">
+                <h1 class="hero-title">dália</h1>
+                <p class="hero-subtitle">Cuidando de você</p>
+                <div class="hero-buttons">
+                    <a href="/login" class="btn">Entrar</a>
+                    <a href="/cadastro" class="btn">Cadastrar</a>
+                </div>
+            </div>
+            <div class="hero-graphic">
+                <div class="graphic-container">
+                    <img th:src="@{/landingPage/img/dalialogo.svg}" alt="Dália Logo" class="logo-svg">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="about" class="about-section">
+    <div class="page-container">
+        <div class="about-content">
+            <div class="about-graphic">
+                <img th:src="@{/landingPage/img/dalia.svg}" alt="Flor Dália" class="about-graphic-svg">
+            </div>
+            <div class="about-text">
+                <div class="about-title-wrapper">
+                    <h2 class="about-title">Conheça o Dália</h2>
+                    <img th:src="@{/landingPage/img/heart.svg}" alt="Coração" class="heart-icon">
+                </div>
+                <p class="about-description">Um calendário menstrual e gestacional especializado e desenvolvido com carinho para atender as suas necessidades.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="guarantees" class="guarantees-section">
+    <div class="page-container">
+        <h2 class="section-title">Garantimos:</h2>
+        <div class="guarantees-grid">
+            <div class="guarantee-card">
+                <img th:src="@{/landingPage/img/seguranca.svg}" alt="Segurança" class="guarantee-icon">
+                <h3 class="guarantee-name">Segurança</h3>
+            </div>
+            <div class="guarantee-card">
+                <img th:src="@{/landingPage/img/conforto.svg}" alt="Conforto" class="guarantee-icon">
+                <h3 class="guarantee-name">Conforto</h3>
+            </div>
+            <div class="guarantee-card">
+                <img th:src="@{/landingPage/img/apoio.svg}" alt="Apoio" class="guarantee-icon">
+                <h3 class="guarantee-name">Apoio</h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="ticker" class="ticker-section">
+    <div class="ticker-content">
+        <p>Saúde, Bem-Estar, Cuidado, Segurança, Monitoramento, Informação</p>
+    </div>
+</section>
+<section id="offerings" class="offerings-section">
+    <div class="page-container">
+        <h2 class="section-title">Confira o que podemos te oferecer:</h2>
+        <div class="offerings-grid">
+            <div class="offering-item offering-item-relative">
+                <img th:src="@{/landingPage/img/oval.svg}" alt="Oval 1">
+                <img th:src="@{/landingPage/img/saude.svg}" alt="Saúde" class="offering-overlay-icon-saude">
+            </div>
+
+            <div class="offering-item offering-item-relative">
+                <img th:src="@{/landingPage/img/oval.svg}" alt="Oval 2">
+                <img th:src="@{/landingPage/img/justica.svg}" alt="Justiça" class="offering-overlay-icon-justica">
+            </div>
+
+            <div class="offering-item offering-item-relative">
+                <img th:src="@{/landingPage/img/oval.svg}" alt="Oval 3">
+                <img th:src="@{/landingPage/img/atendimento.svg}" alt="Atendimento" class="offering-overlay-icon-atendimento">
+            </div>
+        </div>
+    </div>
+</section>
+<footer id="footer" class="site-footer">
+    <div class="page-container footer-container">
+        <div class="footer-info">
+            <img th:src="@{/landingPage/img/dalialogo.png}" alt="Dália Logo" class="footer-logo">
+            <div class="language-selector">
+                <img th:src="@{/landingPage/img/brasil.svg}" alt="Brasil">
+                <span>Português do Brasil</span>
+                <img th:src="@{/landingPage/img/dropdown.svg}" alt="Dropdown">
+            </div>
+            <div class="social-links">
+                <a href="#" aria-label="Instagram"><img th:src="@{/landingPage/img/instagram.svg}" alt="Instagram"></a>
+                <a href="#" aria-label="Facebook"><img th:src="@{/landingPage/img/facebook.svg}" alt="Facebook"></a>
+                <a href="#" aria-label="Youtube"><img th:src="@{/landingPage/img/youtube.svg}" alt="Youtube"></a>
+            </div>
+        </div>
+        <div class="footer-links">
+            <div class="footer-column">
+                <h3>Empresa</h3>
+                <ul>
+                    <li><a href="#">Sobre</a></li>
+                    <li><a href="#">Marca</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Recursos</h3>
+                <ul>
+                    <li><a href="#">Suporte</a></li>
+                    <li><a href="#">Segurança</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Comunidade</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Política</h3>
+                <ul>
+                    <li><a href="#">Termos</a></li>
+                    <li><a href="#">Privacidade</a></li>
+                    <li><a href="#">Cookies</a></li>
+                    <li><a href="#">Moderação</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
