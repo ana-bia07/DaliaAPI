@@ -19,4 +19,15 @@ public class EmailService {
 
         mailSender.send(mensagem);
     }
+
+    public void sendToken(String to, String token){
+        SimpleMailMessage message =  new SimpleMailMessage();
+        message.setTo(to);
+        message.setSubject("Codigo de verificação - Dalia");
+        message.setText("Olá! Seu codgio de verificação para o app Dalia Calendario menstrual é:"
+                        + token +
+                        "\nEste codigo expira em 15 minutos.");
+        mailSender.send(message);
+    }
 }
+

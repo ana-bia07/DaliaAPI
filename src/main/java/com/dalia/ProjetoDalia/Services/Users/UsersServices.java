@@ -1,28 +1,53 @@
 package com.dalia.ProjetoDalia.Services.Users;
 
 import com.dalia.ProjetoDalia.Model.DTOS.Users.UsersDTO;
+import com.dalia.ProjetoDalia.Model.DTOS.Users.VerificationDTO;
 import com.dalia.ProjetoDalia.Model.Entity.Comments;
 import com.dalia.ProjetoDalia.Model.Entity.Users.Users;
 import com.dalia.ProjetoDalia.Model.Repository.UsersRepository;
+import com.dalia.ProjetoDalia.Services.EmailService;
 import com.dalia.ProjetoDalia.Services.Interface.IUsersService;
+import org.apache.catalina.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class UsersServices implements IUsersService{
 
     private final UsersRepository usersRepository;
+    private final EmailService emailService;
+    public final BCryptPasswordEncoder passwordEncoder;
 
-    public UsersServices(UsersRepository usersRepository) {
+    public UsersServices(UsersRepository usersRepository, EmailService emailService, BCryptPasswordEncoder passwordEncoder) {
         this.usersRepository = usersRepository;
+        this.emailService = emailService;
+        this.passwordEncoder = passwordEncoder;
     }
+
 
     @Override
     public UsersDTO createUser(UsersDTO usersDTO) {
         var user = usersDTO.toEntity();
+
+        //criptografia de senha
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        System.out.println(user.getPassword());
+
+        //cria token e coloca no banco
+        String token = String.format("%06d", new Random().nextInt(999999));
+        user.setVerificationToken(token);
+        user.setTokenExpirantion((LocalDateTime.now().plusMinutes(15)));
         var savedUser = usersRepository.save(user);
+
+        //envia email do token
+        emailService.sendToken(savedUser.getEmail(),token);
+
         return new UsersDTO(savedUser);
     }
     @Override
@@ -63,5 +88,26 @@ public class UsersServices implements IUsersService{
 
         usersRepository.save(existingUser);
         return Optional.of(existingUser);
+    }
+
+    //vericaemail
+    public String verifyEmail(VerificationDTO verificationDTO){
+        var userOptional = usersRepository.findByEmail(verificationDTO.email());
+        if(userOptional.isEmpty()){
+            return "Usuaria não encontrada";
+        }
+
+        Users user = userOptional.get();
+
+        if(user.getVerificationToken().equals(verificationDTO.token()) &&
+        user.getTokenExpirantion().isAfter(LocalDateTime.now())){
+            user.setEnable(true);
+            user.setVerificationToken(null);
+            usersRepository.save(user);
+
+            return "E-mail verificado com sucesso!";
+        }
+
+        return "Codigo invalido";
     }
 }

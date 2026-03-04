@@ -8,7 +8,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-
 public record UsersDTO(
         String id,
         @NotBlank(message = "O nome é obrigatorio")
@@ -25,12 +24,13 @@ public record UsersDTO(
         )
         @NotBlank(message = "A senha é obrigatoria")
         String password,
+        boolean enable,
         Search search,
         PregnancyMonitoring pregnancyMonitoring
 ) {
 
     public UsersDTO() {
-        this(null, "", "", "", "", null, null);
+        this(null, "", "", "", "",false, null, null);
     }
 
     public UsersDTO(Users users){
@@ -40,6 +40,7 @@ public record UsersDTO(
                 users.getSurname(),
                 users.getEmail(),
                 users.getPassword(),
+                users.isEnable(),
                 users.getSearch(),
                 users.getPregnancyMonitoring()
         );
@@ -53,6 +54,7 @@ public record UsersDTO(
         user.setSurname(this.surname());
         user.setEmail(this.email());
         user.setPassword(this.password());
+        user.setEnable(this.enable());
         user.setSearch(this.search());
         user.setPregnancyMonitoring(this.pregnancyMonitoring());
         return user;

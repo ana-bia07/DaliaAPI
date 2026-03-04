@@ -47,6 +47,7 @@ public class GravidezController {
                     existUser.getSurname(),
                     existUser.getEmail(),
                     existUser.getPassword(),
+                    existUser.isEnable(),
                     existUser.getSearch(),
                     pregnancyMonitoring
             );

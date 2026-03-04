@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
+
 @Document(collection = "users")
 @Data
 @NoArgsConstructor
@@ -21,6 +23,9 @@ public class Users {
     private String surname;
     private String email;
     private String password;
+    private boolean enable = false;
+    private String verificationToken;
+    private LocalDateTime tokenExpirantion;
     private Search search;
     private PregnancyMonitoring pregnancyMonitoring;
 }
