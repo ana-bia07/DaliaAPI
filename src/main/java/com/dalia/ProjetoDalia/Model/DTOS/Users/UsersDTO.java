@@ -30,7 +30,7 @@ public record UsersDTO(
 ) {
 
     public UsersDTO() {
-        this(null, "", "", "", "",false, null, null);
+        this(null, "", "", "", null,false, null, null);
     }
 
     public UsersDTO(Users users){

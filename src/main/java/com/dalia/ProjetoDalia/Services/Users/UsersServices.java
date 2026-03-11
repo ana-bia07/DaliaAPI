@@ -1,5 +1,6 @@
 package com.dalia.ProjetoDalia.Services.Users;
 
+import com.dalia.ProjetoDalia.Model.DTOS.Users.LoginDTO;
 import com.dalia.ProjetoDalia.Model.DTOS.Users.UsersDTO;
 import com.dalia.ProjetoDalia.Model.DTOS.Users.VerificationDTO;
 import com.dalia.ProjetoDalia.Model.Entity.Comments;
@@ -7,6 +8,7 @@ import com.dalia.ProjetoDalia.Model.Entity.Users.Users;
 import com.dalia.ProjetoDalia.Model.Repository.UsersRepository;
 import com.dalia.ProjetoDalia.Services.EmailService;
 import com.dalia.ProjetoDalia.Services.Interface.IUsersService;
+import com.dalia.ProjetoDalia.Services.TokenService;
 import org.apache.catalina.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,11 +25,13 @@ public class UsersServices implements IUsersService{
     private final UsersRepository usersRepository;
     private final EmailService emailService;
     public final BCryptPasswordEncoder passwordEncoder;
+    public final TokenService tokenService;
 
-    public UsersServices(UsersRepository usersRepository, EmailService emailService, BCryptPasswordEncoder passwordEncoder) {
+    public UsersServices(UsersRepository usersRepository, EmailService emailService, BCryptPasswordEncoder passwordEncoder, TokenService tokenService) {
         this.usersRepository = usersRepository;
         this.emailService = emailService;
         this.passwordEncoder = passwordEncoder;
+        this.tokenService = tokenService;
     }
 
 
@@ -109,5 +113,25 @@ public class UsersServices implements IUsersService{
         }
 
         return "Codigo invalido";
+    }
+
+    public String login(LoginDTO loginDTO){
+        var usersOptional = usersRepository.findByEmail(loginDTO.email());
+
+        if(usersOptional.isEmpty()){
+            return "E-mail invalido";
+        }
+
+        Users user = usersOptional.get();
+
+        if(!user.isEnable()){
+            return "Precisa confirmar o email";
+        }
+
+        if(passwordEncoder.matches(loginDTO.password(), user.getPassword())){
+            return tokenService.generateToken(user);
+        }
+
+        return "E-mail ou senha invalido";
     }
 }

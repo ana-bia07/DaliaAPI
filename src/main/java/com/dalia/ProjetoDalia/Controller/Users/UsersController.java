@@ -1,8 +1,6 @@
 package com.dalia.ProjetoDalia.Controller.Users;
 
-import com.dalia.ProjetoDalia.Model.DTOS.Users.SearchDTO;
-import com.dalia.ProjetoDalia.Model.DTOS.Users.UsersDTO;
-import com.dalia.ProjetoDalia.Model.DTOS.Users.VerificationDTO;
+import com.dalia.ProjetoDalia.Model.DTOS.Users.*;
 import com.dalia.ProjetoDalia.Model.Entity.Users.Search;
 import com.dalia.ProjetoDalia.Model.Entity.Users.Users;
 import com.dalia.ProjetoDalia.Services.Users.SearchService;
@@ -64,22 +62,9 @@ public class UsersController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam("email") String email, @RequestParam("password") String password, Model model, HttpSession Session) {
-        Optional<UsersDTO> optionalUser = usersService.getByEmail(email);
-        if (optionalUser.isPresent()) {
-            Users user = optionalUser.get().toEntity();
-            if (user.getPassword().equals(password)) {
-                Session.setAttribute("idUser", user.getId());
-
-                if (user.getSearch() != null) {
-                    Session.setAttribute("search", user.getSearch());
-                }
-                model.addAttribute("user", user);
-                return "redirect:/home";
-            }
-        }
-        model.addAttribute("error", "E-mail ou senha inválidos!");
-        return "Login";
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid LoginDTO loginDTO) {
+        String token = usersService.login(loginDTO);
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
     @GetMapping("/search")

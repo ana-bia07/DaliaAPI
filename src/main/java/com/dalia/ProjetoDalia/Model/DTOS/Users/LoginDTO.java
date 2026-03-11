@@ -9,12 +9,12 @@ public record LoginDTO(
         @Email(message = "E-mail invalido")
         String email,
         @NotBlank(message = "A senha é obrigatoria")
-        String passsord
+        String password
 ) {
     public Users toEntity(){
         Users user = new Users();
         user.setEmail(this.email());
-        user.setPassword(this.passsord());
+        user.setPassword(this.password());
         return user;
     }
 }
