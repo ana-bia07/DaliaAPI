@@ -37,6 +37,7 @@ public class UsersController {
         return "landingP";
     }
 
+    //cria o conta
     @PostMapping("/criarUsuario")
     public ResponseEntity<?> createUserForm(@Valid @RequestBody UsersDTO user, @RequestParam String passconfirmation) {
         if (!user.password().equals(passconfirmation)) {
@@ -51,6 +52,7 @@ public class UsersController {
         }
     }
 
+    //verifica email
     @PostMapping("/verify")
     public ResponseEntity<String> verify(@RequestBody @Valid VerificationDTO verificationDTO) {
         String result = usersService.verifyEmail(verificationDTO);
@@ -61,24 +63,13 @@ public class UsersController {
         return ResponseEntity.badRequest().body(result);
     }
 
+    //cria o token de navegação
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid LoginDTO loginDTO) {
         String token = usersService.login(loginDTO);
         return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
-    @GetMapping("/search")
-    public String mostrarFormulario(Model model,HttpSession session) {
-        String idUser = (String) session.getAttribute("idUser");
-
-        if(idUser == null) {
-            return "redirect:/cadastro";
-        }
-
-        model.addAttribute("idUser", idUser);
-        model.addAttribute("search", new Search());
-        return "perguntas";
-    }
 
     @PostMapping("/salvar-respostas")
     public String processarFormulario(@ModelAttribute("search") SearchDTO search, HttpSession session) {

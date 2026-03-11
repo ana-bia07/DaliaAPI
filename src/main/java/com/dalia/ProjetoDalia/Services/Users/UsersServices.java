@@ -94,7 +94,7 @@ public class UsersServices implements IUsersService{
         return Optional.of(existingUser);
     }
 
-    //vericaemail
+    //verica email
     public String verifyEmail(VerificationDTO verificationDTO){
         var userOptional = usersRepository.findByEmail(verificationDTO.email());
         if(userOptional.isEmpty()){
@@ -115,6 +115,7 @@ public class UsersServices implements IUsersService{
         return "Codigo invalido";
     }
 
+    //faz o login
     public String login(LoginDTO loginDTO){
         var usersOptional = usersRepository.findByEmail(loginDTO.email());
 
@@ -123,11 +124,11 @@ public class UsersServices implements IUsersService{
         }
 
         Users user = usersOptional.get();
-
+        //verifica se ja foi validado o email
         if(!user.isEnable()){
             return "Precisa confirmar o email";
         }
-
+        //compara a senha com o banco
         if(passwordEncoder.matches(loginDTO.password(), user.getPassword())){
             return tokenService.generateToken(user);
         }

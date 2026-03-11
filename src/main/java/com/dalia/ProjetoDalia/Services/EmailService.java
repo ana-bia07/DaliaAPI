@@ -11,6 +11,7 @@ public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
 
+    //logica da denuncia que envia o email pra delegacia da mulher (vulgo guilherme)
     public void enviarDenuncia(String conteudo) {
         SimpleMailMessage mensagem = new SimpleMailMessage();
         mensagem.setTo("araujog175@gmail.com");
@@ -20,11 +21,12 @@ public class EmailService {
         mailSender.send(mensagem);
     }
 
+    //envia o email com o codigo para a usuaria
     public void sendToken(String to, String token){
         SimpleMailMessage message =  new SimpleMailMessage();
         message.setTo(to);
         message.setSubject("Codigo de verificação - Dalia");
-        message.setText("Olá! Seu codgio de verificação para o app Dalia Calendario menstrual é:"
+        message.setText("Olá! \nSeu codigo de verificação para o app Dalia Calendario menstrual é: \n"
                         + token +
                         "\nEste codigo expira em 15 minutos.");
         mailSender.send(message);
