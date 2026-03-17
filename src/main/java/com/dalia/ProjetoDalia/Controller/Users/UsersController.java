@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -71,16 +72,11 @@ public class UsersController {
     }
 
 
-    @PostMapping("/salvar-respostas")
-    public String processarFormulario(@ModelAttribute("search") SearchDTO search, HttpSession session) {
-        String idUser = (String) session.getAttribute("idUser");
-        if (idUser == null) {
-            return "redirect:/login";
-        }
-
-        searchService.saveOrUpdateSearchForUser(idUser, search);
-        session.setAttribute("search", search.toEntity());
-
-        return "redirect:/Mhome";
+    @PostMapping("/search")
+    public ResponseEntity<SearchDTO> saveSearch(@RequestBody @Valid SearchDTO searchdto) {
+       Users userLogado = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+       SearchDTO savedSearch = searchService.saveOrUpdateSearchForUser(userLogado.getId(), searchdto)
+               .orElseThrow(() -> new RuntimeException("Usuário não encontrado para salvar pesquisa"));
+       return ResponseEntity.ok(savedSearch);
     }
 }

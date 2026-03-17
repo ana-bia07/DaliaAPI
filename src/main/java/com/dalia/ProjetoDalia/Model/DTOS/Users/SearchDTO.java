@@ -12,8 +12,8 @@ public record SearchDTO(
         int cycleDuration,
         Integer menstruationDuration,
         List<Integer> cycleHistory,
-        Integer minCycleDuration,
-        Integer maxCycleDuration
+        int minCycleDuration,
+        int maxCycleDuration
 ) {
     public Search toEntity() {
         return new Search(

@@ -27,70 +27,8 @@ public class PerfilController {
     private EmailService emailService;
     private PregnancyMonitoringService pregnancyService;
 
-    @GetMapping("/perfilM")
-    public String perfil(Model model, HttpSession session) {
-        String modo = (String) session.getAttribute("modoAtual");
-        String idUser = (String) session.getAttribute("idUser");
-        if (idUser == null) {
-            return "redirect:/login";
-        }
-
-        Optional<PregnancyMonitoringDTO> dtoP = pregnancyService.getPregnancyByIdUser(idUser);
-
-        if(dtoP.isPresent() == true){
-            modo = "gravidez";
-        } else {
-            modo = "menstruação";
-        }
-        model.addAttribute("modoAtual", modo);
-
-        Optional<Users> userOpt = usersRepository.findById(idUser);
-        if (userOpt.isPresent()) {
-            Users user = userOpt.get();
-            if (user.getSearch() == null) user.setSearch(new Search());
-            UsersDTO dto = new UsersDTO(user);
-            model.addAttribute("userDTO", dto);
-            return "perfilM";
-        } else {
-            return "redirect:/login";
-        }
-    }
-
-    @PostMapping("/Home/perfilM")
-    public String atualizarPerfilM(@ModelAttribute("userDTO") UsersDTO userDTO, HttpSession session) {
-        String idUser = (String) session.getAttribute("idUser");
-        if (idUser == null) {
-            return "redirect:/login";
-        }
-
-        Optional<Users> userOriginalOpt = usersRepository.findById(idUser);
-        if (userOriginalOpt.isPresent()) {
-            Users user = userOriginalOpt.get();
-
-            user.setName(userDTO.name());
-            user.setSurname(userDTO.surname());
-            user.setEmail(userDTO.email());
-            if (userDTO.password() == null || userDTO.password().isBlank()) {
-            } else {
-                user.setPassword(userDTO.password());
-            }
-            if (user.getSearch() == null) {
-                user.setSearch(new Search());
-            }
-            user.getSearch().setAge(userDTO.search().getAge());
-            user.getSearch().setUseContraceptive(userDTO.search().isUseContraceptive());
-            user.getSearch().setContraceptiveType(userDTO.search().getContraceptiveType());
-
-            usersRepository.save(user);
-
-            return "redirect:/perfilM";
-        } else {
-            return "redirect:/login";
-        }
-    }
-
-    @PostMapping("/Home/perfilG")
-    public String atualizarPerfilG(@ModelAttribute("userDTO") UsersDTO userDTO, HttpSession session) {
+    @PostMapping("/updatePerfil")
+    public String updatePerfil(@ModelAttribute("userDTO") UsersDTO userDTO, HttpSession session) {
         String idUser = (String) session.getAttribute("idUser");
         if (idUser == null) {
             return "redirect:/login";

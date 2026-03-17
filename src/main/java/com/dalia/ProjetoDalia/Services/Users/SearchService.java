@@ -3,7 +3,6 @@ package com.dalia.ProjetoDalia.Services.Users;
 import com.dalia.ProjetoDalia.Model.DTOS.Users.SearchDTO;
 import com.dalia.ProjetoDalia.Model.DTOS.Users.UserCycleDataDTO;
 import com.dalia.ProjetoDalia.Model.Entity.Users.Search;
-import com.dalia.ProjetoDalia.Model.Entity.Comments;
 import com.dalia.ProjetoDalia.Model.Entity.Users.Users;
 import com.dalia.ProjetoDalia.Model.Repository.SearchRepository;
 import com.dalia.ProjetoDalia.Model.Repository.UsersRepository;
@@ -12,8 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
+
 
 @Service
 @RequiredArgsConstructor
@@ -32,6 +31,10 @@ public class SearchService implements ISearchService {
         // Se o usuário ainda não tiver pesquisa, cria uma nova
         if (search == null) {
             search = searchDTO.toEntity();
+            if (search.getCycleDuration() > 0) {
+                search.setMinCycleDuration(search.getCycleDuration());
+                search.setMaxCycleDuration(search.getCycleDuration());
+            }
         } else {
             // Atualiza os campos existentes
             search.setAge(searchDTO.age());
@@ -101,24 +104,23 @@ public class SearchService implements ISearchService {
                 ));
     }
 
-    // Dentro do SearchService
+    public UserCycleDataDTO registrarCliqueBotao(String userId) {
+        Users user = usersRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-    public Optional<UserCycleDataDTO> getUserCycleData(String userId) {
-        return usersRepository.findById(userId)
-                .map(Users::getSearch)
-                .filter(Objects::nonNull) // Garante que o objeto search existe
-                .map(search -> {
-                    Integer min = search.getMinCycleDuration();
-                    Integer max = search.getMaxCycleDuration();
+        Search search = user.getSearch();
+        if (search == null) throw new RuntimeException("Usuário ainda não fez a pesquisa inicial");
 
-                    // Retorna um Optional com o novo DTO se os dados existirem
-                    if (min != null && max != null) {
-                        return new UserCycleDataDTO(min, max);
-                    }
-                    return null;
-                });
+        search.setLastMenstruationDay(LocalDate.now());
+
+        usersRepository.save(user);
+
+        return getStatusCalendario(userId);
     }
 
+
+
+    //Calculamos o ciclo atravez do metodo ogino-knaus masio conhecido como tabelinha
     // Verifica se a data está dentro do período da menstruação (5 dias a partir da última menstruação)
     public boolean isMenstruacao(LocalDate data, LocalDate ultimaMenstruacao) {
         LocalDate fimMenstruacao = ultimaMenstruacao.plusDays(4); // 5 dias (0 a 4)
@@ -151,5 +153,39 @@ public class SearchService implements ISearchService {
 
         // O dia da ovulação é 2 dias antes do fim do período fértil
         return dataFimFertil.minusDays(2);
+    }
+
+    public UserCycleDataDTO getStatusCalendario(String userId){
+        Users user = usersRepository.findById(userId)
+                .orElseThrow(()-> new RuntimeException("User not found"));
+        //pega pesquisa
+        var search = user.getSearch();
+        //pega data de hoje
+        LocalDate hoje =LocalDate.now();
+        //pega a duração do ciclo maximo e o minino e a ultima a data menstruação
+        int min = search.getMinCycleDuration();
+        int max = search.getMaxCycleDuration();
+        LocalDate ultimaM = search.getLastMenstruationDay();
+        // recebe true ou false de acordo com os metodos
+        boolean m = isMenstruacao(hoje, ultimaM);
+        boolean f = isPeriodoFertil(hoje, ultimaM, min, max);
+        boolean o = isOvulacao(hoje, ultimaM, max);
+        //cria uma varivel atraso para os dias que era pra menstrar e não foi registrado
+        //menstruação
+        long atrasos = 0;
+        LocalDate previsao =  ultimaM.plusDays(search.getCycleDuration());
+        //se hoje for depois do dia da previsãoe diferente de menstraução true
+        if(hoje.isAfter(previsao) && !m){
+            //add dias de atraso
+            atrasos = java.time.temporal.ChronoUnit.DAYS.between(previsao, hoje);
+        }
+
+        LocalDate fimM = ultimaM.plusDays(search.getMenstruationDuration() - 1);
+        LocalDate iniFertil = ultimaM.plusDays(min - 18);
+        LocalDate fimFertil = ultimaM.plusDays(max - 11);
+        LocalDate diaOvu = fimFertil.minusDays(2);
+
+        return new UserCycleDataDTO(min, max, ultimaM, m, f, o, atrasos,
+                fimM, iniFertil, fimFertil, diaOvu);
     }
 }

@@ -25,6 +25,6 @@ public class Search {
     private Integer menstruationDuration = 5;
     private int cycleDuration;
     private List<Integer> cycleHistory = new ArrayList<>();
-    private Integer minCycleDuration;
-    private Integer maxCycleDuration;
+    private int minCycleDuration;
+    private int maxCycleDuration;
 }

@@ -1,14 +1,20 @@
 package com.dalia.ProjetoDalia.Model.DTOS.Users;
 
-public record UserCycleDataDTO (
-    int minCycleDuration,
-    int maxCycleDuration
-){
-    public int getMinCycleDuration() {
-        return minCycleDuration;
-    }
+import java.time.LocalDate;
 
-    public int getMaxCycleDuration() {
-        return maxCycleDuration;
-    }
+public record UserCycleDataDTO (
+        int minCycleDuration,
+        int maxCycleDuration,
+        LocalDate lastMenstruationDay,
+        boolean isMenstruando,
+        boolean isPeriodoFertil,
+        boolean isOvulacao,
+        long diasDeAtraso,
+        LocalDate inicioMenstruacao,
+        LocalDate fimMenstruacao,
+        LocalDate inicioPeriodoFertil,
+        LocalDate fimPeriodoFertil,
+        LocalDate diaOvulacao
+) {
+
 }

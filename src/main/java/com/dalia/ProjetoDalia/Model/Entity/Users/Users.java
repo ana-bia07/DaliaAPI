@@ -40,6 +40,8 @@ public class Users implements UserDetails {
         return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
+    public String getId(){return id;}
+
     @Override
     public String getUsername() {
         return email; // O e-mail será o seu login

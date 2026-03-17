@@ -20,32 +20,10 @@ import java.util.*;
 
 @Controller
 @RequiredArgsConstructor
-public class HomeController {
+public class  HomeController {
 
     private final SearchService searchService;
     private final UsersServices userService;
-
-    @GetMapping("/Mhome")
-    public String homePage(Model model, @Nullable Principal principal) {
-        if (principal == null) {
-            model.addAttribute("userId", "visitante");
-            return "homeM1";
-        }
-
-
-        UsersDTO usuario = userService.getByEmail(principal.getName())
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-        model.addAttribute("userId", usuario.id());
-        return "homeM1";
-    }
-
-    @GetMapping("/saibaMais")
-    public String redirectToLandingPage() {
-        return "homeM2";
-    }
-
-
-
     @ResponseBody
     @GetMapping("/api/ciclo5dias-home/{idUser}")
     public List<Map<String, String>> getEventosCiclo5Dias(@PathVariable String idUser) {
