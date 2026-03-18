@@ -23,6 +23,7 @@ SecurityFilter securityFilter;
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.GET, "/").permitAll()
                         .requestMatchers(HttpMethod.POST, "/criarUsuario").permitAll()
                         .requestMatchers(HttpMethod.POST, "/verify").permitAll()
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()

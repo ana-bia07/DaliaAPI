@@ -10,7 +10,6 @@ public record UserCycleDataDTO (
         boolean isPeriodoFertil,
         boolean isOvulacao,
         long diasDeAtraso,
-        LocalDate inicioMenstruacao,
         LocalDate fimMenstruacao,
         LocalDate inicioPeriodoFertil,
         LocalDate fimPeriodoFertil,
