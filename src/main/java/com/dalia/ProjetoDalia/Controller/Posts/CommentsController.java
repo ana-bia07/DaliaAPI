@@ -19,7 +19,7 @@ public class CommentsController {
     @Autowired
     private CommentsService commentsService;
 
-    @PostMapping("/{postId}/add")
+    @PostMapping("/{postId}/addComment")
     public ResponseEntity<CommentsDTO> addComment(
             @PathVariable String postId,
             @RequestBody CommentsDTO commentsDTO
@@ -28,11 +28,11 @@ public class CommentsController {
 
         Comments novoComentario = commentsDTO.toEntity();
 
-        novoComentario.setIdUsers(userLogado.getId()); // Dono do comentário
-        novoComentario.setCreatedAt(Instant.now()); // Nome anônimo
+        novoComentario.setIdUsers(userLogado.getId());
+        novoComentario.setCreatedAt(Instant.now());
 
-        Optional<Comments> savedComment = commentsService.addComment(postId, CommentsDTO.fromEntity(novoComentario));
-
-        return ResponseEntity.ok(CommentsDTO.fromEntity(savedComment.orElse(null)));
+        return commentsService.addComment(postId, novoComentario)
+                .map(savedEntity -> ResponseEntity.ok(CommentsDTO.fromEntity(savedEntity, userLogado.getId())))
+                .orElse(ResponseEntity.notFound().build());
     }
 }

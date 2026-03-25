@@ -32,7 +32,7 @@ public class PostsController {
         return ResponseEntity.ok(postsDTOs);
     }
 
-    @PostMapping("/create-form")
+    @PostMapping("/create")
     public ResponseEntity<PostsDTO> createPost(@RequestBody PostsDTO postsDTO) {
         Users userLogado = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Posts post = postsDTO.toEntity();
