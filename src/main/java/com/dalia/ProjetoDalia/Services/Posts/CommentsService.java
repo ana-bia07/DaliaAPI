@@ -1,5 +1,6 @@
 package com.dalia.ProjetoDalia.Services.Posts;
 
+import com.dalia.ProjetoDalia.Model.DTOS.Posts.CommentsDTO;
 import com.dalia.ProjetoDalia.Model.Entity.Comments;
 import com.dalia.ProjetoDalia.Model.Entity.Posts;
 import com.dalia.ProjetoDalia.Model.Repository.PostsRepository;
@@ -16,13 +17,13 @@ public class CommentsService {
 
     private final PostsRepository postsRepository;
 
-    public Optional<Posts> addComment(String postId, Comments comment) {
+    public Optional<Comments> addComment(String postId, CommentsDTO commentdto) {
         Optional<Posts> postOpt = postsRepository.findById(postId);
         if (postOpt.isPresent()) {
             Posts post = postOpt.get();
-            post.getComments().add(comment);
+            post.getComments().add(commentdto.toEntity());
             postsRepository.save(post);
-            return Optional.of(post);
+            return Optional.of(commentdto.toEntity());
         }
         return Optional.empty();
     }

@@ -8,7 +8,7 @@ import java.util.List;
 
 public record PostsDTO(
         String id,
-        String idUsers,
+        String autherName,
         String title,
         String content,
         Integer likes,
@@ -19,7 +19,7 @@ public record PostsDTO(
         int likesValue = (likes != null) ? likes : 0;
         return new Posts(
                 id,
-                idUsers,
+                "user Dalia",
                 title,
                 content,
                 likesValue,
@@ -31,7 +31,7 @@ public record PostsDTO(
     public static PostsDTO fromEntity(Posts post) {
         return new PostsDTO(
                 post.getId(),
-                post.getIdUsers(),
+                "user Dalia",
                 post.getTitle(),
                 post.getContent(),
                 post.getLikes(),

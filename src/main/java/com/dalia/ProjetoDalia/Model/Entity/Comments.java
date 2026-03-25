@@ -16,6 +16,8 @@ import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Comments {
+    @Id
+    private String id;
     private String idUsers;
     private String comment;
     private Instant createdAt;
