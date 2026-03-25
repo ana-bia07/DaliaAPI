@@ -1,39 +1,41 @@
 package com.dalia.ProjetoDalia.Controller;
 
-import com.dalia.ProjetoDalia.Model.DTOS.Users.PregnancyMonitoringDTO;
 import com.dalia.ProjetoDalia.Model.DTOS.Users.UsersDTO;
 import com.dalia.ProjetoDalia.Model.Entity.Users.PregnancyMonitoring;
 import com.dalia.ProjetoDalia.Model.Entity.Users.Search;
-import com.dalia.ProjetoDalia.Model.Entity.Comments;
 import com.dalia.ProjetoDalia.Model.Entity.Users.Users;
 import com.dalia.ProjetoDalia.Model.Repository.UsersRepository;
 import com.dalia.ProjetoDalia.Services.EmailService;
 import com.dalia.ProjetoDalia.Services.Users.PregnancyMonitoringService;
-import jakarta.servlet.http.HttpSession;
+import com.dalia.ProjetoDalia.Services.Users.UsersServices;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@Controller
+@RestController
 @AllArgsConstructor
+@RequestMapping("/api")
 public class PerfilController {
     private final UsersRepository usersRepository;
+    private final UsersServices usersServices;
     private EmailService emailService;
     private PregnancyMonitoringService pregnancyService;
 
-    @PostMapping("/updatePerfil")
-    public String updatePerfil(@ModelAttribute("userDTO") UsersDTO userDTO, HttpSession session) {
-        String idUser = (String) session.getAttribute("idUser");
-        if (idUser == null) {
-            return "redirect:/login";
-        }
+    @GetMapping("/perfilView")
+    public ResponseEntity<?> getPerfil() {
+        Users usersLogado = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
+        Optional<UsersDTO> perfil = usersServices.getUserById(usersLogado.getId());
+        return ResponseEntity.ok(perfil);
+    }
+    @PostMapping("/updatePerfil")
+    public ResponseEntity<?> updatePerfil(@RequestBody @Valid UsersDTO userDTO) {
+        Users userLogado = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String idUser = userLogado.getId();
         Optional<Users> userOriginalOpt = usersRepository.findById(idUser);
         if (userOriginalOpt.isPresent()) {
             Users user = userOriginalOpt.get();
