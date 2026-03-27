@@ -22,7 +22,7 @@ import java.util.Optional;
 
 @Tag(name = "Usuários")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/user")
 public class UsersController {
 
     private final UsersServices usersService;

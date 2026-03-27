@@ -1,5 +1,6 @@
-package com.dalia.ProjetoDalia.Controller;
+package com.dalia.ProjetoDalia.Controller.Users;
 
+import com.dalia.ProjetoDalia.Model.DTOS.Users.SearchDTO;
 import com.dalia.ProjetoDalia.Model.DTOS.Users.UsersDTO;
 import com.dalia.ProjetoDalia.Model.Entity.Users.PregnancyMonitoring;
 import com.dalia.ProjetoDalia.Model.Entity.Users.Search;
@@ -7,32 +8,44 @@ import com.dalia.ProjetoDalia.Model.Entity.Users.Users;
 import com.dalia.ProjetoDalia.Model.Repository.UsersRepository;
 import com.dalia.ProjetoDalia.Services.EmailService;
 import com.dalia.ProjetoDalia.Services.Users.PregnancyMonitoringService;
+import com.dalia.ProjetoDalia.Services.Users.SearchService;
 import com.dalia.ProjetoDalia.Services.Users.UsersServices;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/perfil")
 public class PerfilController {
     private final UsersRepository usersRepository;
     private final UsersServices usersServices;
     private EmailService emailService;
+    private final SearchService searchService;
     private PregnancyMonitoringService pregnancyService;
+    private final PasswordEncoder passwordEncoder;
+
 
     @GetMapping("/perfilView")
     public ResponseEntity<?> getPerfil() {
-        Users usersLogado = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Users userLogado = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        Optional<UsersDTO> perfil = usersServices.getUserById(usersLogado.getId());
-        return ResponseEntity.ok(perfil);
+        Map<String, Object> response = new HashMap<>();
+        response.put("user", usersServices.getUserById(userLogado.getId()));
+        response.put("search", searchService.getSearchByIdUsers(userLogado.getId()));
+
+        return ResponseEntity.ok(response);
     }
-    @PostMapping("/updatePerfil")
+    @PutMapping("/updatePerfil")
     public ResponseEntity<?> updatePerfil(@RequestBody @Valid UsersDTO userDTO) {
         Users userLogado = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String idUser = userLogado.getId();
@@ -45,7 +58,7 @@ public class PerfilController {
             user.setEmail(userDTO.email());
             if (userDTO.password() == null || userDTO.password().isBlank()) {
             } else {
-                user.setPassword(userDTO.password());
+                user.setPassword(passwordEncoder.encode(userDTO.password()));
             }
             if (user.getSearch() == null) {
                 user.setSearch(new Search());
@@ -61,9 +74,9 @@ public class PerfilController {
 
             usersRepository.save(user);
 
-            return "redirect:/perfilG";
+            return ResponseEntity.ok(user);
         } else {
-            return "redirect:/login";
+            return ResponseEntity.badRequest().body("usuario não encontrado");
         }
     }
 
@@ -73,25 +86,4 @@ public class PerfilController {
 
     return "redirect:/perfil?denuncia=enviada";
     }
-
-    @GetMapping("/perfilG")
-    public String perfilGravidez(Model model, HttpSession session) {
-        String idUser = (String) session.getAttribute("idUser");
-        if (idUser == null) {
-            return "redirect:/login";
-        }
-
-        Optional<Users> userOpt = usersRepository.findById(idUser);
-        if (userOpt.isPresent()) {
-            Users user = userOpt.get();
-            if (user.getSearch() == null) user.setSearch(new Search());
-            UsersDTO dto = new UsersDTO(user);
-            model.addAttribute("userDTO", dto);
-            model.addAttribute("modoAtual", "gravidez");
-            return "perfilG"; // nome do arquivo HTML do modo gravidez
-        } else {
-            return "redirect:/login";
-        }
-    }
-
 }

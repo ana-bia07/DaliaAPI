@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Tag(name = "Reports")
-@RequestMapping("/reports")
+@RequestMapping("/api/reports")
 @RestController
 @RequiredArgsConstructor
 public class ReportController {
