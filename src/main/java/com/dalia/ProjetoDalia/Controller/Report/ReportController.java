@@ -2,14 +2,21 @@ package com.dalia.ProjetoDalia.Controller.Report;
 
 import com.dalia.ProjetoDalia.Model.DTOS.Reports.ReportDTO;
 import com.dalia.ProjetoDalia.Model.Entity.Report;
+import com.dalia.ProjetoDalia.Model.Entity.Users.Users;
+import com.dalia.ProjetoDalia.Services.EmailService;
 import com.dalia.ProjetoDalia.Services.Report.ReportService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Tag(name = "Reports")
@@ -19,6 +26,25 @@ import java.util.Optional;
 public class ReportController {
 
     private final ReportService reportService;
+    private final EmailService emailService;
+
+    @PostMapping("/enviar-denuncia")
+    public ResponseEntity<?> enviarDenuncia(@RequestBody String mensagem) {
+        Users userLogado = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String corpo = "ALERTA: A usuária " + userLogado.getName() + " enviou um relato de abuso.\n" +
+                "E-mail de contato: " + userLogado.getEmail() + "\n" +
+                "Data/Hora: " + LocalDateTime.now() + "\n\n" +
+                "RELATO DA USUÁRIA:\n" + mensagem;
+
+        emailService.enviarDenuncia(corpo);
+
+        // 4. Retornamos uma mensagem de acolhimento para o Android
+        Map<String, String> response = new HashMap<>();
+        response.put("status", "success");
+        response.put("message", "Seu relato foi recebido com total sigilo. Você não está sozinha.");
+
+        return ResponseEntity.ok(response);
+    }
 
     @PostMapping("/{idUsers}")
     public ResponseEntity<Report> createReport(@PathVariable String idUsers, @RequestBody ReportDTO reportDTO) {

@@ -80,10 +80,5 @@ public class PerfilController {
         }
     }
 
-    @PostMapping("/enviar-denuncia")
-    public String enviarDenuncia(@RequestParam("mensagem") String mensagem) {
-    emailService.enviarDenuncia(mensagem);
 
-    return "redirect:/perfil?denuncia=enviada";
-    }
 }

@@ -14,8 +14,8 @@ public class EmailService {
     //logica da denuncia que envia o email pra delegacia da mulher (vulgo guilherme)
     public void enviarDenuncia(String conteudo) {
         SimpleMailMessage mensagem = new SimpleMailMessage();
-        mensagem.setTo("araujog175@gmail.com");
-        mensagem.setSubject("Denuncia Dalia");
+        mensagem.setTo("analed988@gmail.com");
+        mensagem.setSubject("ALERTA DE SEGURANÇA - Usuária solicitando apoio");
         mensagem.setText(conteudo);
 
         mailSender.send(mensagem);
