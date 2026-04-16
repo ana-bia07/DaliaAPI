@@ -130,7 +130,7 @@ public class UsersServices implements IUsersService{
         }
         //compara a senha com o banco
         if(passwordEncoder.matches(loginDTO.password(), user.getPassword())){
-            return tokenService.generateToken(user);
+            return tokenService.generateTokenAccess(user);
         }
 
         return "E-mail ou senha invalido";

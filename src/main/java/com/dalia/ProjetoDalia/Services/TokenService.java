@@ -18,7 +18,8 @@ import java.time.ZoneOffset;
 public class TokenService {
     private String secret = "dalia-secret-123";
 
-    public String generateToken(Users user) {
+    //Access token
+    public String generateTokenAccess(Users user) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.create()
@@ -43,8 +44,8 @@ public class TokenService {
             return "";
         }
     }
-
+    //15 minutos
     private Instant genExpirationDate() {
-        return LocalDateTime.now().plusDays(40).toInstant(ZoneOffset.of("-03:00"));
+        return LocalDateTime.now().plusMinutes(15).toInstant(ZoneOffset.of("-03:00"));
     }
 }
