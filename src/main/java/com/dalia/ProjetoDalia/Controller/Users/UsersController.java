@@ -3,6 +3,7 @@ package com.dalia.ProjetoDalia.Controller.Users;
 import com.dalia.ProjetoDalia.Model.DTOS.Users.*;
 import com.dalia.ProjetoDalia.Model.Entity.Users.Search;
 import com.dalia.ProjetoDalia.Model.Entity.Users.Users;
+import com.dalia.ProjetoDalia.Services.TokenService;
 import com.dalia.ProjetoDalia.Services.Users.SearchService;
 import com.dalia.ProjetoDalia.Services.Users.UsersServices;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,11 +28,12 @@ public class UsersController {
 
     private final UsersServices usersService;
     private final SearchService searchService;
+    private final TokenService tokenService;
 
-    public UsersController(UsersServices usersServices, SearchService searchService) {
+    public UsersController(UsersServices usersServices, SearchService searchService, TokenService tokenService) {
         this.usersService = usersServices;
         this.searchService = searchService;
-
+        this.tokenService = tokenService;
     }
 
     @GetMapping("/")
@@ -67,9 +69,23 @@ public class UsersController {
 
     //cria o token de navegação
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid LoginDTO loginDTO) {
-        String token = usersService.login(loginDTO);
-        return ResponseEntity.ok(new LoginResponseDTO(token));
+    public ResponseEntity<?> login(@RequestBody @Valid LoginDTO loginDTO) {
+        try {
+            LoginResponseDTO respose = usersService.login(loginDTO);
+            return ResponseEntity.ok(respose);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<?> refreshToken(@RequestBody RequestRTokenDTO refreshTokendto) {
+        try{
+            LoginResponseDTO response = tokenService.getRefreshToken(refreshTokendto.refreshToken());
+            return ResponseEntity.ok(response);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 

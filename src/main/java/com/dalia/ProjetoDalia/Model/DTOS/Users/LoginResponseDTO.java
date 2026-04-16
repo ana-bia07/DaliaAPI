@@ -1,4 +1,4 @@
 package com.dalia.ProjetoDalia.Model.DTOS.Users;
 
-public record LoginResponseDTO(String token) {
+public record LoginResponseDTO(String token, String refreshToken) {
 }

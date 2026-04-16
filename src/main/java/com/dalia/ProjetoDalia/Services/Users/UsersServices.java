@@ -1,6 +1,7 @@
 package com.dalia.ProjetoDalia.Services.Users;
 
 import com.dalia.ProjetoDalia.Model.DTOS.Users.LoginDTO;
+import com.dalia.ProjetoDalia.Model.DTOS.Users.LoginResponseDTO;
 import com.dalia.ProjetoDalia.Model.DTOS.Users.UsersDTO;
 import com.dalia.ProjetoDalia.Model.DTOS.Users.VerificationDTO;
 import com.dalia.ProjetoDalia.Model.Entity.Comments;
@@ -116,23 +117,23 @@ public class UsersServices implements IUsersService{
     }
 
     //faz o login
-    public String login(LoginDTO loginDTO){
+    public LoginResponseDTO login(LoginDTO loginDTO){
         var usersOptional = usersRepository.findByEmail(loginDTO.email());
 
         if(usersOptional.isEmpty()){
-            return "E-mail invalido";
+            throw new RuntimeException("E-mail invalido");
         }
 
         Users user = usersOptional.get();
         //verifica se ja foi validado o email
         if(!user.isEnable()){
-            return "Precisa confirmar o email";
+            throw new RuntimeException("Precisa confirmar o email");
         }
         //compara a senha com o banco
         if(passwordEncoder.matches(loginDTO.password(), user.getPassword())){
-            return tokenService.generateToken(user);
+            return tokenService.getTokens(user);
         }
 
-        return "E-mail ou senha invalido";
+        throw new RuntimeException("E-mail ou senha invalido");
     }
 }
