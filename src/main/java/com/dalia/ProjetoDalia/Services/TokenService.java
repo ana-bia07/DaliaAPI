@@ -21,13 +21,14 @@ import java.time.ZoneOffset;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class TokenService {
     private String secret = "5ff4dadba7a366051049e7b2e2ef7c8e37951710";
 
     private Integer expirationToken = 1;
 
     private Integer expirationRefresh = 2190;
-    private UsersRepository usersRepository;
+    private final UsersRepository usersRepository;
 
     public LoginResponseDTO getTokens(Users user) {
         return new LoginResponseDTO(
