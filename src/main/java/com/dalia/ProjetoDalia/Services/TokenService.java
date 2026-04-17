@@ -9,6 +9,7 @@ import com.dalia.ProjetoDalia.Model.DTOS.Users.LoginResponseDTO;
 import com.dalia.ProjetoDalia.Model.DTOS.Users.UsersDTO;
 import com.dalia.ProjetoDalia.Model.Entity.Users.Users;
 import com.dalia.ProjetoDalia.Model.Repository.UsersRepository;
+import lombok.RequiredArgsConstructor;
 import org.apache.catalina.User;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
