@@ -43,8 +43,8 @@ public class UsersController {
 
     //cria o conta
     @PostMapping("/criarUsuario")
-    public ResponseEntity<?> createUserForm(@Valid @RequestBody UsersDTO user, @RequestParam String passconfirmation) {
-        if (!user.password().equals(passconfirmation)) {
+    public ResponseEntity<?> createUserForm(@Valid @RequestBody UsersDTO user) {
+        if (!user.password().equals(user.passConfirmation())) {
             return ResponseEntity.badRequest().body("As senhas não coincidem.");
         }
         try {

@@ -24,13 +24,14 @@ public record UsersDTO(
         )
         @NotBlank(message = "A senha é obrigatoria")
         String password,
+        String passConfirmation,
         boolean enable,
         Search search,
         PregnancyMonitoring pregnancyMonitoring
 ) {
 
     public UsersDTO() {
-        this(null, "", "", "", null,false, null, null);
+        this(null, "", "", "", null, "", false, null, null);
     }
 
     public UsersDTO(Users users){
@@ -40,6 +41,7 @@ public record UsersDTO(
                 users.getSurname(),
                 users.getEmail(),
                 users.getPassword(),
+                null,
                 users.isEnable(),
                 users.getSearch(),
                 users.getPregnancyMonitoring()
