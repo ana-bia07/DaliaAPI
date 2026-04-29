@@ -10,6 +10,7 @@ import com.dalia.ProjetoDalia.Model.Repository.UsersRepository;
 import com.dalia.ProjetoDalia.Services.EmailService;
 import com.dalia.ProjetoDalia.Services.Interface.IUsersService;
 import com.dalia.ProjetoDalia.Services.TokenService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,6 +21,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Random;
 
+@Slf4j
 @Service
 public class UsersServices implements IUsersService{
 
@@ -51,7 +53,11 @@ public class UsersServices implements IUsersService{
         var savedUser = usersRepository.save(user);
 
         //envia email do token
-        emailService.sendToken(savedUser.getEmail(),token);
+        try{
+            emailService.sendToken(savedUser.getEmail(),token);
+        } catch (Exception e){
+            log.error("Erro ao enviar email");
+        }
 
         return new UsersDTO(savedUser);
     }
