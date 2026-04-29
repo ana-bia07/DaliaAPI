@@ -1,5 +1,6 @@
 package com.dalia.ProjetoDalia.Controller.Users;
 
+import ch.qos.logback.core.testUtil.RandomUtil;
 import com.dalia.ProjetoDalia.Model.DTOS.Users.*;
 import com.dalia.ProjetoDalia.Model.Entity.Users.Search;
 import com.dalia.ProjetoDalia.Model.Entity.Users.Users;
@@ -58,13 +59,13 @@ public class UsersController {
 
     //verifica email
     @PostMapping("/verify")
-    public ResponseEntity<String> verify(@RequestBody @Valid VerificationDTO verificationDTO) {
-        String result = usersService.verifyEmail(verificationDTO);
-
-        if(result.contains("sucesso")){
+    public ResponseEntity<?> verify(@RequestBody @Valid VerificationDTO verificationDTO) {
+        try{
+            LoginResponseDTO result = usersService.verifyEmail(verificationDTO);
             return ResponseEntity.ok(result);
+        }catch (RuntimeException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
-        return ResponseEntity.badRequest().body(result);
     }
 
     //cria o token de navegação
