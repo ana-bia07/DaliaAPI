@@ -102,10 +102,10 @@ public class UsersServices implements IUsersService{
     }
 
     //verica email
-    public String verifyEmail(VerificationDTO verificationDTO){
+    public LoginResponseDTO verifyEmail(VerificationDTO verificationDTO){
         var userOptional = usersRepository.findByEmail(verificationDTO.email());
         if(userOptional.isEmpty()){
-            return "Usuaria não encontrada";
+            throw new RuntimeException("Usuaria não encontrada");
         }
 
         Users user = userOptional.get();
@@ -116,10 +116,10 @@ public class UsersServices implements IUsersService{
             user.setVerificationToken(null);
             usersRepository.save(user);
 
-            return "E-mail verificado com sucesso!";
+            return tokenService.getTokens(user);
         }
 
-        return "Codigo invalido";
+        throw new RuntimeException("Codigo invalido");
     }
 
     //faz o login

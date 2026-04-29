@@ -15,22 +15,31 @@ import org.springframework.stereotype.Service;
 public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
+    private Resend resend;
     @Value("${API_KEY}")
     private String apiKey;
 
+    @Async
     //logica da denuncia que envia o email pra delegacia da mulher (vulgo guilherme)
     public void enviarDenuncia(String conteudo) {
-        SimpleMailMessage mensagem = new SimpleMailMessage();
-        mensagem.setTo("analed988@gmail.com");
-        mensagem.setSubject("ALERTA DE SEGURANÇA - Usuária solicitando apoio");
-        mensagem.setText(conteudo);
-
-        mailSender.send(mensagem);
+        resend = new Resend(apiKey);
+        CreateEmailOptions params = CreateEmailOptions.builder()
+                .to("playy.story22@gmail.com")
+                .subject("ALERTA DE SEGURANÇA - Usuaria Dalia solciita apoio")
+                .html(conteudo)
+                .build();
+        try{
+            resend.emails().send(params);
+            System.out.println("Email enviado com sucesso!");
+        } catch (ResendException e) {
+            System.out.println("Email enviado com erro!" + e.getMessage());
+        }
     }
+
     @Async
     //envia o email com o codigo para a usuaria
     public void sendToken(String to, String token){
-        Resend resend = new Resend(apiKey);
+        resend = new Resend(apiKey);
 
         CreateEmailOptions params = CreateEmailOptions.builder()
             .from("Dalia <onboarding@resend.dev>")
