@@ -56,7 +56,7 @@ public class UsersServices implements IUsersService{
         try{
             emailService.sendToken(savedUser.getEmail(),token);
         } catch (Exception e){
-            log.error("Erro ao enviar email");
+            e.printStackTrace();
         }
 
         return new UsersDTO(savedUser);
