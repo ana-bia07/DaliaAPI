@@ -27,6 +27,7 @@ public class EmailService {
 
     public void sendToken(String to, String token) {
         SimpleMailMessage message =  new SimpleMailMessage();
+        message.setFrom("playy.story22@gmail.com");
         message.setTo(to);
         message.setSubject("Codigo de verificação - Dalia");
         message.setText("Olá! \nSeu codigo de verificação para o app Dalia Calendario menstrual é: \n"
