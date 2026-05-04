@@ -15,6 +15,27 @@ import org.springframework.stereotype.Service;
 public class EmailService {
     @Autowired
     private JavaMailSender mailSender;
+
+    public void enviarDenuncia(String conteudo) {
+        SimpleMailMessage mensagem = new SimpleMailMessage();
+        mensagem.setTo("analed988@gmail.com");
+        mensagem.setSubject("ALERTA DE SEGURANÇA - Usuária solicitando apoio");
+        mensagem.setText(conteudo);
+
+        mailSender.send(mensagem);
+    }
+
+    public void sendToken(String to, String token) {
+        SimpleMailMessage message =  new SimpleMailMessage();
+        message.setTo(to);
+        message.setSubject("Codigo de verificação - Dalia");
+        message.setText("Olá! \nSeu codigo de verificação para o app Dalia Calendario menstrual é: \n"
+                + token +
+                "\nEste codigo expira em 15 minutos.");
+        mailSender.send(message);
+    }
+    /*
+
     private Resend resend;
     @Value("${API_KEY}")
     private String apiKey;
@@ -55,6 +76,6 @@ public class EmailService {
         } catch (ResendException e) {
             System.out.println("Email enviado com erro!" + e.getMessage());
         }
-    }
+    }*/
 }
 
