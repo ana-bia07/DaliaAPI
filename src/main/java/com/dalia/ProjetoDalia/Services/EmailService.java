@@ -18,7 +18,8 @@ public class EmailService {
 
     public void enviarDenuncia(String conteudo) {
         SimpleMailMessage mensagem = new SimpleMailMessage();
-        mensagem.setTo("analed988@gmail.com");
+        mensagem.setFrom("analed988@gmail.com");
+        mensagem.setTo("playy.story22@gmail.com");
         mensagem.setSubject("ALERTA DE SEGURANÇA - Usuária solicitando apoio");
         mensagem.setText(conteudo);
 
@@ -27,7 +28,7 @@ public class EmailService {
 
     public void sendToken(String to, String token) {
         SimpleMailMessage message =  new SimpleMailMessage();
-        message.setFrom("playy.story22@gmail.com");
+        message.setFrom("analed988@gmail.com");
         message.setTo(to);
         message.setSubject("Codigo de verificação - Dalia");
         message.setText("Olá! \nSeu codigo de verificação para o app Dalia Calendario menstrual é: \n"
