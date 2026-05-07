@@ -180,10 +180,11 @@ public class SearchService implements ISearchService {
             atrasos = java.time.temporal.ChronoUnit.DAYS.between(previsao, hoje);
         }
 
-        LocalDate fimM = ultimaM.plusDays(search.getMenstruationDuration() - 1);
         LocalDate iniFertil = ultimaM.plusDays(min - 18);
         LocalDate fimFertil = ultimaM.plusDays(max - 11);
         LocalDate diaOvu = fimFertil.minusDays(2);
+        int duracaoSegura = Math.max(search.getMenstruationDuration(), 5); 
+        LocalDate fimM = ultimaM.plusDays(duracaoSegura - 1);
 
         return new UserCycleDataDTO(min, max, ultimaM, m, f, o, atrasos,
                 fimM, iniFertil, fimFertil, diaOvu);
