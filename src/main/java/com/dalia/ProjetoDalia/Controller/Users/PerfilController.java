@@ -72,9 +72,6 @@ public class PerfilController {
             user.getPregnancyMonitoring().setExpectedBirthDate(userDTO.pregnancyMonitoring().getExpectedBirthDate());
 
             if (userDTO.pregnancyMonitoring() != null) {
-                if (user.getPregnancyMonitoring() == null) {
-                    user.setPregnancyMonitoring(new PregnancyMonitoring());
-                }
                 user.getPregnancyMonitoring().setDayPregnancy(userDTO.pregnancyMonitoring().getDayPregnancy());
                 user.getPregnancyMonitoring().setGestationWeeks(userDTO.pregnancyMonitoring().getGestationWeeks());
                 user.getPregnancyMonitoring().setExpectedBirthDate(userDTO.pregnancyMonitoring().getExpectedBirthDate());
