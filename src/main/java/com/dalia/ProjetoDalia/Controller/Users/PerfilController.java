@@ -66,11 +66,6 @@ public class PerfilController {
                 user.getSearch().setContraceptiveType(userDTO.search().getContraceptiveType());
             }
 
-            user.getSearch().setAge(userDTO.search().getAge());
-            user.getPregnancyMonitoring().setDayPregnancy(userDTO.pregnancyMonitoring().getDayPregnancy());
-            user.getPregnancyMonitoring().setGestationWeeks(userDTO.pregnancyMonitoring().getGestationWeeks());
-            user.getPregnancyMonitoring().setExpectedBirthDate(userDTO.pregnancyMonitoring().getExpectedBirthDate());
-
             if (userDTO.pregnancyMonitoring() != null) {
                 user.getPregnancyMonitoring().setDayPregnancy(userDTO.pregnancyMonitoring().getDayPregnancy());
                 user.getPregnancyMonitoring().setGestationWeeks(userDTO.pregnancyMonitoring().getGestationWeeks());
