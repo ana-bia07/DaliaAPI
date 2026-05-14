@@ -22,7 +22,6 @@ public record UsersDTO(
                 regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$",
                 message = "A senha deve conter pelo menos uma letra maiúscula, uma minúscula, um número e um caractere especial"
         )
-        @NotBlank(message = "A senha é obrigatoria")
         String password,
         String passConfirmation,
         boolean enable,

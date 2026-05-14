@@ -60,13 +60,17 @@ public class PerfilController {
             } else {
                 user.setPassword(passwordEncoder.encode(userDTO.password()));
             }
-            if (user.getSearch() == null) {
-                user.setSearch(new Search());
-            }
-            if (user.getPregnancyMonitoring() == null) {
-                user.setPregnancyMonitoring(new PregnancyMonitoring());
+            if (userDTO.search() != null) {
+                user.getSearch().setAge(userDTO.search().getAge());
+                user.getSearch().setUseContraceptive(userDTO.search().isUseContraceptive());
+                user.getSearch().setContraceptiveType(userDTO.search().getContraceptiveType());
             }
 
+            if (userDTO.pregnancyMonitoring() != null && user.getPregnancyMonitoring() != null) {
+                user.getPregnancyMonitoring().setDayPregnancy(userDTO.pregnancyMonitoring().getDayPregnancy());
+                user.getPregnancyMonitoring().setGestationWeeks(userDTO.pregnancyMonitoring().getGestationWeeks());
+                user.getPregnancyMonitoring().setExpectedBirthDate(userDTO.pregnancyMonitoring().getExpectedBirthDate());
+            }
             user.getSearch().setAge(userDTO.search().getAge());
             user.getPregnancyMonitoring().setDayPregnancy(userDTO.pregnancyMonitoring().getDayPregnancy());
             user.getPregnancyMonitoring().setGestationWeeks(userDTO.pregnancyMonitoring().getGestationWeeks());
