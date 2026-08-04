@@ -5,6 +5,7 @@ import com.dalia.ProjetoDalia.Model.Entity.Posts;
 import com.dalia.ProjetoDalia.Model.Entity.Users.Users;
 import com.dalia.ProjetoDalia.Services.Posts.PostsService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -46,7 +47,7 @@ public class PostsController {
         return ResponseEntity.ok(responseDTO);
     }
 
-        // 3. CURTIR UM POST (Lógica de Like)
+        // 3. CURTIR UM POST
     @PutMapping("/{idPosts}/like")
     public ResponseEntity<Void> addLike(@PathVariable String idPosts) {
         boolean success = postsService.incrementLikes(idPosts);
@@ -59,5 +60,11 @@ public class PostsController {
         boolean success = postsService.decrementLikes(idPosts);
         return success ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
-     // ... os outros métodos (get, update, delete) seguem o mesmo padrão
+
+    @DeleteMapping("/{idPost}/delete")
+    @RolesAllowed("ADMIN")
+    public ResponseEntity<Void> deletePost(@PathVariable String idPost) {
+        postsService.deletePost(idPost);
+        return ResponseEntity.noContent().build();
+    }
 }

@@ -29,6 +29,7 @@ public class Users implements UserDetails {
     private String email;
     private String password;
     private boolean enable = false;
+    private String role = "USER";
     private String verificationToken;
     private LocalDateTime tokenExpirantion;
     private Search search;
@@ -37,7 +38,7 @@ public class Users implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // Define que todo usuário cadastrado tem o perfil "USER"
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        return List.of(new SimpleGrantedAuthority("ROLE_"+role));
     }
 
     public String getId(){return id;}
