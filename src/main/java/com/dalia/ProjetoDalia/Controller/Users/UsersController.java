@@ -9,6 +9,7 @@ import com.dalia.ProjetoDalia.Services.Users.SearchService;
 import com.dalia.ProjetoDalia.Services.Users.UsersServices;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -96,5 +97,12 @@ public class UsersController {
        SearchDTO savedSearch = searchService.saveOrUpdateSearchForUser(userLogado.getId(), searchdto)
                .orElseThrow(() -> new RuntimeException("Usuário não encontrado para salvar pesquisa"));
        return ResponseEntity.ok(savedSearch);
+    }
+
+    @DeleteMapping("/{idUser}/delete")
+    @RolesAllowed("ADMIN")
+    public ResponseEntity<Void> deleteUser(@PathVariable String idUser) {
+        usersService.deleteUser(idUser);
+        return  ResponseEntity.noContent().build();
     }
 }
