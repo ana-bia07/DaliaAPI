@@ -31,6 +31,7 @@ public class PostsService {
         return postsRepository.findById(idPosts).map(existingPost -> {
             existingPost.setTitle(updatedPost.getTitle());
             existingPost.setContent(updatedPost.getContent());
+            existingPost.setCategory(updatedPost.getCategory());
             existingPost.setLikes(updatedPost.getLikes());
             existingPost.setComments(updatedPost.getComments());
             return postsRepository.save(existingPost);

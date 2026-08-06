@@ -6,23 +6,15 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-
-@Document(collection = "posts")
+@Document(collection = "article")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Posts {
+public class Articles {
     @Id
     private String id;
-
-    private String idUsers;
     private String title;
-    private String content;
+    private String link;
     private String category;
-    private int likes;
-    private Instant createdAt;
-    private List<Comments> comments = new ArrayList<>();
+    //private String image;
 }

@@ -11,6 +11,7 @@ public record PostsDTO(
         String autherName,
         String title,
         String content,
+        String category,
         Integer likes,
         Instant createdAt,
         List<Comments> comments
@@ -22,6 +23,7 @@ public record PostsDTO(
                 "user Dalia",
                 title,
                 content,
+                category,
                 likesValue,
                 createdAt,
                 comments
@@ -34,6 +36,7 @@ public record PostsDTO(
                 "user Dalia",
                 post.getTitle(),
                 post.getContent(),
+                post.getCategory(),
                 post.getLikes(),
                 post.getCreatedAt(),
                 post.getComments()

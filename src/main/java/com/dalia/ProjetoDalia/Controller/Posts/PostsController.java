@@ -61,7 +61,7 @@ public class PostsController {
         return success ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/{idPost}/delete")
+    @DeleteMapping("/{idPost}")
     @RolesAllowed("ADMIN")
     public ResponseEntity<Void> deletePost(@PathVariable String idPost) {
         postsService.deletePost(idPost);
