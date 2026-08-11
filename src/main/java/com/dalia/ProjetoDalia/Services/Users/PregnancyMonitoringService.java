@@ -2,16 +2,25 @@ package com.dalia.ProjetoDalia.Services.Users;
 
 import com.dalia.ProjetoDalia.Model.DTOS.Users.EventDTO;
 import com.dalia.ProjetoDalia.Model.DTOS.Users.PregnancyMonitoringDTO;
+import com.dalia.ProjetoDalia.Model.DTOS.Users.SemanaDTO;
 import com.dalia.ProjetoDalia.Model.Entity.Users.Event;
 import com.dalia.ProjetoDalia.Model.Entity.Users.PregnancyMonitoring;
+import com.fasterxml.jackson.core.type.TypeReference;
+import org.springframework.core.io.Resource;
 import com.dalia.ProjetoDalia.Model.Entity.Users.Users;
 import com.dalia.ProjetoDalia.Model.Repository.EventRespository;
 import com.dalia.ProjetoDalia.Model.Repository.UsersRepository;
 import com.dalia.ProjetoDalia.Services.Interface.IPregnancyMonitoringService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+
+
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +30,20 @@ public class PregnancyMonitoringService implements IPregnancyMonitoringService {
 
     private final UsersRepository usersRepository;
     private final EventRespository eventRespository;
+    private final ResourceLoader resourceLoader;
+    private final ObjectMapper objectMapper;
+    private List<SemanaDTO> semanaslist;
+
+    @PostConstruct
+    public void init() {
+        try{
+            Resource resource = resourceLoader.getResource("classpath:gestacao_semanas.json");
+            InputStream inputStream = resource.getInputStream();
+            this.semanaslist = objectMapper.readValue(inputStream, new TypeReference<List<SemanaDTO>>() {});
+        } catch (Exception e) {
+            throw new RuntimeException("erro ao carregar arquivo json");
+        }
+    }
 
     @Override
     public Optional<PregnancyMonitoringDTO> getPregnancyByIdUser(String idUser) {
@@ -107,13 +130,14 @@ public class PregnancyMonitoringService implements IPregnancyMonitoringService {
             return EventDTO.fromEntity(updatedEvent);
         });
     }
-    
-    private void updateEvent(Event existingEvent, EventDTO eventDTO) {
-        if (StringUtils.hasText(eventDTO.titulo())) existingEvent.setTitulo(eventDTO.titulo());
-        if (StringUtils.hasText(eventDTO.descricao())) existingEvent.setDescricao(eventDTO.descricao());
-        if (eventDTO.dataHora() != null) existingEvent.setDataHora(eventDTO.dataHora());
-        if (StringUtils.hasText(eventDTO.local())) existingEvent.setLocal(eventDTO.local());
+
+    public SemanaDTO getSemana(int indexSemana){
+        return semanaslist.stream()
+                .filter(info -> info.semana() == indexSemana)
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Informações da semana" + indexSemana + " não encontrada"));
     }
+
 
     public void deleteEvent(String idEvent) {
         eventRespository.deleteById(idEvent);

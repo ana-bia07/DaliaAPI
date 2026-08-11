@@ -2,6 +2,7 @@ package com.dalia.ProjetoDalia.Controller.Users;
 
 import com.dalia.ProjetoDalia.Model.DTOS.Users.EventDTO;
 import com.dalia.ProjetoDalia.Model.DTOS.Users.PregnancyMonitoringDTO;
+import com.dalia.ProjetoDalia.Model.DTOS.Users.SemanaDTO;
 import com.dalia.ProjetoDalia.Model.Entity.Users.Event;
 import com.dalia.ProjetoDalia.Model.Entity.Users.Users;
 import com.dalia.ProjetoDalia.Services.Users.PregnancyMonitoringService;
@@ -52,5 +53,11 @@ public class GravidezController {
     public ResponseEntity<Void> deleteEvent(@PathVariable String idEvent) {
             pregnancyService.deleteEvent(idEvent);
             return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/semana/{semana}")
+    public ResponseEntity<SemanaDTO> getSemanaInfo(@PathVariable int semana) {
+        SemanaDTO info =  pregnancyService.getSemana(semana);
+        return ResponseEntity.ok(info);
     }
 }
