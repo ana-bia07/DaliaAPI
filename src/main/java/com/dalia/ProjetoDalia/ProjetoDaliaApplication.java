@@ -6,7 +6,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 @EnableAsync
 @SpringBootApplication
-public class 	     ProjetoDaliaApplication {
+public class ProjetoDaliaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ProjetoDaliaApplication.class, args);
 	}

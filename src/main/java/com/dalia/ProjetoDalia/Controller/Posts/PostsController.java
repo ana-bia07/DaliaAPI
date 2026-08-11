@@ -9,11 +9,9 @@ import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.time.Instant;
 import java.util.List;
 
@@ -27,11 +25,11 @@ public class PostsController {
 
 
     @GetMapping("/getTodos")
-    public ResponseEntity<List<PostsDTO>> getAllPosts() {
-        List<PostsDTO> postsDTOs = postsService.getAllPosts().stream()
-                .map(PostsDTO::fromEntity)
-                .toList();
-        return ResponseEntity.ok(postsDTOs);
+    public ResponseEntity<List<PostsDTO>> getPosts(@RequestBody(required = false) String category) {
+        if(StringUtils.hasText(category)){
+            return ResponseEntity.ok(postsService.searchCategory(category));
+        }
+        return ResponseEntity.ok(postsService.getAllPosts());
     }
 
     @PostMapping("/create")

@@ -3,6 +3,7 @@ package com.dalia.ProjetoDalia.Model.Entity.Users;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -14,12 +15,14 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class PregnancyMonitoring {
-
-    private Boolean isPregnant;
-    @Field(name = "dayPregnancy")
-    private LocalDate dayPregnancy;
-    private int gestationWeeks;
-    @Field(name = "expectedBirthDate")
-    private LocalDate expectedBirthDate;
-    private List<String> consultations;
+        private boolean isPregnant;
+        private int gestationWeeks;
+        @Field(name = "expectedBirthDate")
+        private LocalDate expectedBirthDate;
+        @Field(name = "dayPregnancy")
+        private boolean plannedPregnancy;
+        private boolean takeMedicine;
+        private List<String> habits;
+        private List<String> symptoms;
+        private List<Event> event;
 }

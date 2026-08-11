@@ -48,6 +48,7 @@ public class SearchService implements ISearchService {
             // Atualiza histórico
             if (search.getCycleHistory() == null) {
                 search.setCycleHistory(new ArrayList<>());
+
             }
             search.getCycleHistory().add(searchDTO.cycleDuration());
         }

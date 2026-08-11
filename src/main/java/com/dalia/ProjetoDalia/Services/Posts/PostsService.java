@@ -1,9 +1,11 @@
 package com.dalia.ProjetoDalia.Services.Posts;
 
+import com.dalia.ProjetoDalia.Model.DTOS.Posts.PostsDTO;
 import com.dalia.ProjetoDalia.Model.Entity.Comments;
 import com.dalia.ProjetoDalia.Model.Entity.Posts;
 import com.dalia.ProjetoDalia.Model.Repository.PostsRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.expression.spel.ast.OpOr;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,8 +25,9 @@ public class PostsService {
         return postsRepository.findById(idPosts);
     }
 
-    public List<Posts> getAllPosts() {
-        return postsRepository.findAll();
+    public List<PostsDTO> getAllPosts() {
+        return postsRepository.findAll()
+                .stream().map(PostsDTO::fromEntity).toList();
     }
 
     public Optional<Posts> updatePost(String idPosts, Posts updatedPost) {
@@ -66,5 +69,12 @@ public class PostsService {
             }
             return true;
         }).orElse(false);
+    }
+
+    public List<PostsDTO> searchCategory(String category) {
+        return postsRepository.findByCategory(category)
+                .stream()
+                .map(PostsDTO::fromEntity)
+                .toList();
     }
 }

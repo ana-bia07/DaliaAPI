@@ -41,4 +41,20 @@ public class CommentsService {
                 .orElse(Collections.emptyList());
     }
 
+    public void deleteComments(String idPost, int indexComment) {
+        System.out.println(idPost + " " + indexComment);
+        Posts post = postsRepository.findById(idPost)
+                .orElseThrow(() -> new RuntimeException("publicação não existe"));
+        List<Comments> comments = post.getComments();
+        System.out.println("post: " + post);
+        System.out.println("cometarios: " + comments);
+
+        if(comments == null || indexComment < 0 || indexComment >= comments.size()) {
+            throw  new RuntimeException("Comentario não existe");
+        }
+
+        comments.remove(indexComment);
+        postsRepository.save(post);
+    }
+
 }

@@ -29,10 +29,6 @@ public record UsersDTO(
         PregnancyMonitoring pregnancyMonitoring
 ) {
 
-    public UsersDTO() {
-        this(null, "", "", "", null, "", false, null, null);
-    }
-
     public UsersDTO(Users users){
         this(
                 users.getId(),

@@ -1,28 +1,44 @@
 package com.dalia.ProjetoDalia.Model.DTOS.Users;
 
+import com.dalia.ProjetoDalia.Model.Entity.Users.Event;
 import com.dalia.ProjetoDalia.Model.Entity.Users.PregnancyMonitoring;
+import org.springframework.data.mongodb.core.mapping.Field;
+
 import java.time.LocalDate;
 import java.util.List;
 
 public record PregnancyMonitoringDTO(
-        Boolean isPregnant,
-        LocalDate dayPregnancy,
+        boolean isPregnant,
         int gestationWeeks,
         LocalDate expectedBirthDate,
-        List<String> consultations
+        boolean plannedPregnancy,
+        boolean takeMedicine,
+        List<String> habits,
+        List<String> symptoms,
+        List<Event> event
 ) {
     public PregnancyMonitoring toEntity() {
         return new PregnancyMonitoring(
-                isPregnant,
-                dayPregnancy,
-                gestationWeeks,
-                expectedBirthDate,
-                consultations
+            true,
+            gestationWeeks,
+            expectedBirthDate,
+            plannedPregnancy,
+            takeMedicine,
+            habits,
+            symptoms,
+            event
         );
     }
-
-    // Construtor padrão opcional (para inicialização vazia)
-    public PregnancyMonitoringDTO() {
-        this(false, null, 0, null, List.of());
+    public static PregnancyMonitoringDTO fromEntity(PregnancyMonitoring entity) {
+        return new PregnancyMonitoringDTO(
+                entity.isPregnant(),
+                entity.getGestationWeeks(),
+                entity.getExpectedBirthDate(),
+                entity.isPlannedPregnancy(),
+                entity.isTakeMedicine(),
+                entity.getHabits(),
+                entity.getSymptoms(),
+                entity.getEvent()
+        );
     }
 }

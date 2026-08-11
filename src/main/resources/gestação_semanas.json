@@ -1,0 +1,289 @@
+[
+  {
+    "semana": 1,
+    "tamanho": "0 cm",
+    "peso": "0 g",
+    "comidaAssociada": "Semente de Papoula",
+    "frase": "Seu bebê ainda é bem pequeninho, do tamanho de uma Semente de Papoula!"
+  },
+  {
+    "semana": 2,
+    "tamanho": "0 cm",
+    "peso": "0 g",
+    "comidaAssociada": "Semente de Papoula",
+    "frase": "Seu bebê ainda é bem pequeninho, do tamanho de uma Semente de Papoula!"
+  },
+  {
+    "semana": 3,
+    "tamanho": "0.1 cm",
+    "peso": "0 g",
+    "comidaAssociada": "Semente de Papoula",
+    "frase": "O óvulo fertilizado se implantou no útero e as células estão se multiplicando rapidamente."
+  },
+  {
+    "semana": 4,
+    "tamanho": "0.2 cm",
+    "peso": "0 g",
+    "comidaAssociada": "Semente de Papoula",
+    "frase": "Seu bebê já está do tamanho de uma Semente de Papoula!"
+  },
+  {
+    "semana": 5,
+    "tamanho": "0.4 cm",
+    "peso": "0.4 g",
+    "comidaAssociada": "Semente de Maçã",
+    "frase": "O coraçõezinho do bebê começa a dar os seus primeiros batimentos."
+  },
+  {
+    "semana": 6,
+    "tamanho": "0.8 cm",
+    "peso": "0.8 g",
+    "comidaAssociada": "Ervilha",
+    "frase": "Os brotos dos braços e pernas começam a se formar."
+  },
+  {
+    "semana": 7,
+    "tamanho": "1.3 cm",
+    "peso": "1 g",
+    "comidaAssociada": "Mirtilo",
+    "frase": "O cérebro do bebê cresce em ritmo acelerado e os olhos começam a se desenhar."
+  },
+  {
+    "semana": 8,
+    "tamanho": "1.6 cm",
+    "peso": "1.5 g",
+    "comidaAssociada": "Framboesa",
+    "frase": "O bebê já faz pequenos movimentos involuntários no útero."
+  },
+  {
+    "semana": 9,
+    "tamanho": "2.3 cm",
+    "peso": "2 g",
+    "comidaAssociada": "Uva",
+    "frase": "Os dedos das mãos e dos pés começam a se separar."
+  },
+  {
+    "semana": 10,
+    "tamanho": "3.1 cm",
+    "peso": "4 g",
+    "comidaAssociada": "Morango",
+    "frase": "A fase embrionária termina e ele passa a ser oficialmente um feto com órgãos em formação."
+  },
+  {
+    "semana": 11,
+    "tamanho": "4.1 cm",
+    "peso": "7 g",
+    "comidaAssociada": "Lime (Lima)",
+    "frase": "O bebê começa a abrir e fechar as mãozinhas e a ensaiar a deglutição."
+  },
+  {
+    "semana": 12,
+    "tamanho": "5.4 cm",
+    "peso": "14 g",
+    "comidaAssociada": "Azeitona",
+    "frase": "Os reflexos do bebê começam a funcionar e as unhas das mãos estão surgindo."
+  },
+  {
+    "semana": 13,
+    "tamanho": "7.4 cm",
+    "peso": "23 g",
+    "comidaAssociada": "Ameixa",
+    "frase": "As impressões digitais únicas do seu bebê já estão totalmente formadas."
+  },
+  {
+    "semana": 14,
+    "tamanho": "8.7 cm",
+    "peso": "43 g",
+    "comidaAssociada": "Pêssego",
+    "frase": "O bebê começa a fazer expressões faciais e a sugar o polegar."
+  },
+  {
+    "semana": 15,
+    "tamanho": "10.1 cm",
+    "peso": "70 g",
+    "comidaAssociada": "Maçã",
+    "frase": "O bebê começa a perceber variações de luz, mesmo com as pálpebras fechadas."
+  },
+  {
+    "semana": 16,
+    "tamanho": "11.6 cm",
+    "peso": "100 g",
+    "comidaAssociada": "Abacate",
+    "frase": "O bebê já mexe os braços e pernas com mais coordenação e pode dar seus primeiros chutes perceptíveis."
+  },
+  {
+    "semana": 17,
+    "tamanho": "13.0 cm",
+    "peso": "140 g",
+    "comidaAssociada": "Pera",
+    "frase": "O esqueleto do bebê começa a enrijecer, trocando a cartilagem por osso."
+  },
+  {
+    "semana": 18,
+    "tamanho": "14.2 cm",
+    "peso": "190 g",
+    "comidaAssociada": "Batata-doce",
+    "frase": "O bebê já ouve sons internos do seu corpo, como o ritmo do seu coração."
+  },
+  {
+    "semana": 19,
+    "tamanho": "15.3 cm",
+    "peso": "240 g",
+    "comidaAssociada": "Tomate",
+    "frase": "Uma camada protetora chamada vérnix caseoso envolve a pele do bebê."
+  },
+  {
+    "semana": 20,
+    "tamanho": "25.6 cm",
+    "peso": "300 g",
+    "comidaAssociada": "Banana",
+    "frase": "O bebê já ouve a sua voz e sons do mundo exterior com clareza."
+  },
+  {
+    "semana": 21,
+    "tamanho": "26.7 cm",
+    "peso": "360 g",
+    "comidaAssociada": "Cenoura",
+    "frase": "O sistema digestivo do bebê está amadurecendo e ele engole líquido amniótico diariamente."
+  },
+  {
+    "semana": 22,
+    "tamanho": "27.8 cm",
+    "peso": "430 g",
+    "comidaAssociada": "Pimentão",
+    "frase": "O sentido do tato está bem desenvolvido e o bebê gosta de tocar o próprio rosto."
+  },
+  {
+    "semana": 23,
+    "tamanho": "28.9 cm",
+    "peso": "501 g",
+    "comidaAssociada": "Beringela",
+    "frase": "O bebê já tem momentos bem definidos de sono e de atividade na barriga."
+  },
+  {
+    "semana": 24,
+    "tamanho": "30.0 cm",
+    "peso": "600 g",
+    "comidaAssociada": "Espiga de Milho",
+    "frase": "As papilas gustativas do bebê estão formadas e os pulmões desenvolvem os alvéolos."
+  },
+  {
+    "semana": 25,
+    "tamanho": "34.6 cm",
+    "peso": "660 g",
+    "comidaAssociada": "Rutabaga (Nabo)",
+    "frase": "O bebê responde a sons altos externos com chutes e pequenos pulinhos."
+  },
+  {
+    "semana": 26,
+    "tamanho": "35.6 cm",
+    "peso": "760 g",
+    "comidaAssociada": "Abobrinha",
+    "frase": "O bebê abre os olhos pela primeira vez dentro da barriga."
+  },
+  {
+    "semana": 27,
+    "tamanho": "36.6 cm",
+    "peso": "875 g",
+    "comidaAssociada": "Couve-flor",
+    "frase": "O cérebro do bebê está criando conexões nervosas complexas a cada segundo."
+  },
+  {
+    "semana": 28,
+    "tamanho": "37.6 cm",
+    "peso": "1001 g",
+    "comidaAssociada": "Beringela Grande",
+    "frase": "O bebê consegue piscar e sua visão está em pleno desenvolvimento."
+  },
+  {
+    "semana": 29,
+    "tamanho": "38.6 cm",
+    "peso": "1153 g",
+    "comidaAssociada": "Abóbora Menina",
+    "frase": "O bebê acumula gordura corporal e fica com a pele cada vez mais lisinha."
+  },
+  {
+    "semana": 30,
+    "tamanho": "39.9 cm",
+    "peso": "1319 g",
+    "comidaAssociada": "Repolho",
+    "frase": "A medula óssea do bebê assumiu totalmente a produção de glóbulos vermelhos."
+  },
+  {
+    "semana": 31,
+    "tamanho": "41.1 cm",
+    "peso": "1502 g",
+    "comidaAssociada": "Coco",
+    "frase": "O bebê consegue virar a cabeça de um lado para o outro acompanhando estímulos."
+  },
+  {
+    "semana": 32,
+    "tamanho": "42.4 cm",
+    "peso": "1702 g",
+    "comidaAssociada": "Jaca",
+    "frase": "As unhas das mãos e dos pés já alcançaram a ponta dos dedinhos."
+  },
+  {
+    "semana": 33,
+    "tamanho": "43.7 cm",
+    "peso": "1918 g",
+    "comidaAssociada": "Abacaxi",
+    "frase": "O sistema imunológico do bebê recebe anticorpos diretamente através de você."
+  },
+  {
+    "semana": 34,
+    "tamanho": "45.0 cm",
+    "peso": "2146 g",
+    "comidaAssociada": "Melão Cantaloupe",
+    "frase": "O bebê já treina os movimentos respiratórios expandindo os pulmões."
+  },
+  {
+    "semana": 35,
+    "tamanho": "46.2 cm",
+    "peso": "2383 g",
+    "comidaAssociada": "Melão Honeydew",
+    "frase": "A maioria dos órgãos vitais do bebê está totalmente amadurecida."
+  },
+  {
+    "semana": 36,
+    "tamanho": "47.4 cm",
+    "peso": "2622 g",
+    "comidaAssociada": "Alface Romana",
+    "frase": "O bebê começa a se encaixar na bacia se preparando para o nascimento."
+  },
+  {
+    "semana": 37,
+    "tamanho": "48.6 cm",
+    "peso": "2859 g",
+    "comidaAssociada": "Acelga",
+    "frase": "A gestação atinge o termo precoce e os pulmões do bebê estão prontos para respirar ar."
+  },
+  {
+    "semana": 38,
+    "tamanho": "49.8 cm",
+    "peso": "3083 g",
+    "comidaAssociada": "Melancia",
+    "frase": "O bebê tem o reflexo de preensão forte e segura com firmeza nas mãozinhas."
+  },
+  {
+    "semana": 39,
+    "tamanho": "50.7 cm",
+    "peso": "3288 g",
+    "comidaAssociada": "Abóbora de Caboclo",
+    "frase": "A camada de gordura está pronta para ajudar a regular a temperatura do bebê após o parto."
+  },
+  {
+    "semana": 40,
+    "tamanho": "51.2 cm",
+    "peso": "3462 g",
+    "comidaAssociada": "Jaca Grande",
+    "frase": "Seu bebê está totalmente desenvolvido e pronto para encontrar você a qualquer momento!"
+  },
+  {
+    "semana": 41,
+    "tamanho": "51.7 cm",
+    "peso": "3597 g",
+    "comidaAssociada": "Jaca Grande",
+    "frase": "O bebê continua ganhando peso e recebendo todo o aconchego na reta final da gestação."
+  }
+]

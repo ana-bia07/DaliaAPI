@@ -99,9 +99,9 @@ public class UsersController {
        return ResponseEntity.ok(savedSearch);
     }
 
-    @DeleteMapping("/{idUser}/delete")
+    @DeleteMapping("/{idUser}")
     @RolesAllowed("ADMIN")
-    public ResponseEntity<Void> deleteUser(@PathVariable String idUser) {
+    public ResponseEntity<Void> deleteUser(@PathVariable @Valid String idUser) {
         usersService.deleteUser(idUser);
         return  ResponseEntity.noContent().build();
     }

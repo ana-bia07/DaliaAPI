@@ -21,7 +21,6 @@ public class ArticlesController {
 
     private final ArticlesService ArticlesService;
 
-
     @GetMapping("/getTodos")
     public ResponseEntity<List<ArticlesDTO>> getAllArticles() {
         List<ArticlesDTO> ArticlesDTOs = ArticlesService.getAllArticles().stream()
