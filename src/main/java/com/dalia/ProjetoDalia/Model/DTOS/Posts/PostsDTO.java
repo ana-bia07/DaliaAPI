@@ -19,7 +19,7 @@ public record PostsDTO(
     public Posts toEntity() {
         int likesValue = (likes != null) ? likes : 0;
         return new Posts(
-                id,
+                null,
                 "user Dalia",
                 title,
                 content,
