@@ -1,20 +1,31 @@
 package com.dalia.ProjetoDalia.Services;
 
 
-import com.resend.Resend;
-import com.resend.core.exception.ResendException;
-import com.resend.services.emails.model.CreateEmailOptions;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import com.dalia.ProjetoDalia.Model.DTOS.Users.BrevoRequest;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
 
 @Service
 public class EmailService {
-    @Autowired
-    private JavaMailSender mailSender;
+
+    @Value("${brevo.api.key}")
+    private String apiKey;
+    @Value("${brevo.sender.email}")
+    private String senderEmail;
+    @Value("${brevo.sender.name}")
+    private String senderName;
+
+    private final RestTemplate restTemplate = new RestTemplate();
 
     public void enviarDenuncia(String conteudo) {
         SimpleMailMessage mensagem = new SimpleMailMessage();
@@ -23,61 +34,41 @@ public class EmailService {
         mensagem.setSubject("ALERTA DE SEGURANÇA - Usuária solicitando apoio");
         mensagem.setText(conteudo);
 
-        mailSender.send(mensagem);
     }
 
     public void sendToken(String to, String token) {
-        SimpleMailMessage message =  new SimpleMailMessage();
-        message.setFrom("analed988@gmail.com");
-        message.setTo(to);
-        message.setSubject("Codigo de verificação - Dalia");
-        message.setText("Olá! \nSeu codigo de verificação para o app Dalia Calendario menstrual é: \n"
+        String url = "https://api.brevo.com/v3/smtp/email";
+
+        System.out.println("apikey" + apiKey);
+        System.out.println("email" + senderEmail);
+        System.out.println("name" + senderName);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("api-key", apiKey.trim());
+
+        String htmlContent = "<p> Olá! \nSeu codigo de verificação para o app Dalia Calendario menstrual é: \n"
                 + token +
-                "\nEste codigo expira em 15 minutos.");
-        mailSender.send(message);
-    }
-    /*
+                "\nEste codigo expira em 15 minutos.</p>";
 
-    private Resend resend;
-    @Value("${API_KEY}")
-    private String apiKey;
+        BrevoRequest payload = new BrevoRequest(
+                new BrevoRequest.Sender(senderName, senderEmail),
+                List.of(new BrevoRequest.To(to)),
+                "Codigo de Verificação - Dalia",
+                htmlContent
+        );
+        HttpEntity<BrevoRequest> request = new HttpEntity<>(payload, headers);
 
-    @Async
-    //logica da denuncia que envia o email pra delegacia da mulher (vulgo guilherme)
-    public void enviarDenuncia(String conteudo) {
-        resend = new Resend(apiKey);
-        CreateEmailOptions params = CreateEmailOptions.builder()
-                .to("playy.story22@gmail.com")
-                .subject("ALERTA DE SEGURANÇA - Usuaria Dalia solciita apoio")
-                .html(conteudo)
-                .build();
         try{
-            resend.emails().send(params);
-            System.out.println("Email enviado com sucesso!");
-        } catch (ResendException e) {
-            System.out.println("Email enviado com erro!" + e.getMessage());
+            restTemplate.postForEntity(url, request, String.class);
+            System.out.println("E-mail enviado com sucesso!");
+        } catch (HttpClientErrorException | HttpServerErrorException e) {
+            System.err.println("Status HTTP Brevo: " + e.getStatusCode());
+            System.err.println("Corpo da resposta Brevo: " + e.getResponseBodyAsString());
+
+            throw new RuntimeException("Erro ao enviar e-mail: " + e.getResponseBodyAsString(), e);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("Erro ao tentar enviar token do email" + e);
         }
     }
-
-    @Async
-    //envia o email com o codigo para a usuaria
-    public void sendToken(String to, String token){
-        resend = new Resend(apiKey);
-
-        CreateEmailOptions params = CreateEmailOptions.builder()
-            .from("Dalia <onboarding@resend.dev>")
-            .to(to)
-            .subject("Codigo de verificação - Dalia")
-            .html("Olá! \nSeu codigo de verificação para o app Dalia Calendario menstrual é: \n"
-            + token +
-            "\nEste codigo expira em 15 minutos.")
-            .build();
-        try{
-            resend.emails().send(params);
-            System.out.println("Email enviado com sucesso!");
-        } catch (ResendException e) {
-            System.out.println("Email enviado com erro!" + e.getMessage());
-        }
-    }*/
 }
-
