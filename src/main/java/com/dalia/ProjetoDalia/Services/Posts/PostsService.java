@@ -8,8 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.expression.spel.ast.OpOr;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -76,5 +75,22 @@ public class PostsService {
                 .stream()
                 .map(PostsDTO::fromEntity)
                 .toList();
+    }
+
+    public Map<String, Integer> countByCategory() {
+        int beleza = Math.toIntExact(postsRepository.countByCategory("Beleza e cuidados"));
+        int moda = Math.toIntExact(postsRepository.countByCategory("Moda e Estilo"));
+        int gestacao = Math.toIntExact(postsRepository.countByCategory("Gestação"));
+        int menstruacao = Math.toIntExact(postsRepository.countByCategory("Ciclo Menstrual"));
+        int saude = Math.toIntExact(postsRepository.countByCategory("Saude e bem-estar"));
+
+        Map<String, Integer> categorias = new LinkedHashMap<>(); // LinkedHashMap mantém a ordem de inserção
+        categorias.put("Beleza e cuidados", beleza);
+        categorias.put("Moda e Estilo", moda);
+        categorias.put("Gestação", gestacao);
+        categorias.put("Ciclo Menstrual", menstruacao);
+        categorias.put("Saude e bem-estar", saude);
+
+        return categorias;
     }
 }

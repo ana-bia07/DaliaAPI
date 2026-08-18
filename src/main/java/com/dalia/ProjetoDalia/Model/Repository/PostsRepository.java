@@ -10,4 +10,6 @@ import java.util.List;
 public interface PostsRepository extends MongoRepository<Posts, String> {
     List<Posts> findByCategory(String category);
 
+    long countByCategory(String category);
+
 }

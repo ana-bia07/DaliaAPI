@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard - Dália Admin</title>
+    <link rel="stylesheet" href="/css/dashboard.css">
+
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="/dashboard.js" defer></script>
+</head>
+<body>
+
+<aside class="sidebar">
+    <img src="/images/logo.svg" alt="Dália Logo" class="logo">
+    <nav>
+        <a href="/html/Dashboard.html" class="active">Dashboard</a>
+        <a href="/html/deleteContent.html" scr="deleteContent.html">Apagar conteúdo</a>
+    </nav>
+</aside>
+
+<main class="main-content">
+
+
+    <div class="row-cards">
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Perfil das Usuárias</span>
+            </div>
+            <div class="metrics-container">
+                <div class="metric-box">
+                    <div class="metric-label">Acompanham Ciclo Menstrual</div>
+                    <div class="metric-value" id="percentMenstruacao">--%</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="barMenstruacao" style="width: 0%;"></div>
+                    </div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-label">Acompanham Gestação / Gravidez</div>
+                    <div class="metric-value" id="percentGravidez">--%</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill pink" id="barGravidez" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Assuntos Mais Falados</span>
+            </div>
+            <!-- Lista limpa: o JS criará as tags .ranking-item ao consumir a API -->
+            <div class="ranking-list" id="rankingTopics">
+                <div class="ranking-empty">Carregando dados...</div>
+            </div>
+        </div>
+
+    </div>
+    <div class="map-card">
+        <div class="card-header">
+            <span class="card-title" id="map-title">Denúncias por Estado</span>
+            <div class="map-controls">
+                <button class="btn-toggle active" onclick="alternarVisaoMapa('denuncias', this)">Mais Denúncias</button>
+                <button class="btn-toggle" onclick="alternarVisaoMapa('usuarios', this)">Mais Usuários</button>
+            </div>
+        </div>
+        <div id="map-container">
+            <div class="tooltip" id="tooltip"></div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

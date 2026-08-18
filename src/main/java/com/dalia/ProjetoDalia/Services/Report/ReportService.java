@@ -15,6 +15,10 @@ public class ReportService {
 
     private final ReportRepository ReportRepository;
 
+    public List<Report> getAllReports() {
+        return ReportRepository.findAll();
+    }
+
     public Report createReport(ReportDTO reportDTO) {
         Report Report = reportDTO.toEntity();
         return ReportRepository.save(Report);

@@ -99,6 +99,12 @@ public class UsersController {
        return ResponseEntity.ok(savedSearch);
     }
 
+    @GetMapping("/getAll")
+    @RolesAllowed("ADMIN")
+    public ResponseEntity<?> getAllUsers() {
+        return ResponseEntity.ok(usersService.getAllUsers());
+    }
+
     @DeleteMapping("/{idUser}")
     @RolesAllowed("ADMIN")
     public ResponseEntity<Void> deleteUser(@PathVariable @Valid String idUser) {

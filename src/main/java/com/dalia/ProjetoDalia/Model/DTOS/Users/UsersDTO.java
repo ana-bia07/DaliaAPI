@@ -1,5 +1,6 @@
 package com.dalia.ProjetoDalia.Model.DTOS.Users;
 
+import com.dalia.ProjetoDalia.Model.DTOS.Posts.PostsDTO;
 import com.dalia.ProjetoDalia.Model.Entity.Users.PregnancyMonitoring;
 import com.dalia.ProjetoDalia.Model.Entity.Users.Search;
 import com.dalia.ProjetoDalia.Model.Entity.Users.Users;
@@ -29,7 +30,7 @@ public record UsersDTO(
         PregnancyMonitoring pregnancyMonitoring
 ) {
 
-    public UsersDTO(Users users){
+    public UsersDTO(Users users) {
         this(
                 users.getId(),
                 users.getName(),
@@ -44,7 +45,7 @@ public record UsersDTO(
     }
 
 
-    public Users toEntity(){
+    public Users toEntity() {
         Users user = new Users();
         user.setId(this.id());
         user.setName(this.name());
@@ -55,5 +56,19 @@ public record UsersDTO(
         user.setSearch(this.search());
         user.setPregnancyMonitoring(this.pregnancyMonitoring());
         return user;
+    }
+
+    public static UsersDTO fromEntity(Users users) {
+        return new UsersDTO(
+                users.getId(),
+                users.getName(),
+                users.getSurname(),
+                users.getEmail(),
+                "",
+                "",
+                true,
+                users.getSearch(),
+                users.getPregnancyMonitoring()
+        );
     }
 }

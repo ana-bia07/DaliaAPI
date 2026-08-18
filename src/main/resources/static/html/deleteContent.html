@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <title>Busca de Conteúdo - Dália Admin</title>
+    <link rel="stylesheet" href="/static/deleteContent.css">
+</head>
+<body>
+
+<aside class="sidebar">
+    <img src="/static/images/logo.svg" alt="Dália Logo" class="logo">
+    <nav>
+        <a href="/admin/conteudo" class="active">Apagar conteúdo</a>
+        <a href="/admin/conteudo">Dashboard</a>
+    </nav>
+</aside>
+
+<main class="main-content">
+    <form class="search-form" id="searchForm">
+        <input type="search" class="search-input" id="searchInput" placeholder="Pesquisar...">
+        <button type="submit" class="search-button">🔍</button>
+    </form>
+    <div class="cards-container" id="cardsContainer"></div>
+</main>
+
+</body>
+</html>
