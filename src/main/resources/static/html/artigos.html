@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <title>Busca de Conteúdo - Dália Admin</title>
+    <link rel="stylesheet" href="/css/artigos.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <img src="/images/logo.svg" alt="Dália Logo" class="logo">
+        <nav>
+            <a href="/html/dashboard.html">Dashboard</a>
+            <a href="/html/forum.html" scr="deleteContent.html">Forum</a>
+            <a href="/html/artigos.html" class="active">Artigos</a>
+        </nav>
+    </aside>
+    <main class="main-content">
+         <form id="artigoCreate" class="artigo-creation">
+        '   <h2>Criar Artigo</h2>
+            <input type="hidden" id="idArtigo">
+
+            <input type="text" name="title" id="title" placeholder="Título" required>
+            <input type="text" id="legend" placeholder="Breve descrição" required>
+            <input type="text" id="link" placeholder="Link do artigo" required>
+            <input type="text" id="category" placeholder="Categoria" required>
+             <button type="submit">Salvar artigo</button>
+        </form>'
+        <div class="cards-container" id="cardsArtigos">
+            
+        </div>   
+    </main>
+    <script src="/js/auth.js"></script>
+    <script src="/js/artigos.js"></script>
+</body>
+</html>

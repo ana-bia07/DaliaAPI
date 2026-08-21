@@ -25,7 +25,7 @@ public class PostsController {
 
 
     @GetMapping("/getTodos")
-    public ResponseEntity<List<PostsDTO>> getPosts(@RequestBody(required = false) String category) {
+    public ResponseEntity<List<PostsDTO>> getPosts(@RequestParam(required = false) String category) {
         if(StringUtils.hasText(category)){
             return ResponseEntity.ok(postsService.searchCategory(category));
         }

@@ -14,6 +14,7 @@ public class Articles {
     @Id
     private String id;
     private String title;
+    private String legend;
     private String link;
     private String category;
     //private String image;

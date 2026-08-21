@@ -27,11 +27,14 @@ public class AdminService {
     }
 
     public DashboardDTO getDashboard() {
+        int totalUser = Math.toIntExact(usersRepository.count());
         int modoGravidez = Math.toIntExact(usersRepository.countByPregnancyMonitoring_IsPregnantTrue());
-        int modoMenstruacao = Math.toIntExact(usersRepository.count()) -  modoGravidez;
+        int modoMenstruacao = Math.toIntExact(usersRepository.count() -  modoGravidez);
         List<Report> denuncias = reportService.getAllReports();
         Map<String, Integer> categorias = postsService.countByCategory();
-
-        return new DashboardDTO(modoMenstruacao, modoGravidez, denuncias,categorias);
+        int percentGravidez = Math.toIntExact((modoGravidez *100) / totalUser);
+        int percentMenstruacao = (modoMenstruacao * 100) / totalUser;
+        System.out.println("Total de categorias: " + categorias);
+        return new DashboardDTO(percentMenstruacao, percentGravidez, denuncias,categorias);
     }
 }

@@ -14,14 +14,12 @@
 <aside class="sidebar">
     <img src="/images/logo.svg" alt="Dália Logo" class="logo">
     <nav>
-        <a href="/html/Dashboard.html" class="active">Dashboard</a>
-        <a href="/html/deleteContent.html" scr="deleteContent.html">Apagar conteúdo</a>
+        <a href="/html/dashboard.html" class="active">Dashboard</a>
+        <a href="/html/forum.html" scr="deleteContent.html">Forum</a>
+        <a href="/html/artigos.html" scr="deleteContent.html">Artigos</a>
     </nav>
 </aside>
-
 <main class="main-content">
-
-
     <div class="row-cards">
         <div class="card">
             <div class="card-header">
@@ -50,8 +48,10 @@
                 <span class="card-title">Assuntos Mais Falados</span>
             </div>
             <!-- Lista limpa: o JS criará as tags .ranking-item ao consumir a API -->
-            <div class="ranking-list" id="rankingTopics">
-                <div class="ranking-empty">Carregando dados...</div>
+            <div class="ranking-list">
+                <ul id="rankingTopics">
+                    <li>Carregando dados...</li>
+                </ul>
             </div>
         </div>
 
@@ -65,10 +65,15 @@
             </div>
         </div>
         <div id="map-container">
-            <div class="tooltip" id="tooltip"></div>
+            <div class="tooltip" id="tooltip">
+                <ul id="denuncias">
+                    <li>Carregando..dados</li>
+                </ul>
+            </div>
         </div>
     </div>
 </main>
-
+<script src="/js/auth.js" ></script>
+<script src="/js/dashboard.js" ></script>
 </body>
 </html>
