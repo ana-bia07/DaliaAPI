@@ -16,6 +16,7 @@ import java.util.List;
 @Data
 public class PregnancyMonitoring {
         private boolean isPregnant;
+        private LocalDate startDate;
         private int gestationWeeks;
         @Field(name = "expectedBirthDate")
         private LocalDate expectedBirthDate;

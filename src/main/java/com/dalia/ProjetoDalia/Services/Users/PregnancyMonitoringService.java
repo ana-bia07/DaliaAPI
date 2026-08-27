@@ -51,6 +51,7 @@ public class PregnancyMonitoringService implements IPregnancyMonitoringService {
                 .map(Users::getPregnancyMonitoring)
                 .map(pregnancy -> new PregnancyMonitoringDTO(
                         pregnancy.isPregnant(),
+                        pregnancy.getStartDate(),
                         pregnancy.getGestationWeeks(),
                         pregnancy.getExpectedBirthDate(),
                         pregnancy.isPlannedPregnancy(),
@@ -88,6 +89,7 @@ public class PregnancyMonitoringService implements IPregnancyMonitoringService {
 
         return Optional.of(new PregnancyMonitoringDTO(
                 savedPregnancy.isPregnant(),
+                savedPregnancy.getStartDate(),
                 savedPregnancy.getGestationWeeks(),
                 savedPregnancy.getExpectedBirthDate(),
                 savedPregnancy.isPlannedPregnancy(),
