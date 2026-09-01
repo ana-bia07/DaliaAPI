@@ -94,6 +94,7 @@ public class UsersServices implements IUsersService{
         if (StringUtils.hasText(usersDTO.surname())) existingUser.setSurname(usersDTO.surname());
         if (StringUtils.hasText(usersDTO.email())) existingUser.setEmail(usersDTO.email());
         if (StringUtils.hasText(usersDTO.password())) existingUser.setPassword(usersDTO.password());
+        if (StringUtils.hasText(usersDTO.modo())) existingUser.setModo(usersDTO.modo());
         if (usersDTO.search() != null) existingUser.setSearch(usersDTO.search());
         if (usersDTO.pregnancyMonitoring() != null) existingUser.setPregnancyMonitoring(usersDTO.pregnancyMonitoring());
 

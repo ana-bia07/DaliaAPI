@@ -71,6 +71,7 @@ public class PregnancyMonitoringService implements IPregnancyMonitoringService {
         PregnancyMonitoring pregnancy = user.getPregnancyMonitoring();
         if(pregnancy == null) {
             pregnancy = dto.toEntity();
+            user.setModo("GESTACAO");
         } else {
             pregnancy.setPregnant(dto.isPregnant());
             pregnancy.setGestationWeeks(dto.gestationWeeks());

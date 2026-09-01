@@ -29,9 +29,8 @@ import java.util.Optional;
 public class PerfilController {
     private final UsersRepository usersRepository;
     private final UsersServices usersServices;
-    private EmailService emailService;
     private final SearchService searchService;
-    private PregnancyMonitoringService pregnancyService;
+    private final PregnancyMonitoringService pregnancyMonitoringService;
     private final PasswordEncoder passwordEncoder;
 
 
@@ -43,6 +42,8 @@ public class PerfilController {
         response.put("user", usersServices.getUserById(userLogado.getId()));
         response.put("search", searchService.getSearchByIdUsers(userLogado.getId()));
 
+        pregnancyMonitoringService.getPregnancyByIdUser(userLogado.getId())
+                .ifPresent(pregnancy -> response.put("pregnancy", pregnancy));
         return ResponseEntity.ok(response);
     }
     @PutMapping("/updatePerfil")
@@ -56,6 +57,7 @@ public class PerfilController {
             user.setName(userDTO.name());
             user.setSurname(userDTO.surname());
             user.setEmail(userDTO.email());
+            user.setModo(userDTO.modo());
             if (userDTO.password() == null || userDTO.password().isBlank()) {
             } else {
                 user.setPassword(passwordEncoder.encode(userDTO.password()));
