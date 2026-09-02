@@ -94,16 +94,6 @@
             padding-right: 45px !important;
         }
 
-        .search-container {
-            position: relative;
-            width: 100%;
-        }
-
-        .search-input {
-            width: 100%;
-            padding-right: 45px !important;
-        }
-
         button[type="submit"] {
             background-color: #333333;
             color: #FFFFFF;
@@ -141,7 +131,8 @@
             pointer-events: none; /* Permite clicar no input normalmente */
         }
 
-        .btn-acao i {
+        .btn-acao i,
+        .btn-acao svg{
             width: 18px;
             height: 18px;
             stroke-width: 2;
