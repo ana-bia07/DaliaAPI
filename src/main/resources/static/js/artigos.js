@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", async () => {
-    const token = localStorage.getItem("tokenJWT");
+    /*const token = localStorage.getItem("tokenJWT");
     if(!token){
-        window.location.href = "/html/login.html";
+        window.location.href = "login.html";
         return;
     }
-    
+    */
     await carregarArtigos();
 
     const form = document.getElementById('artigoCreate');
@@ -53,7 +53,7 @@ async function carregarArtigos() {
         artigosCard.innerHTML = "";
 
         console.log("vai criar o comentario")
-        
+
         artigos.forEach(artigos => {
             const artigoJSON = JSON.stringify(artigos).replace(/"/g, '&quot;');
 
@@ -72,11 +72,14 @@ async function carregarArtigos() {
 
              artigosCard.innerHTML += cardHTML;
         });
-        
+
         console.log("chegou no final")
-       
+
+        if (window.lucide) {
+            lucide.createIcons();
+        }
     }catch (error){
-        console.error("falha a lsitar os post", error);
+        console.error("falha ao listar artigos", error);
     }
 }
 
@@ -163,30 +166,3 @@ async function deletarArtigo(id){
         console.error("erro ao deletar artigo: ", erro)
     }
 }
-
-artigos.forEach(artigo => {
-    const artigoJSON = JSON.stringify(artigo).replace(/"/g, '&quot;');
-
-    const cardHTML = `
-        <div class="card-artigo" data-post-id="${artigo.id}">
-            <div class="card-info">
-                <span class="artigo-categoria">${artigo.category || 'Geral'}</span>
-                <h3 class="artigo-titulo">${artigo.title}</h3>
-                <p class="artigo-descricao">${artigo.legend}</p>
-            </div>
-            <div class="card-acoes">
-                <button type="button" class="btn-acao btn-editar" title="Editar Artigo" onclick='prepararEdicao(${artigoJSON})'>
-                    <i data-lucide="pencil"></i>
-                </button>
-                <button type="button" class="btn-acao btn-deletar" title="Deletar Artigo" onclick="deletarArtigo('${artigo.id}')">
-                    <i data-lucide="trash-2"></i>
-                </button>
-            </div>
-        </div>
-    `;
-
-    artigosCard.innerHTML += cardHTML;
-});
-
-// Renderiza os ícones SVG dinâmicos após atualizar o HTML
-lucide.createIcons();
