@@ -1,11 +1,3 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="utf-8">
-    <title>Busca de Conteúdo - Dália Admin</title>
-    <!-- Vincula o JS da pasta static -->
-    <script src="/deleteContent.js" defer></script>
-    <style>
         * {
             box-sizing: border-box;
             margin: 0;
@@ -58,36 +50,14 @@
             gap: 20px;
         }
 
-        .search-form {
-            position: relative;
-            width: 100%;
-        }
-        .search-input {
-            width: 100%;
-            padding: 14px 45px 14px 20px;
-            font-size: 16px; border: none;
-            border-radius: 25px;
-            background-color: #F9F9F9;
-            outline: none;
-        }
-        .search-button {
-            position: absolute;
-            right: 15px; top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 18px;
-            color: #666;
-        }
-
-        /* Grid dos Cards Superiores */
-        .top-cards {
+        /* Primeira linha: dois cards lado a lado */
+        .row-cards {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
         }
 
+        /* Estilo base dos cards */
         .card {
             background-color: #F9F9F9;
             border-radius: 16px;
@@ -97,36 +67,28 @@
             flex-direction: column;
         }
 
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
         .card-title {
             font-size: 16px;
             font-weight: bold;
             color: #333;
         }
 
-        .badge-kpi {
-            background-color: #FFB2B2;
-            color: #000;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: 600;
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
         }
 
-        /* Card do Mapa (Inferior) */
+        /* Card do Mapa (segunda linha) */
         .map-card {
             background-color: #F9F9F9;
             border-radius: 16px;
-            padding: 20px 24px;
+            padding: 24px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
             display: flex;
             flex-direction: column;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            width: 100%;
         }
 
         .map-controls {
@@ -137,7 +99,7 @@
         .btn-toggle {
             background-color: #E0E0E0;
             border: none;
-            padding: 8px 16px;
+            padding: 8px 18px;
             border-radius: 20px;
             cursor: pointer;
             font-size: 14px;
@@ -145,6 +107,12 @@
             transition: all 0.2s;
         }
 
+        .btn-toggle.active {
+            background-color: #007bff;
+            color: white;
+        }
+
+        /* Container do SVG D3.js */
         #map-container {
             width: 100%;
             height: 480px;
@@ -154,44 +122,93 @@
             overflow: hidden;
         }
 
-        /* Estilização da caixa flutuante do mapa (Tooltip) */
+        /* Tooltip do Mapa */
         .tooltip {
             position: absolute;
             background: #FFFFFF;
-            padding: 10px 14px;
+            padding: 10px 15px;
             border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
             pointer-events: none;
             opacity: 0;
-            transition: opacity 0.15s ease-in-out;
-            font-size: 13px;
+            transition: opacity 0.2s;
+            font-size: 14px;
             z-index: 10;
         }
 
         .tooltip b {
             display: block;
             color: #000;
-            margin-bottom: 4px;
+            margin-bottom: 5px;
         }
-    </style>
-</head>
-<body>
 
-<aside class="sidebar">
-    <img src="/images/logo.png" alt="Dália Logo" class="logo">
-    <nav>
-        <a href="/admin/conteudo" class="active">Apagar conteúdo</a>
-        <a href="/admin/conteudo">Dashboard</a>
-    </nav>
-</aside>
+        /* Ranking de Assuntos */
+        .ranking-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
 
-<main class="main-content">
-    <form class="search-form" id="searchForm">
-        <input type="search" class="search-input" id="searchInput" placeholder="Pesquisar...">
-        <button type="submit" class="search-button">🔍</button>
-    </form>
-    <div class="cards-container" id="cardsContainer"></div>
-</main>
+        .ranking-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background-color: #FFFFFF;
+            border-radius: 8px;
+            font-size: 14px;
+        }
 
-</body>
-</html>
+        .topic-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .topic-count {
+            color: #007bff;
+            font-weight: 500;
+        }
+
+        /* Indicadores de Perfil das Usuárias */
+        .metrics-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .metric-box {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .metric-label {
+            font-size: 13px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .metric-value {
+            font-size: 22px;
+            font-weight: bold;
+            color: #000;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #E0E0E0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: #007bff;
+            border-radius: 4px;
+        }
+
+        .progress-fill.pink {
+            background-color: #FF70A6;
+        }
+

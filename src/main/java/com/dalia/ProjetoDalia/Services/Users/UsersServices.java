@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -37,6 +38,10 @@ public class UsersServices implements IUsersService{
         this.tokenService = tokenService;
     }
 
+    public List<UsersDTO> getAllUsers(){
+        return usersRepository.findAll()
+                .stream().map(UsersDTO::fromEntity).toList();
+    }
 
     @Override
     public UsersDTO createUser(UsersDTO usersDTO) {

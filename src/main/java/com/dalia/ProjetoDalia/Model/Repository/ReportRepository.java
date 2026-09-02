@@ -1,5 +1,6 @@
 package com.dalia.ProjetoDalia.Model.Repository;
 
+import com.dalia.ProjetoDalia.Model.DTOS.Reports.ReportDTO;
 import com.dalia.ProjetoDalia.Model.Entity.Report;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;

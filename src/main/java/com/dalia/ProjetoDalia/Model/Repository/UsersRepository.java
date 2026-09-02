@@ -9,6 +9,9 @@ import java.util.Optional;
 
 @Repository
 public interface UsersRepository extends MongoRepository<Users, String> {
+    long count();
+
+    long countByPregnancyMonitoring_IsPregnantTrue();
 
     Optional<Users> findByEmail(String email);
 

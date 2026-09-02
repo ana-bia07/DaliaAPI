@@ -27,6 +27,7 @@ SecurityFilter securityFilter;
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.GET, "/").permitAll()
+                        .requestMatchers("/login.html","/html/**","/css/**", "/js/**","/images/**", "/error", "/favicon.ico").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/user/criarUsuario").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/user/verify").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/user/login").permitAll()
