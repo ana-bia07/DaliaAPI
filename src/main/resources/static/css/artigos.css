@@ -10,7 +10,16 @@
             display: flex;
         }
 
-        /* Sidebar Fixa */
+        h1{
+            padding-bottom: 15px;
+        }
+
+        .artigoCreate{
+            input{
+                gap: 30px;
+            }
+        }
+
         .sidebar {
             width: 250px;
             height: 100vh;
@@ -22,8 +31,8 @@
         }
 
         .sidebar .logo {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             margin-bottom: 40px;
         }
 
@@ -49,119 +58,179 @@
             flex-direction: column;
             gap: 20px;
         }
+        .artigo-creation {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background-color: #F9F9F9;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
 
-        .search-form {
+        input[type="text"],
+        input[type="search"] {
+            padding: 12px 18px;
+            border: 1px solid #E0E0E0;
+            border-radius: 25px; /* Use px em vez de % para arredondamento perfeito */
+            font-size: 14px;
+            outline: none;
+            background-color: #FFFFFF;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input[type="text"]:focus,
+        input[type="search"]:focus {
+            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .search-container {
             position: relative;
             width: 100%;
         }
+
         .search-input {
             width: 100%;
-            padding: 14px 45px 14px 20px;
-            font-size: 16px; border: none;
-            border-radius: 25px;
-            background-color: #F9F9F9;
-            outline: none;
+            padding-right: 45px !important;
         }
-        .search-button {
-            position: absolute;
-            right: 15px; top: 50%;
-            transform: translateY(-50%);
-            background: none;
+
+        .search-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-input {
+            width: 100%;
+            padding-right: 45px !important;
+        }
+
+        button[type="submit"] {
+            background-color: #333333;
+            color: #FFFFFF;
             border: none;
+            padding: 12px 24px;
+            border-radius: 20px;
+            font-weight: 600;
             cursor: pointer;
-            font-size: 18px;
-            color: #666;
+            transition: background-color 0.2s;
         }
 
-        /* Grid dos Cards Superiores */
-        .top-cards {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+        button[type="submit"]:hover {
+            background-color: #555555;
         }
 
-        .card {
-            background-color: #F9F9F9;
-            border-radius: 16px;
-            padding: 20px 24px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        select {
+            padding: 12px 18px;
+            border: 1px solid #E0E0E0;
+            border-radius: 25px;
+            font-size: 14px;
+            outline: none;
+            background-color: #FFFFFF;
+            color: #333333;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .search-container svg.lucide-search {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 18px;
+            height: 18px;
+            color: #666666;
+            pointer-events: none; /* Permite clicar no input normalmente */
+        }
+
+        .btn-acao i {
+            width: 18px;
+            height: 18px;
+            stroke-width: 2;
+        }
+        .cards-container {
             display: flex;
             flex-direction: column;
+            gap: 15px;
+            margin-top: 10px;
         }
 
-        .card-header {
+        /* Card Individual de Artigo */
+        .card-artigo {
+            background-color: #FFFFFF;
+            border-radius: 12px;
+            padding: 20px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .card-title {
-            font-size: 16px;
-            font-weight: bold;
-            color: #333;
+        .card-artigo:hover {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
-        .badge-kpi {
-            background-color: #FFB2B2;
-            color: #000;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: 600;
-        }
-
-        /* Card do Mapa (Inferior) */
-        .map-card {
-            background-color: #F9F9F9;
-            border-radius: 16px;
-            padding: 20px 24px;
+        /* Conteúdo da esquerda (Texto) */
+        .card-info {
             display: flex;
             flex-direction: column;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            gap: 6px;
+            max-width: 80%;
         }
 
-        .map-controls {
+        .artigo-categoria {
+            font-size: 12px;
+            font-weight: 600;
+            color: #888888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .artigo-titulo {
+            font-size: 18px;
+            font-weight: 700;
+            color: #222222;
+        }
+
+        .artigo-descricao {
+            font-size: 14px;
+            color: #666666;
+            line-height: 1.4;
+        }
+
+        /* Ações da direita (Botões) */
+        .card-acoes {
             display: flex;
             gap: 10px;
+            align-items: center;
         }
 
-        .btn-toggle {
-            background-color: #E0E0E0;
+        .btn-acao {
+            background-color: #F4F4F5;
             border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.2s;
+            font-size: 16px;
+            transition: background-color 0.2s, transform 0.1s;
         }
 
-        #map-container {
-            width: 100%;
-            height: 480px;
-            background-color: #f0f0f0;
-            border-radius: 12px;
-            position: relative;
-            overflow: hidden;
+        .btn-acao:hover {
+            transform: scale(1.05);
         }
 
-        /* Estilização da caixa flutuante do mapa (Tooltip) */
-        .tooltip {
-            position: absolute;
-            background: #FFFFFF;
-            padding: 10px 14px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.15s ease-in-out;
-            font-size: 13px;
-            z-index: 10;
+        .btn-editar:hover {
+            background-color: #E2E8F0;
         }
 
-        .tooltip b {
-            display: block;
-            color: #000;
-            margin-bottom: 4px;
+        .btn-deletar:hover {
+            background-color: #FEE2E2;
         }
+
+
+
+
+

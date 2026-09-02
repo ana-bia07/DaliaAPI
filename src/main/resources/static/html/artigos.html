@@ -3,15 +3,16 @@
 <head>
     <meta charset="utf-8">
     <title>Busca de Conteúdo - Dália Admin</title>
-    <link rel="stylesheet" href="/css/artigos.css">
+    <link rel="stylesheet" href="../css/artigos.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
     <aside class="sidebar">
-        <img src="/images/logo.svg" alt="Dália Logo" class="logo">
+        <img src="../images/logo.svg" alt="Dália Logo" class="logo">
         <nav>
-            <a href="/html/dashboard.html">Dashboard</a>
-            <a href="/html/forum.html" scr="deleteContent.html">Forum</a>
-            <a href="/html/artigos.html" class="active">Artigos</a>
+            <a href="static/html/dashboard.html">Dashboard</a>
+            <a href="../html/forum.html" scr="deleteContent.html">Fórum</a>
+            <a href="../html/artigos.html" class="active">Artigos</a>
         </nav>
     </aside>
     <main class="main-content">
@@ -22,14 +23,31 @@
             <input type="text" name="title" id="title" placeholder="Título" required>
             <input type="text" id="legend" placeholder="Breve descrição" required>
             <input type="text" id="link" placeholder="Link do artigo" required>
-            <input type="text" id="category" placeholder="Categoria" required>
+             <select id="category" name="category" required>
+                 <option value="" disabled selected>Selecione uma categoria</option>
+                 <option value="saude_e_bem_estar">Saúde e bem estar</option>
+                 <option value="exercicios">Exercícios</option>
+                 <option value="alimentacao">Alimentação</option>
+                 <option value="menstruacao">Menstruação</option>
+                 <option value="gestacao">Gestação</option>
+             </select>
+            <div>
              <button type="submit">Salvar artigo</button>
+            </div>
         </form>'
+        <h2>Artigos</h2>
+        <div class="search-container">
+            <input type="search" class="search-input" id="searchInput" placeholder="Pesquisar...">
+            <i data-lucide="search"></i>
+        </div>
         <div class="cards-container" id="cardsArtigos">
-            
+            <div id></div>
         </div>   
     </main>
     <script src="/js/auth.js"></script>
     <script src="/js/artigos.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>

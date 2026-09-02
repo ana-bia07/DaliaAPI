@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const dado = {title:title, legend:legend, link:link, category:category}
 
         if(id){
-            await atualizaArtigo(id, dado);
+            await atualizarArtigo(id, dado);
         }else{
             await createArtigo(dado);
         }
@@ -105,7 +105,7 @@ async function createArtigo(dados){
 }
 
 function prepararEdicao(artigo) {
-    document.getElementById('artigoId').value = artigo.id;
+    document.getElementById('idArtigo').value = artigo.id;
     document.getElementById('title').value = artigo.title;
     document.getElementById('legend').value = artigo.legend;
     document.getElementById('link').value = artigo.link;
@@ -163,3 +163,30 @@ async function deletarArtigo(id){
         console.error("erro ao deletar artigo: ", erro)
     }
 }
+
+artigos.forEach(artigo => {
+    const artigoJSON = JSON.stringify(artigo).replace(/"/g, '&quot;');
+
+    const cardHTML = `
+        <div class="card-artigo" data-post-id="${artigo.id}">
+            <div class="card-info">
+                <span class="artigo-categoria">${artigo.category || 'Geral'}</span>
+                <h3 class="artigo-titulo">${artigo.title}</h3>
+                <p class="artigo-descricao">${artigo.legend}</p>
+            </div>
+            <div class="card-acoes">
+                <button type="button" class="btn-acao btn-editar" title="Editar Artigo" onclick='prepararEdicao(${artigoJSON})'>
+                    <i data-lucide="pencil"></i>
+                </button>
+                <button type="button" class="btn-acao btn-deletar" title="Deletar Artigo" onclick="deletarArtigo('${artigo.id}')">
+                    <i data-lucide="trash-2"></i>
+                </button>
+            </div>
+        </div>
+    `;
+
+    artigosCard.innerHTML += cardHTML;
+});
+
+// Renderiza os ícones SVG dinâmicos após atualizar o HTML
+lucide.createIcons();
