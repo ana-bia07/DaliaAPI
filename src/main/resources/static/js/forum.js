@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         window.location.href = "/html/login.html";
         return;
     }
-    
+
     await carregarPostsAdmin();
 });
 
@@ -37,12 +37,13 @@ async function carregarPostsAdmin() {
                 <span>${c.comment}</span>
                 <button class="btn-deletar-comentario" 
                         onclick="deletarComentario('${post.id}', '${c.id || index}')">deletar comentario
+                        <i data-lucide="trash-2"></i>
                 </button>
             </li>`).join("")
             : "<li>Nenhum comentario.</li>";
 
         console.log("terminou comentario e começando post")
-        
+
         const cardHTML = `
             <div class="card-admin-post" data-post-id="${post.id}">
                 <div class="card-left">
@@ -64,8 +65,12 @@ async function carregarPostsAdmin() {
         console.log("chegou no final")
         container.innerHTML += cardHTML;
         });
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+
     }catch (error){
-        console.error("falha a lsitar os post", error);
+        console.error("falha a listar os posts", error);
     }
 }
 
@@ -110,5 +115,5 @@ async function deletarComentario(idPost, indexComent) {
 
     }catch(erro){
         console.error("erro ao deletar Comentario: ", erro)
-    }  
+    }
 }
