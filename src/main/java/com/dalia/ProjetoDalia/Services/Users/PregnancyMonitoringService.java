@@ -113,12 +113,13 @@ public class PregnancyMonitoringService implements IPregnancyMonitoringService {
     public EventDTO createEvent(String idUser, EventDTO dto) {
         Event event = dto.toEntity();
         event.setIdUsers(idUser);
+        System.out.println("o event esta assim no service: " + event);
         Event salvarEvento = eventRespository.save(event);
         return EventDTO.fromEntity(salvarEvento);
     }
 
     public List<EventDTO> getEventByIdUser(String idUser) {
-        return eventRespository.findByIdUser(idUser)
+        return eventRespository.findByIdUsers(idUser)
                 .stream().map(EventDTO::fromEntity)
                 .toList();
     }

@@ -42,6 +42,7 @@ public class GravidezController {
     public ResponseEntity<EventDTO> createEvent(@RequestBody EventDTO eventDTO) {
         Users userLogado = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         EventDTO novoEvent = pregnancyService.createEvent(userLogado.getId(), eventDTO);
+        System.out.println("Esse é o evento no controller: " + novoEvent);
         return ResponseEntity.status(HttpStatus.CREATED).body(novoEvent);
     }
 
