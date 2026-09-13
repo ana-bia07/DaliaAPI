@@ -118,7 +118,7 @@ public class PregnancyMonitoringService implements IPregnancyMonitoringService {
     }
 
     public List<EventDTO> getEventByIdUser(String idUser) {
-        return eventRespository.findById(idUser)
+        return eventRespository.findByIdUser(idUser)
                 .stream().map(EventDTO::fromEntity)
                 .toList();
     }
