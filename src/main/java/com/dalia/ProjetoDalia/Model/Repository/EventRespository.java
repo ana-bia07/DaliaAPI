@@ -8,6 +8,6 @@ import java.util.Optional;
 
 
 public interface EventRespository extends MongoRepository<Event, String> {
-    Optional<List<Event>> findByIdUser(String id);
+    List<Event> findByIdUser(String id);
 
 }
