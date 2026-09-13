@@ -48,6 +48,7 @@ public class GravidezController {
     @GetMapping("/event")
     public ResponseEntity<List<EventDTO>> getEvents() {
         Users userLogado = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println(pregnancyService.getEventByIdUser(userLogado.getId()));
         return ResponseEntity.ok(pregnancyService.getEventByIdUser(userLogado.getId()));
     }
 
