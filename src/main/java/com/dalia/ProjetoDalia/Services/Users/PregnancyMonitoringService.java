@@ -114,6 +114,7 @@ public class PregnancyMonitoringService implements IPregnancyMonitoringService {
         Event event = dto.toEntity();
         event.setIdUsers(idUser);
         Event salvarEvento = eventRespository.save(event);
+        System.out.println("esse e o evento no service: " + event);
         return EventDTO.fromEntity(salvarEvento);
     }
 
