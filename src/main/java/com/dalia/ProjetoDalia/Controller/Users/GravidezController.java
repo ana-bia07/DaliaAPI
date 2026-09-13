@@ -1,5 +1,6 @@
 package com.dalia.ProjetoDalia.Controller.Users;
 
+import com.dalia.ProjetoDalia.Model.DTOS.Posts.PostsDTO;
 import com.dalia.ProjetoDalia.Model.DTOS.Users.EventDTO;
 import com.dalia.ProjetoDalia.Model.DTOS.Users.PregnancyMonitoringDTO;
 import com.dalia.ProjetoDalia.Model.DTOS.Users.SemanaDTO;
@@ -11,8 +12,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -40,6 +43,12 @@ public class GravidezController {
         Users userLogado = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         EventDTO novoEvent = pregnancyService.createEvent(userLogado.getId(), eventDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(novoEvent);
+    }
+
+    @GetMapping("event")
+    public ResponseEntity<List<EventDTO>> getEvents() {
+        Users userLogado = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return ResponseEntity.ok(pregnancyService.getEventByIdUser(userLogado.getId()));
     }
 
     @PutMapping("/event/{idEvent}")
