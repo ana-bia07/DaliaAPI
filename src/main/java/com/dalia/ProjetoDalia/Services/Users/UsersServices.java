@@ -1,9 +1,6 @@
 package com.dalia.ProjetoDalia.Services.Users;
 
-import com.dalia.ProjetoDalia.Model.DTOS.Users.LoginDTO;
-import com.dalia.ProjetoDalia.Model.DTOS.Users.LoginResponseDTO;
-import com.dalia.ProjetoDalia.Model.DTOS.Users.UsersDTO;
-import com.dalia.ProjetoDalia.Model.DTOS.Users.VerificationDTO;
+import com.dalia.ProjetoDalia.Model.DTOS.Users.*;
 import com.dalia.ProjetoDalia.Model.Entity.Comments;
 import com.dalia.ProjetoDalia.Model.Entity.Users.Users;
 import com.dalia.ProjetoDalia.Model.Repository.UsersRepository;
@@ -36,7 +33,6 @@ public class UsersServices implements IUsersService{
         this.passwordEncoder = passwordEncoder;
         this.tokenService = tokenService;
     }
-
 
     @Override
     public UsersDTO createUser(UsersDTO usersDTO) {
@@ -142,5 +138,63 @@ public class UsersServices implements IUsersService{
         }
 
         throw new RuntimeException("E-mail ou senha invalido");
+    }
+
+    public void sendToken(ForgetPasswordDTO dto){
+        var userOptional = usersRepository.findByEmail(dto.email());
+        if(userOptional.isEmpty()){
+            System.out.println(userOptional);
+            throw new RuntimeException("Usuaria não encontrada");
+        }
+        Users user = userOptional.get();
+
+        String token = String.format("%06d", new Random().nextInt(999999));
+        user.setVerificationToken(token);
+        user.setTokenExpirantion((LocalDateTime.now().plusMinutes(15)));
+        var savedUser = usersRepository.save(user);
+
+        //envia email do token
+        try{
+            emailService.sendTokenReset(savedUser.getEmail(),token);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    //reset de senha
+    public String resetSenha(String idUser, ResetPasswordDTO resetPasswordDTO){
+        System.out.println(idUser);
+
+        var userOptional = usersRepository.findById(idUser);
+        if(userOptional.isEmpty()){
+            System.out.println(userOptional);
+            throw new RuntimeException("Usuaria não encontrada");
+        }
+
+        Users user = userOptional.get();
+
+        user.setPassword(passwordEncoder.encode(resetPasswordDTO.password()));
+        usersRepository.save(user);
+        return "Senha resetada com sucesso";
+    }
+
+    //verica token para senha
+    public LoginResponseDTO verifyToken(VerificationDTO verificationDTO){
+        var userOptional = usersRepository.findByEmail(verificationDTO.email());
+        if(userOptional.isEmpty()){
+            throw new RuntimeException("Usuaria não encontrada");
+        }
+
+        Users user = userOptional.get();
+
+        if(user.getVerificationToken().equals(verificationDTO.token()) &&
+                user.getTokenExpirantion().isAfter(LocalDateTime.now())){
+            user.setVerificationToken(null);
+            usersRepository.save(user);
+
+            return tokenService.getTokens(user);
+        }
+
+        throw new RuntimeException("Codigo invalido");
     }
 }

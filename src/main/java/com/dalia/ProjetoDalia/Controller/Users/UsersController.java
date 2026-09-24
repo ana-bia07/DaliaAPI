@@ -60,7 +60,7 @@ public class UsersController {
 
     //verifica email
     @PostMapping("/verify")
-    public ResponseEntity<?> verify(@RequestBody @Valid VerificationDTO verificationDTO) {
+    public ResponseEntity<?> verifyEmail(@RequestBody @Valid VerificationDTO verificationDTO) {
         try{
             LoginResponseDTO result = usersService.verifyEmail(verificationDTO);
             return ResponseEntity.ok(result);
@@ -99,10 +99,44 @@ public class UsersController {
        return ResponseEntity.ok(savedSearch);
     }
 
+    //verifica token pra senha
+    @PostMapping("/forgetPassword")
+    public ResponseEntity<?> forgetPassword(@RequestBody @Valid ForgetPasswordDTO dto) {
+        try{
+            usersService.sendToken(dto);
+            return ResponseEntity.ok("Token enviado com sucesso. Verifque seu email");
+        }catch (RuntimeException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    //verifica token pra senha
+    @PostMapping("/verifyToken")
+    public ResponseEntity<?> verifyToken(@RequestBody @Valid VerificationDTO verificationDTO) {
+        try{
+            LoginResponseDTO result = usersService.verifyToken(verificationDTO);
+            return ResponseEntity.ok(result);
+        }catch (RuntimeException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    //Altera senha
+    @PutMapping("/resetPassword")
+    public ResponseEntity<?> ResetSenha(@RequestBody @Valid ResetPasswordDTO resetPasswordDTO) {
+        Users userLogado = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String savedPassword = usersService.resetSenha(userLogado.getId(), resetPasswordDTO);
+        return ResponseEntity.ok(savedPassword);
+    }
+
+
+
     @DeleteMapping("/{idUser}")
     @RolesAllowed("ADMIN")
     public ResponseEntity<Void> deleteUser(@PathVariable @Valid String idUser) {
         usersService.deleteUser(idUser);
         return  ResponseEntity.noContent().build();
     }
+
+
 }
