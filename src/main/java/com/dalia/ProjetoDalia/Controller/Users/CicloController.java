@@ -1,7 +1,9 @@
 package com.dalia.ProjetoDalia.Controller.Users;
 
+import com.dalia.ProjetoDalia.Model.DTOS.Users.DailyRecordDTO;
 import com.dalia.ProjetoDalia.Model.DTOS.Users.SearchDTO;
 import com.dalia.ProjetoDalia.Model.DTOS.Users.UserCycleDataDTO;
+import com.dalia.ProjetoDalia.Model.Entity.Users.DailyRecord;
 import com.dalia.ProjetoDalia.Model.Entity.Users.Users;
 import com.dalia.ProjetoDalia.Services.Users.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,9 @@ public class CicloController {
 
     private final SearchService searchService;
 
-    public CicloController(SearchService searchService) {this.searchService = searchService;}
+    public CicloController(SearchService searchService) {
+        this.searchService = searchService;
+    }
 
     @GetMapping("/status")
     public ResponseEntity<UserCycleDataDTO> getStatusHoje(){
@@ -36,6 +40,14 @@ public class CicloController {
         UserCycleDataDTO status = searchService.registrarCliqueBotao(userLogado.getId());
 
         return ResponseEntity.ok(status);
+    }
+
+    @PostMapping("/dailyRecord")
+    public ResponseEntity<DailyRecordDTO> createRecord(@RequestBody DailyRecordDTO dto){
+        Users userLogado = (Users) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        DailyRecordDTO record = searchService.createOrUpdateRecord(userLogado.getId(), dto);
+        return ResponseEntity.ok(record);
     }
 
 }
