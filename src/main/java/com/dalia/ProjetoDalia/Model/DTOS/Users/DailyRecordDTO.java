@@ -1,13 +1,14 @@
 package com.dalia.ProjetoDalia.Model.DTOS.Users;
 
 import com.dalia.ProjetoDalia.Model.Entity.Users.DailyRecord;
-import java.time.LocalDateTime;
+
+import java.time.LocalDate;
 import java.util.List;
 
 public record DailyRecordDTO(
         String id,
         String idUser,
-        LocalDateTime date,
+        LocalDate date,
         List<String> mood,
         List<String> habits,
         List<String> symptoms,

@@ -1,11 +1,9 @@
 package com.dalia.ProjetoDalia.Services.Users;
 
 import com.dalia.ProjetoDalia.Model.DTOS.Users.DailyRecordDTO;
-import com.dalia.ProjetoDalia.Model.DTOS.Users.EventDTO;
 import com.dalia.ProjetoDalia.Model.DTOS.Users.SearchDTO;
 import com.dalia.ProjetoDalia.Model.DTOS.Users.UserCycleDataDTO;
 import com.dalia.ProjetoDalia.Model.Entity.Users.DailyRecord;
-import com.dalia.ProjetoDalia.Model.Entity.Users.Event;
 import com.dalia.ProjetoDalia.Model.Entity.Users.Search;
 import com.dalia.ProjetoDalia.Model.Entity.Users.Users;
 import com.dalia.ProjetoDalia.Model.Repository.DailyRecordRepository;
@@ -13,13 +11,9 @@ import com.dalia.ProjetoDalia.Model.Repository.SearchRepository;
 import com.dalia.ProjetoDalia.Model.Repository.UsersRepository;
 import com.dalia.ProjetoDalia.Services.Interface.ISearchService;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
@@ -203,30 +197,24 @@ public class SearchService implements ISearchService {
     }
 
     public DailyRecordDTO createOrUpdateRecord(String idUser, DailyRecordDTO dto) {
-        if (dto.id() != null && !dto.id().isBlank()) {
-            return updateDailyRecord(dto.id(), dto)
-                    .orElseThrow(() -> new RuntimeException("Registro diário não encontrado para atualização"));
-        }
+        LocalDate hoje = LocalDate.now();
 
-        DailyRecord daily = dto.toEntity();
-        daily.setDate(LocalDateTime.now());
-        daily.setIdUser(idUser);
+        DailyRecord daily = dailyRecordRepository.findByIdUserAndDate(idUser, hoje)
+                .orElseGet(() -> {
+                    DailyRecord novo = new DailyRecord();
+                    novo.setIdUser(idUser);
+                    novo.setDate(hoje);
+                    return novo;
+                });
+
+        if (!CollectionUtils.isEmpty(dto.mood())) daily.setMood(dto.mood());
+        if (!CollectionUtils.isEmpty(dto.habits())) daily.setHabits(dto.habits());
+        if (!CollectionUtils.isEmpty(dto.symptoms())) daily.setSymptoms(dto.symptoms());
+        if (!CollectionUtils.isEmpty(dto.physical_activity())) daily.setPhysical_activity(dto.physical_activity());
+        if (!CollectionUtils.isEmpty(dto.sex())) daily.setSex(dto.sex());
+        if (!CollectionUtils.isEmpty(dto.discharge())) daily.setDischarge(dto.discharge());
 
         DailyRecord dailySaved = dailyRecordRepository.save(daily);
         return DailyRecordDTO.fromEntity(dailySaved);
-    }
-
-    public Optional<DailyRecordDTO> updateDailyRecord(String idRecord, DailyRecordDTO dto) {
-        return dailyRecordRepository.findById(idRecord).map(existingDaily -> {
-            if (dto.date() != null) existingDaily.setDate(dto.date());
-            if (!CollectionUtils.isEmpty( dto.mood())) existingDaily.setMood(dto.mood());
-            if (!CollectionUtils.isEmpty( dto.habits())) existingDaily.setHabits(dto.habits());
-            if (!CollectionUtils.isEmpty( dto.symptoms())) existingDaily.setSymptoms(dto.symptoms());
-            if (!CollectionUtils.isEmpty( dto.physical_activity())) existingDaily.setPhysical_activity(dto.physical_activity());
-            if (!CollectionUtils.isEmpty( dto.sex())) existingDaily.setSex(dto.sex());
-            if (!CollectionUtils.isEmpty( dto.discharge())) existingDaily.setDischarge(dto.discharge());
-            DailyRecord updatedRecord = dailyRecordRepository.save(existingDaily);
-            return DailyRecordDTO.fromEntity(updatedRecord);
-        });
     }
 }

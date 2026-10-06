@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Document(collection = "registro_diario")
@@ -17,7 +17,7 @@ public class DailyRecord {
     @Id
     private String id;
     private String idUser;
-    private LocalDateTime date;
+    private LocalDate date;
     private List<String> mood;
     private List<String> habits;
     private List<String> symptoms;
