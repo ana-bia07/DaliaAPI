@@ -74,6 +74,7 @@ public class PregnancyMonitoringService implements IPregnancyMonitoringService {
             user.setModo("GRAVIDEZ");
         } else {
             pregnancy.setPregnant(dto.isPregnant());
+            user.setModo("GRAVIDEZ");
             pregnancy.setGestationWeeks(dto.gestationWeeks());
             pregnancy.setExpectedBirthDate(dto.expectedBirthDate());
             pregnancy.setPlannedPregnancy(dto.plannedPregnancy());
