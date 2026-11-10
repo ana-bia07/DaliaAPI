@@ -30,6 +30,8 @@ SecurityFilter securityFilter;
                         .requestMatchers(HttpMethod.POST, "/api/user/criarUsuario").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/user/verify").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/user/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/user/forgetPassword").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/user/verifyToken").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

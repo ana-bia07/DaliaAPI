@@ -51,7 +51,7 @@ public class PregnancyMonitoringService implements IPregnancyMonitoringService {
                 .map(Users::getPregnancyMonitoring)
                 .map(pregnancy -> new PregnancyMonitoringDTO(
                         pregnancy.isPregnant(),
-                        pregnancy.getPregnancyDate(),
+                        pregnancy.getStartDate(),
                         pregnancy.getGestationWeeks(),
                         pregnancy.getExpectedBirthDate(),
                         pregnancy.isPlannedPregnancy(),
@@ -71,9 +71,11 @@ public class PregnancyMonitoringService implements IPregnancyMonitoringService {
         PregnancyMonitoring pregnancy = user.getPregnancyMonitoring();
         if(pregnancy == null) {
             pregnancy = dto.toEntity();
+            user.setModo("GRAVIDEZ");
         } else {
             pregnancy.setPregnant(dto.isPregnant());
-            pregnancy.setPregnancyDate(dto.pregnancyDate());
+            user.setModo("GRAVIDEZ");
+            pregnancy.setStartDate(dto.startDate());
             pregnancy.setGestationWeeks(dto.gestationWeeks());
             pregnancy.setExpectedBirthDate(dto.expectedBirthDate());
             pregnancy.setPlannedPregnancy(dto.plannedPregnancy());
@@ -90,7 +92,7 @@ public class PregnancyMonitoringService implements IPregnancyMonitoringService {
 
         return Optional.of(new PregnancyMonitoringDTO(
                 savedPregnancy.isPregnant(),
-                savedPregnancy.getPregnancyDate(),
+                savedPregnancy.getStartDate(),
                 savedPregnancy.getGestationWeeks(),
                 savedPregnancy.getExpectedBirthDate(),
                 savedPregnancy.isPlannedPregnancy(),
@@ -114,11 +116,12 @@ public class PregnancyMonitoringService implements IPregnancyMonitoringService {
         Event event = dto.toEntity();
         event.setIdUsers(idUser);
         Event salvarEvento = eventRespository.save(event);
+        System.out.println("esse e o evento no service: " + event);
         return EventDTO.fromEntity(salvarEvento);
     }
 
     public List<EventDTO> getEventByIdUser(String idUser) {
-        return eventRespository.findById(idUser)
+        return eventRespository.findByIdUsers(idUser)
                 .stream().map(EventDTO::fromEntity)
                 .toList();
     }

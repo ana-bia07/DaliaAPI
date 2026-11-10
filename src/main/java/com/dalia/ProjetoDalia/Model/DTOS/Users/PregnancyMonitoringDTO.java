@@ -9,7 +9,7 @@ import java.util.List;
 
 public record PregnancyMonitoringDTO(
         boolean isPregnant,
-        LocalDate pregnancyDate,
+        LocalDate startDate,
         int gestationWeeks,
         LocalDate expectedBirthDate,
         boolean plannedPregnancy,
@@ -21,7 +21,7 @@ public record PregnancyMonitoringDTO(
     public PregnancyMonitoring toEntity() {
         return new PregnancyMonitoring(
             true,
-            pregnancyDate,
+            startDate,
             gestationWeeks,
             expectedBirthDate,
             plannedPregnancy,
@@ -34,7 +34,7 @@ public record PregnancyMonitoringDTO(
     public static PregnancyMonitoringDTO fromEntity(PregnancyMonitoring entity) {
         return new PregnancyMonitoringDTO(
                 entity.isPregnant(),
-                entity.getPregnancyDate(),
+                entity.getStartDate(),
                 entity.getGestationWeeks(),
                 entity.getExpectedBirthDate(),
                 entity.isPlannedPregnancy(),

@@ -1,16 +1,20 @@
 package com.dalia.ProjetoDalia.Services.Users;
 
+import com.dalia.ProjetoDalia.Model.DTOS.Users.DailyRecordDTO;
 import com.dalia.ProjetoDalia.Model.DTOS.Users.SearchDTO;
 import com.dalia.ProjetoDalia.Model.DTOS.Users.UserCycleDataDTO;
+import com.dalia.ProjetoDalia.Model.Entity.Users.DailyRecord;
 import com.dalia.ProjetoDalia.Model.Entity.Users.Search;
 import com.dalia.ProjetoDalia.Model.Entity.Users.Users;
+import com.dalia.ProjetoDalia.Model.Repository.DailyRecordRepository;
 import com.dalia.ProjetoDalia.Model.Repository.SearchRepository;
 import com.dalia.ProjetoDalia.Model.Repository.UsersRepository;
 import com.dalia.ProjetoDalia.Services.Interface.ISearchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
+import org.springframework.util.CollectionUtils;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 
@@ -20,6 +24,7 @@ public class SearchService implements ISearchService {
 
     private final UsersRepository usersRepository;
     private final SearchRepository SearchRepository;
+    private final DailyRecordRepository dailyRecordRepository;
 
     public Optional<SearchDTO> saveOrUpdateSearchForUser(String userId, SearchDTO searchDTO) {
         Optional<Users> userOpt = usersRepository.findById(userId);
@@ -178,7 +183,7 @@ public class SearchService implements ISearchService {
         //se hoje for depois do dia da previsãoe diferente de menstraução true
         if(hoje.isAfter(previsao) && !m){
             //add dias de atraso
-            atrasos = java.time.temporal.ChronoUnit.DAYS.between(previsao, hoje);
+            atrasos = ChronoUnit.DAYS.between(previsao, hoje);
         }
 
         LocalDate iniFertil = ultimaM.plusDays(min - 18);
@@ -189,5 +194,27 @@ public class SearchService implements ISearchService {
 
         return new UserCycleDataDTO(min, max, ultimaM, m, f, o, atrasos,
                 fimM, iniFertil, fimFertil, diaOvu);
+    }
+
+    public DailyRecordDTO createOrUpdateRecord(String idUser, DailyRecordDTO dto) {
+        LocalDate hoje = LocalDate.now();
+
+        DailyRecord daily = dailyRecordRepository.findByIdUserAndDate(idUser, hoje)
+                .orElseGet(() -> {
+                    DailyRecord novo = new DailyRecord();
+                    novo.setIdUser(idUser);
+                    novo.setDate(hoje);
+                    return novo;
+                });
+
+        if (!CollectionUtils.isEmpty(dto.mood())) daily.setMood(dto.mood());
+        if (!CollectionUtils.isEmpty(dto.habits())) daily.setHabits(dto.habits());
+        if (!CollectionUtils.isEmpty(dto.symptoms())) daily.setSymptoms(dto.symptoms());
+        if (!CollectionUtils.isEmpty(dto.physical_activity())) daily.setPhysical_activity(dto.physical_activity());
+        if (!CollectionUtils.isEmpty(dto.sex())) daily.setSex(dto.sex());
+        if (!CollectionUtils.isEmpty(dto.discharge())) daily.setDischarge(dto.discharge());
+
+        DailyRecord dailySaved = dailyRecordRepository.save(daily);
+        return DailyRecordDTO.fromEntity(dailySaved);
     }
 }

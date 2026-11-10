@@ -29,6 +29,7 @@ public class ArticlesService {
     public Optional<Articles> updateArticles(String idArticles, Articles updatedArticle) {
         return ArticlesRepository.findById(idArticles).map(existingArticle -> {
             existingArticle.setTitle(updatedArticle.getTitle());
+            existingArticle.setLegend(updatedArticle.getLegend());
             existingArticle.setLink(updatedArticle.getLink());
             existingArticle.setCategory(updatedArticle.getCategory());
             return ArticlesRepository.save(existingArticle);

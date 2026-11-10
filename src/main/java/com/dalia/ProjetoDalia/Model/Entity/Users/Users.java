@@ -28,6 +28,7 @@ public class Users implements UserDetails {
     private String surname;
     private String email;
     private String password;
+    private String modo = "MENSTRUACAO";
     private boolean enable = false;
     private String role = "USER";
     private String verificationToken;

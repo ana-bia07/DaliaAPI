@@ -5,6 +5,7 @@ import com.dalia.ProjetoDalia.Model.Entity.Articles;
 public record ArticlesDTO(
         String id,
         String title,
+        String legend,
         String link,
         String category
         //private String image;
@@ -13,6 +14,7 @@ public record ArticlesDTO(
         return new Articles(
                 id,
                 title,
+                legend,
                 link,
                 category
         );
@@ -21,6 +23,7 @@ public record ArticlesDTO(
         return new ArticlesDTO(
                 article.getId(),
                 article.getTitle(),
+                article.getLegend(),
                 article.getLink(),
                 article.getCategory()
         );

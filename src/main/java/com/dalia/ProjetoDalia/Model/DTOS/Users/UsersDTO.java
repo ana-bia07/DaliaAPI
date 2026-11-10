@@ -24,6 +24,7 @@ public record UsersDTO(
         )
         String password,
         String passConfirmation,
+        String modo,
         boolean enable,
         Search search,
         PregnancyMonitoring pregnancyMonitoring
@@ -37,6 +38,7 @@ public record UsersDTO(
                 users.getEmail(),
                 users.getPassword(),
                 null,
+                users.getModo(),
                 users.isEnable(),
                 users.getSearch(),
                 users.getPregnancyMonitoring()
@@ -51,6 +53,7 @@ public record UsersDTO(
         user.setSurname(this.surname());
         user.setEmail(this.email());
         user.setPassword(this.password());
+        user.setModo(this.modo());
         user.setEnable(this.enable());
         user.setSearch(this.search());
         user.setPregnancyMonitoring(this.pregnancyMonitoring());
