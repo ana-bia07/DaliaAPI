@@ -1,9 +1,11 @@
 package com.dalia.ProjetoDalia.Controller.Articles;
 
 import com.dalia.ProjetoDalia.Model.DTOS.ArticlesDTO;
+import com.dalia.ProjetoDalia.Model.DTOS.BookmarkRequestDTO;
 import com.dalia.ProjetoDalia.Model.Entity.Articles;
 import com.dalia.ProjetoDalia.Model.Entity.Users.Users;
 import com.dalia.ProjetoDalia.Services.ArticlesService;
+import com.dalia.ProjetoDalia.Services.BookmarkService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
@@ -53,6 +55,18 @@ public class ArticlesController {
     @RolesAllowed("ADMIN")
     public ResponseEntity<Void> deleteArticle(@PathVariable String idArticle) {
         ArticlesService.deleteArticles(idArticle);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/bookmark")
+    public ResponseEntity<Void> saveBookmark(@RequestBody BookmarkRequestDTO request) {
+        bookmarkService.saveBookmark(request.getUserId(), request.getArticleId());
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/bookmark/{userId}/{articleId}")
+    public ResponseEntity<Void> removeBookmark(@PathVariable String userId, @PathVariable String articleId) {
+        bookmarkService.removeBookmark(userId, articleId);
         return ResponseEntity.noContent().build();
     }
 }
